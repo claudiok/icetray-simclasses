@@ -1,0 +1,21 @@
+/**
+   @mainpage Template doxygen docs for simclasses
+
+
+
+   @author F. Izzy Cyst <icyst@milky.way>
+
+   @section Overview
+
+   This is a template overview document for the project simclasses.
+   You should customize these documents.
+
+   The build system will also build documentation from the source
+   files themselves.
+
+   If you "make doxygen", you will find the generated html in 
+   $I3_WORK/docs/simclasses
+
+   @todo Add examples of syntax highlighting and doxygen features.
+
+*/
