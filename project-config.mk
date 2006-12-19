@@ -10,7 +10,7 @@
 # source that should be linked together into one binary (and
 # optionally run by the test targets)
 #
-TEST_SRCDIR_NAMES := test
+#TEST_SRCDIR_NAMES := test
 
 #
 # directories under "private", listed in CXX_BIN_SRCDIR_NAMES,
