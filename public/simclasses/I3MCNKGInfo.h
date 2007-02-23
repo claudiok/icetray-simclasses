@@ -19,8 +19,14 @@
 
 #include <dataclasses/Utility.h>
 #include <dataclasses/I3Position.h>
+#include <dataclasses/I3Vector.h>
 
 struct I3MCNKGPoint {
+
+  /**
+   * where is this point?
+   */
+  I3Position Position;
 
   /**
    * see CORSIKA manual for details on this
@@ -50,9 +56,9 @@ struct I3MCNKGPoint {
 /**
  * aggregate many points into a map
  */
-typedef std::map<I3Position, I3MCNKGPoint> I3MCNKGInfoMap;
+typedef I3Vector<I3MCNKGPoint> I3MCNKGInfoList;
 
 I3_POINTER_TYPEDEFS (I3MCNKGPoint);
-I3_POINTER_TYPEDEFS (I3MCNKGInfoMap);
+I3_POINTER_TYPEDEFS (I3MCNKGInfoList);
 
 #endif

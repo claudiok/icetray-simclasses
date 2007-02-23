@@ -12,7 +12,8 @@
 
 // a constructor, set the values to NAN
 I3MCNKGPoint::I3MCNKGPoint ()
-  : LD1 (NAN),
+  : Position (NAN, NAN, NAN),
+    LD1 (NAN),
     LD2 (NAN) {
 }
 
@@ -25,6 +26,7 @@ I3MCNKGPoint::~I3MCNKGPoint () {
 template <class Archive> void I3MCNKGPoint::serialize (Archive &ar,
 						      unsigned version) {
 
+  ar &make_nvp ("Position", Position);
   ar &make_nvp ("LD1", LD1);
   ar &make_nvp ("LD2", LD2);
 
