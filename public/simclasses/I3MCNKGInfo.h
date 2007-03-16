@@ -76,6 +76,8 @@ class I3MCNKGInterpolation {
   // destructor
   ~I3MCNKGInterpolation ();
   
+  const double Interpolate (const I3Position &tank_position,
+			    const I3Particle &primary) const;
 
  private:
 
@@ -83,13 +85,23 @@ class I3MCNKGInterpolation {
   typedef std::vector<int> f_table_index_t;
   typedef std::map<f_table_index_t, double> f_table_t;
 
+  // semi - constant stuff
+  double R_0;
+  double R_MAX;
+  double PHI_0;
+  double PHI_MAX;
+
+  // the grid spacing
+  double H_LR;
+  double H_PHI;
+
   // the function value of the nkg density as well as the derivatives
   // necessary for interpolation.
   f_table_t f_nkg;
-  f_table_t df_dr;
+  f_table_t df_dlr;
   f_table_t df_dphi;
-  f_table_t d2f_dr_dr;
-  f_table_t d2f_dr_dphi;
+  f_table_t d2f_dlr_dlr;
+  f_table_t d2f_dlr_dphi;
   f_table_t d2f_dphi_dphi;
 
   // fill the grid to enable the interpolations
@@ -97,6 +109,16 @@ class I3MCNKGInterpolation {
 		 const I3Particle &primary);
 
   
+  // this function will translate the coordinate r, phi into the right
+  // index. 
+  const f_table_index_t polar2index (const double r, const double phi) const;
+
+
+  // the dimensions of the interpolating grid
+  static const int N_R;
+  static const int N_PHI;
+
+
 };
 
 I3_POINTER_TYPEDEFS (I3MCNKGPoint);
