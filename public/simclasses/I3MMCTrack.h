@@ -2,7 +2,7 @@
 #define I3MMCTRACK_H
 #include "dataclasses/physics/I3Particle.h"
 
-class I3MMCTrack : public I3FrameObject 
+class I3MMCTrack 
 {
  public:
 
@@ -70,6 +70,6 @@ class I3MMCTrack : public I3FrameObject
 
 I3_POINTER_TYPEDEFS(I3MMCTrack);
 
-typedef I3Vector<I3MMCTrack> MMCTrackList;
-I3_POINTER_TYPEDEFS(MMCTrackList);
+typedef I3Vector<I3MMCTrack> I3MMCTrackList;
+I3_POINTER_TYPEDEFS(I3MMCTrackList);
 #endif //I3MMCTRACK_H

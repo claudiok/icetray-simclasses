@@ -1,5 +1,5 @@
-#include <dataclasses/BoostHeaders.h>
-#include "mmc-icetray/I3MMCTrack.h"
+#include <icetray/serialization.h>
+#include "simclasses/I3MMCTrack.h"
 
 template <class Archive> 
 void I3MMCTrack::serialize(Archive& ar, unsigned version)
@@ -25,4 +25,4 @@ void I3MMCTrack::serialize(Archive& ar, unsigned version)
                                                                                                           
 I3_SERIALIZABLE(I3MMCTrack);
 
-I3_SERIALIZABLE(MMCTrackList);
+I3_SERIALIZABLE(I3MMCTrackList);
