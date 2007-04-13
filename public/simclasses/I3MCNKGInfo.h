@@ -4,13 +4,13 @@
  *
  * @brief Store the data points for the NKG samples provided by CORSIKA
  * @author Peter Niessen Fri Feb 23 10:09:26 EST 2007
- * @date $Date:$
- * @version $Release:$
+ * @date $Date$
+ * @version $Revision:$
  *
  * copyright (C) 2007
  * the IceCube collaboration
  *
- * $Id:$
+ * $Id$
  */
 
 // multiple include protection
@@ -76,8 +76,16 @@ class I3MCNKGInterpolation {
   // destructor
   ~I3MCNKGInterpolation ();
   
+  /**
+   * Performs an interpolation
+   */
   const double Interpolate (const I3Position &tank_position,
 			    const I3Particle &primary) const;
+
+  /**
+   * Test the interpolation by sampling in between the grid
+   */
+  void TestInterpolate ();
 
  private:
 
@@ -111,13 +119,24 @@ class I3MCNKGInterpolation {
   
   // this function will translate the coordinate r, phi into the right
   // index. 
-  const f_table_index_t polar2index (const double r, const double phi) const;
+  const f_table_index_t polar2index (const double r,
+				     const double phi,
+				     const double roundoff = 0.) const;
+
+  // translate an index into carthesian coordinates. Basically used
+  // for testing.
+  void index2cartesian (const f_table_index_t &index,
+			float &x, float &y) const;
 
 
   // the dimensions of the interpolating grid
   static const int N_R;
   static const int N_PHI;
 
+  // the order to which to interpolate
+  static const int ORDER;
+
+  static int N_TEST;
 
 };
 
