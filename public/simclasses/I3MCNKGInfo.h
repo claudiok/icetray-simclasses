@@ -138,6 +138,9 @@ class I3MCNKGInterpolation {
 
   static int N_TEST;
 
+  // looging
+  SET_LOGGER ("I3MCNKGInterpolation");
+
 };
 
 I3_POINTER_TYPEDEFS (I3MCNKGPoint);

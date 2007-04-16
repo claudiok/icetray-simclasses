@@ -11,7 +11,6 @@
 #include <sstream>
 
 #include <icetray/I3TrayHeaders.h>
-#include <dataclasses/BoostHeaders.h>
 #include <simclasses/I3MCNKGInfo.h>
 
 
