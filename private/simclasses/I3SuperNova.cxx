@@ -1,6 +1,20 @@
 #include <icetray/serialization.h>
 #include "simclasses/I3SuperNova.h"
 
+int I3SuperNova::global_minor_id_ = 0;
+
+I3SuperNova::I3SuperNova() :
+  parentID_(-1),
+  NuFlavor_(I3Particle::NuE) // default
+{
+  	ID_ = global_minor_id_++;
+}
+I3SuperNova::I3SuperNova(I3Particle::ParticleType flavor) :
+  parentID_(-1),
+  NuFlavor_(flavor)
+{ 
+  	ID_ = global_minor_id_++;
+}
 template <class Archive> 
 void I3SuperNova::serialize(Archive& ar, unsigned version)
 {

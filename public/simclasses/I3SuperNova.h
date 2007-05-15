@@ -3,8 +3,8 @@
  * the IceCube Collaboration
  *
  * @file I3SuperNova.h
- * @version $Revision: 1.0 $
- * @date $Date: 2007-05-08  $
+ * @version $Revision: 1.1 $
+ * @date $Date: 2007/05/15 21:33:43 $
  * @author juancarlos
  *
  */
@@ -14,12 +14,19 @@
 #include "dataclasses/physics/I3Particle.h"
 #include "dataclasses/I3Map.h"
 #include "dataclasses/I3Tree.h"
+#include "icetray/I3TrayHeaders.h"
 #include "dataclasses/I3Direction.h"
+#include "simclasses/I3Histogram.h"
 
-class I3SuperNova 
+class I3SuperNova : public I3FrameObject 
 {
 
  private:
+
+  static int global_minor_id_;
+
+  int ID_;
+  int parentID_;
 
   unsigned int NumberOfBins_;
   unsigned int NumberOfNeutrinos_;
@@ -33,7 +40,7 @@ class I3SuperNova
   double Time_;
   double SNdistance_;
   I3Direction SNdirection_;
-  I3Map<double,double> EnergyHistogram_;
+  I3Histogram EnergyHistogram_;
   I3Particle::ParticleType NuFlavor_;
 
   friend class boost::serialization::access;
@@ -41,39 +48,46 @@ class I3SuperNova
 
  public:
 
-  I3SuperNova() {};
+  I3SuperNova();
+  I3SuperNova(I3Particle::ParticleType flavor);
+
+  int GetID() const { return ID_; }
+  int GetParentID() const { return parentID_; }
+  // To comply with I3Tree interface
+  uint64_t GetMajorID() const { return 0; }
+
   inline void SetNumberOfBins(unsigned int nbin) {NumberOfBins_=nbin;}
-  inline unsigned int GetNumberOfBins() {return NumberOfBins_;}
+  inline unsigned int GetNumberOfBins() const {return NumberOfBins_;}
 
   inline void SetNumberOfNeutrinos(unsigned int nnu) {NumberOfNeutrinos_=nnu;}
-  inline unsigned int GetNumberOfNeutrinos() {return NumberOfNeutrinos_;}
+  inline unsigned int GetNumberOfNeutrinos() const {return NumberOfNeutrinos_;}
 
   inline void SetNumberOfBetas(unsigned int nbeta) {NumberOfBeta_=nbeta;}
-  inline unsigned int GetNumberOfBetas() {return NumberOfBeta_;}
+  inline unsigned int GetNumberOfBetas() const {return NumberOfBeta_;}
 
   inline void SetNumberOfPhotons(unsigned int ngamma) {NumberOfPhotons_=ngamma;}
-  inline unsigned int GetNumberOfPhotons() {return NumberOfPhotons_;}
+  inline unsigned int GetNumberOfPhotons() const {return NumberOfPhotons_;}
 
   inline void SetNumberOfPEs(unsigned int npe) {NumberOfPEs_=npe;}
-  inline unsigned int GetNumberOfPEs() {return NumberOfPEs_;}
+  inline unsigned int GetNumberOfPEs() const {return NumberOfPEs_;}
   
   inline void SetDeltaT(double dt) {DeltaT_=dt;}
-  inline double GetDeltaT() {return DeltaT_;}
+  inline double GetDeltaT() const {return DeltaT_;}
 
   inline void SetTime(double t) {Time_=t;}
-  inline double GetTime() {return Time_;}
+  inline double GetTime() const {return Time_;}
 
   inline void SetSNdistance(double d) {SNdistance_=d;}
-  inline double GetSNdistance() {return SNdistance_;}
+  inline double GetSNdistance() const {return SNdistance_;}
 
   inline void SetSNdirection(I3Direction d) {SNdirection_=d;}
   inline I3Direction& GetSNdirection() {return SNdirection_;}
 
-  inline void SetEnergyHistogram(I3Map<double,double> eh) {EnergyHistogram_=eh;}
-  inline I3Map<double,double>& GetEnergyHistogram() {return EnergyHistogram_;}
+  inline void SetEnergyHistogram(I3Histogram eh) {EnergyHistogram_=eh;}
+  inline I3Histogram& GetEnergyHistogram() { return EnergyHistogram_;}
 
   inline void SetNuFlavor(I3Particle::ParticleType nf) {NuFlavor_=nf;}
-  inline I3Particle::ParticleType GetNuFlavor() {return NuFlavor_;}
+  inline I3Particle::ParticleType GetNuFlavor() const {return NuFlavor_;}
 };
 
 I3_POINTER_TYPEDEFS(I3SuperNova);

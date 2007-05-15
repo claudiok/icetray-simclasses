@@ -46,8 +46,8 @@ template <class Archive> void I3MCNKGPoint::serialize (Archive &ar,
 /*******************************************************************/
 
 
-I3_SERIALIZABLE (I3MCNKGPoint);
-I3_SERIALIZABLE (I3MCNKGInfoList);
+//I3_SERIALIZABLE (I3MCNKGPoint);
+//I3_SERIALIZABLE (I3MCNKGInfoList);
 
 /*******************************************************************/
 /* here follows the interpolation implementation                   */
