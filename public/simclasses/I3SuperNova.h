@@ -31,14 +31,11 @@ class I3SuperNova : public I3FrameObject
   unsigned int NumberOfNeutrinos_;
   unsigned int NumberOfSecondaries_;
   unsigned int NumberOfPhotons_;
-  unsigned int NumberOfPEs_;
-  I3Map<OMKey,unsigned int> DOMCount_;
 
   // coordinates at exit point
   double SNdistance_;
   double InteractionWeight_;
   I3Direction SNdirection_;
-  I3Histogram EnergyHistogram_;
   I3Particle::ParticleType NuFlavor_;
 
   friend class boost::serialization::access;
@@ -66,17 +63,11 @@ class I3SuperNova : public I3FrameObject
   inline void SetNumberOfPhotons(unsigned int ngamma) {NumberOfPhotons_=ngamma;}
   inline unsigned int GetNumberOfPhotons() const {return NumberOfPhotons_;}
 
-  inline void SetNumberOfPEs(unsigned int npe) {NumberOfPEs_=npe;}
-  inline unsigned int GetNumberOfPEs() const {return NumberOfPEs_;}
-
   inline void SetSNdistance(double d) {SNdistance_=d;}
   inline double GetSNdistance() const {return SNdistance_;}
 
   inline void SetSNdirection(I3Direction d) {SNdirection_=d;}
   inline I3Direction& GetSNdirection() {return SNdirection_;}
-
-  inline void SetEnergyHistogram(I3Histogram eh) {EnergyHistogram_=eh;}
-  inline I3Histogram& GetEnergyHistogram() { return EnergyHistogram_;}
 
   inline void SetNuFlavor(I3Particle::ParticleType nf) {NuFlavor_=nf;}
   inline I3Particle::ParticleType GetNuFlavor() const {return NuFlavor_;}
@@ -84,8 +75,6 @@ class I3SuperNova : public I3FrameObject
   inline void SetInterationWeight(double weight) {InteractionWeight_=weight;}
   inline double GetInterationWeight() {return InteractionWeight_;}
 
-  inline I3Map<OMKey,unsigned int> GetHitOMs() const {return DOMCount_;}
-  inline void AddHitOM(OMKey key,unsigned count) {DOMCount_[key]=count;}
 };
 
 I3_POINTER_TYPEDEFS(I3SuperNova);
