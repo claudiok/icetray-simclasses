@@ -28,17 +28,15 @@ class I3SuperNova : public I3FrameObject
   int ID_;
   int parentID_;
 
-  unsigned int NumberOfBins_;
   unsigned int NumberOfNeutrinos_;
-  unsigned int NumberOfBeta_;
+  unsigned int NumberOfSecondaries_;
   unsigned int NumberOfPhotons_;
   unsigned int NumberOfPEs_;
   I3Map<OMKey,unsigned int> DOMCount_;
 
   // coordinates at exit point
-  double DeltaT_;
-  double Time_;
   double SNdistance_;
+  double InteractionWeight_;
   I3Direction SNdirection_;
   I3Histogram EnergyHistogram_;
   I3Particle::ParticleType NuFlavor_;
@@ -56,26 +54,20 @@ class I3SuperNova : public I3FrameObject
   // To comply with I3Tree interface
   uint64_t GetMajorID() const { return 0; }
 
-  inline void SetNumberOfBins(unsigned int nbin) {NumberOfBins_=nbin;}
-  inline unsigned int GetNumberOfBins() const {return NumberOfBins_;}
 
   inline void SetNumberOfNeutrinos(unsigned int nnu) {NumberOfNeutrinos_=nnu;}
   inline unsigned int GetNumberOfNeutrinos() const {return NumberOfNeutrinos_;}
 
-  inline void SetNumberOfBetas(unsigned int nbeta) {NumberOfBeta_=nbeta;}
-  inline unsigned int GetNumberOfBetas() const {return NumberOfBeta_;}
+  inline void SetNumberOfSecondaries(unsigned int secondaries) { 
+		  NumberOfSecondaries_=secondaries; 
+  }
+  inline unsigned int GetNumberOfSecondaries() const {return NumberOfSecondaries_;}
 
   inline void SetNumberOfPhotons(unsigned int ngamma) {NumberOfPhotons_=ngamma;}
   inline unsigned int GetNumberOfPhotons() const {return NumberOfPhotons_;}
 
   inline void SetNumberOfPEs(unsigned int npe) {NumberOfPEs_=npe;}
   inline unsigned int GetNumberOfPEs() const {return NumberOfPEs_;}
-  
-  inline void SetDeltaT(double dt) {DeltaT_=dt;}
-  inline double GetDeltaT() const {return DeltaT_;}
-
-  inline void SetTime(double t) {Time_=t;}
-  inline double GetTime() const {return Time_;}
 
   inline void SetSNdistance(double d) {SNdistance_=d;}
   inline double GetSNdistance() const {return SNdistance_;}
@@ -88,6 +80,12 @@ class I3SuperNova : public I3FrameObject
 
   inline void SetNuFlavor(I3Particle::ParticleType nf) {NuFlavor_=nf;}
   inline I3Particle::ParticleType GetNuFlavor() const {return NuFlavor_;}
+
+  inline void SetInterationWeight(double weight) {InteractionWeight_=weight;}
+  inline double GetInterationWeight() {return InteractionWeight_;}
+
+  inline I3Map<OMKey,unsigned int> GetHitOMs() const {return DOMCount_;}
+  inline void AddHitOM(OMKey key,unsigned count) {DOMCount_[key]=count;}
 };
 
 I3_POINTER_TYPEDEFS(I3SuperNova);

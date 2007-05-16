@@ -18,15 +18,13 @@ I3SuperNova::I3SuperNova(I3Particle::ParticleType flavor) :
 template <class Archive> 
 void I3SuperNova::serialize(Archive& ar, unsigned version)
 {
-  ar & make_nvp("NumberOfBins", NumberOfBins_);
   ar & make_nvp("NumberOfNeutrinos", NumberOfNeutrinos_);
-  ar & make_nvp("NumberOfBeta", NumberOfBeta_);
+  ar & make_nvp("NumberOfSecondaries", NumberOfSecondaries_);
   ar & make_nvp("NumberOfPhotons", NumberOfPhotons_);
   ar & make_nvp("NumberOfPEs", NumberOfPEs_);
   ar & make_nvp("I3Map<OMKey,unsigned int>", DOMCount_);
 
-  ar & make_nvp("DeltaT", DeltaT_);
-  ar & make_nvp("Time", Time_);
+  ar & make_nvp("InteractionWeight",InteractionWeight_);
   ar & make_nvp("SNdistance", SNdistance_);
   ar & make_nvp("SNdirection", SNdirection_);
   ar & make_nvp("I3Map<double,double>", EnergyHistogram_);
