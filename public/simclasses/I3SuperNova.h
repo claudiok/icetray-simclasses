@@ -72,8 +72,8 @@ class I3SuperNova : public I3FrameObject
   inline void SetNuFlavor(I3Particle::ParticleType nf) {NuFlavor_=nf;}
   inline I3Particle::ParticleType GetNuFlavor() const {return NuFlavor_;}
 
-  inline void SetInterationWeight(double weight) {InteractionWeight_=weight;}
-  inline double GetInterationWeight() {return InteractionWeight_;}
+  inline void SetInteractionWeight(double weight) {InteractionWeight_=weight;}
+  inline double GetInteractionWeight() {return InteractionWeight_;}
 
 };
 
