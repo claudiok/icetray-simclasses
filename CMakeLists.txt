@@ -9,8 +9,6 @@ USE_TOOLS()
 
 USE_PROJECTS(dataclasses icetray)
 
-ROOTCINT()
-
 #
 # Plus Executables: 
 # And tests 
