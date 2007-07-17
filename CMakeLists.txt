@@ -9,7 +9,3 @@ USE_TOOLS()
 
 USE_PROJECTS(dataclasses icetray)
 
-#
-# Plus Executables: 
-# And tests 
-#
