@@ -1,4 +1,4 @@
-#include <dataclasses/BoostHeaders.h>
+#include <icetray/serialization.h>
 #include <simclasses/I3MCTWRParams.h>
 
 I3MCTWRParams::~I3MCTWRParams() {}
