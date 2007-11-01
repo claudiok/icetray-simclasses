@@ -13,8 +13,21 @@ class I3MMCTrack
     xc(NAN), yc(NAN), zc(NAN), tc(NAN), Ec(NAN)
     {};
 
+  double GetXi() const { return xi; }
+  double GetYi() const { return yi; }
+  double GetZi() const { return zi; }
   double GetTi() const { return ti; }
   double GetEi() const { return Ei; }
+
+  double GetXc() const { return xc; }
+  double GetYc() const { return yc; }
+  double GetZc() const { return zc; }
+  double GetTc() const { return tc; }
+  double GetEc() const { return Ec; }
+
+  double GetXf() const { return xf; }
+  double GetYf() const { return yf; }
+  double GetZf() const { return zf; }
   double GetTf() const { return tf; }
   double GetEf() const { return Ef; }
 
