@@ -2,6 +2,8 @@
 #define I3MMCTRACK_H
 #include "dataclasses/physics/I3Particle.h"
 
+static const unsigned i3mmctrack_version_ = 1;
+
 class I3MMCTrack 
 {
  public:
@@ -85,4 +87,6 @@ I3_POINTER_TYPEDEFS(I3MMCTrack);
 
 typedef I3Vector<I3MMCTrack> I3MMCTrackList;
 I3_POINTER_TYPEDEFS(I3MMCTrackList);
+
+BOOST_CLASS_VERSION(I3MMCTrack,i3mmctrack_version_);
 #endif //I3MMCTRACK_H

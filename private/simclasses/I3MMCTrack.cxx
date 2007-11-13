@@ -4,6 +4,12 @@
 template <class Archive> 
 void I3MMCTrack::serialize(Archive& ar, unsigned version)
 {
+
+  if (version>i3mmctrack_version_){
+    log_fatal("Attempting to read version %u from file but running version %u of I3MMCTrack class.",
+	      version,i3particle_version_);
+  }
+
   ar & make_nvp("I3Particle", particle_);
   ar & make_nvp("xi", xi);
   ar & make_nvp("yi", yi);
@@ -21,6 +27,14 @@ void I3MMCTrack::serialize(Archive& ar, unsigned version)
   ar & make_nvp("tc", tc);
   ar & make_nvp("Ec", Ec);
   ar & make_nvp("Elost", Elost);
+
+  if(version == 0){
+    //these were saved in MMC natural units of seconds
+    //this converts to I3Units
+    ti *= I3Units::second;
+    tf *= I3Units::second;
+    tc *= I3Units::second;
+  }
 }
                                                                                                           
 I3_SERIALIZABLE(I3MMCTrack);
