@@ -5,7 +5,6 @@ i3_project(simclasses)
 
 i3_add_library(simclasses
 	private/simclasses/*.cxx 
-	private/simclasses/*/*.cxx
 
 	USE_TOOLS log4cplus boost root
 
