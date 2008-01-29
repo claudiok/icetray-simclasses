@@ -8,7 +8,7 @@ i3_add_library(simclasses
 
 	USE_TOOLS log4cplus boost root
 
-	USE_PROJECTS dataclasses icetray
+	USE_PROJECTS phys-services dataclasses icetray
 )
 
 
