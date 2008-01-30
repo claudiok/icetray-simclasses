@@ -6,7 +6,7 @@ i3_project(simclasses)
 i3_add_library(simclasses
 	private/simclasses/*.cxx 
 
-	USE_TOOLS log4cplus boost root
+	USE_TOOLS log4cplus boost root gsl
 
 	USE_PROJECTS phys-services dataclasses icetray
 )
