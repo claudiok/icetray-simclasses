@@ -3,19 +3,22 @@
 using namespace std;
 #include <string>
 using std::string;
-#include "phys-services/I3RandomService.h"
 #include "simclasses/I3SumGenerator.h"
 /**
  * Constructor with arguments, just calls Initialise method
  */
-I3SumGenerator::I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),double xlo, double xhi, int nbins, int switchgauss)
+I3SumGenerator::I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),
+			       double xlo, double xhi, int nbins, int switchgauss, 
+			       double PLow, int nBinsLow, double PHigh, int nBinsHigh)
 {
-  Initialise(r,fun,xlo,xhi,nbins,switchgauss);
+  Initialise(r,fun,xlo,xhi,nbins,switchgauss,PLow,nBinsLow,PHigh,nBinsHigh);
 }
 /**
  * Initialise I3SumGenerator
  */
-void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),double xlo, double xhi, int nbins, int switchgauss)
+void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
+				double xlo, double xhi, int nbins, int switchgauss,
+				double PLow, int nBinsLow, double PHigh, int nBinsHigh)
 {
   int bin,bin1;
   vector<double>total;
@@ -29,6 +32,11 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),doubl
   xHi_ = xhi;
   switchGauss_ = switchgauss;
   nBins_ = nbins;
+  PLow_ = PLow;
+  nBinsLow_ = nBinsLow;
+  PHigh_ = PHigh;
+  nBinsHigh_ = nBinsHigh;
+
   double dx( (xhi - xlo) / nbins );
 
   /** 
@@ -105,6 +113,10 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),doubl
    * cumulative probability to value of sum (X_)
    */
   X_.resize(switchgauss);  
+  XLow_.resize(nBinsLow_);  
+  XHigh_.resize(nBinsHigh_);
+  binStepLow_ = pow(PLow_,1./3.)/(double)nBinsLow_;
+  binStepHigh_ = pow((1-PHigh_),1./3.)/(double)nBinsHigh_;
   for(int terms=1; terms<switchgauss; terms++) {
     // Convert to cumulant probabilities
     for(bin=1; bin <= nbins ; bin++) P[terms][bin] = P[terms][bin]/total[terms] + P[terms][bin-1] ;
@@ -128,9 +140,46 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),doubl
 				   (P[terms][binxAfter] - P[terms][binxBefore]) );
     }
     X_[terms][nbins] = terms*xhi;
-    // Add an extra element just in case uniform random number sometimes equals one
-    // in Generate()
+    /**
+     * Add an extra element just in case uniform random number sometimes equals one
+     * in Generate()
+     */
     X_[terms][nbins+1] = X_[terms][nbins];
+    /**
+     * Fill XLow_ array with values corresponding to low probabilities (lower tail of 
+     * distribution to be generated
+     */
+    XLow_[terms].resize(nBinsLow_+2);
+    binxBefore=0;
+    binxAfter=1;
+    for(int binP=0;binP<=nBinsLow_;binP++) {
+      // Pick probabilities with non-uniform (cubically increasing) spacing
+      prob=binStepLow_*binP;
+      prob=prob*prob*prob;
+      while (P[terms][binxAfter] < prob) binxAfter++;
+      binxBefore=binxAfter-1;
+      XLow_[terms][binP] = terms*dx*(binxBefore + (prob-P[terms][binxBefore])/
+				     (P[terms][binxAfter] - P[terms][binxBefore]));
+    }
+    // Add extra element in case of rounding problems at generation:
+    XLow_[terms][nBinsLow_+1] = XLow_[terms][nBinsLow_];
+    /**
+     * Upper tail. Sample cumulative probabilities at a non-uniform (cubically increasing) 
+     * distance from probability=1.
+     */
+    XHigh_[terms].resize(nBinsHigh_+2);
+    binxAfter = nBins_;
+    binxBefore = binxAfter-1;
+    for(int binP=0;binP<=nBinsHigh_;binP++) {
+      prob=binStepHigh_*binP;
+      prob=1-prob*prob*prob;
+      while (P[terms][binxBefore] > prob) binxBefore--;
+      binxAfter=binxBefore+1;
+      XHigh_[terms][nBinsHigh_-binP] = terms*dx*( binxBefore + (prob-P[terms][binxBefore])/
+						  (P[terms][binxAfter] - P[terms][binxBefore]));
+    }
+    // For rounding errors:
+    XHigh_[terms][nBinsHigh_+1] = XHigh_[terms][nBinsHigh_];
   }
 }
  
@@ -139,13 +188,32 @@ double I3SumGenerator::Generate(int terms)
   double retval;
   if(terms < switchGauss_){
     /**
-     * Low number of terms, read off sum from X_ vector for a random
+     * Low number of terms, read off sum from lookup table for a random
      * value of cumulative probability
      */
-    double xi = nBins_*random_->Uniform(1.);
-    int bin = static_cast<int>(xi);
-    double binfrac = xi - bin;
-    retval = X_[terms][bin] + binfrac*(X_[terms][bin+1] - X_[terms][bin]);
+    double xi = random_->Uniform(1.);
+    /**
+     * If probability in lower or upper tail, use finer, cubically spaced tables
+     * and interpolate linearly
+     */
+    if(xi < PLow_) {
+      int bin = static_cast<int> (pow(xi,1./3.)/binStepLow_);
+      double binfrac = (xi - pow(bin*binStepLow_,3))/
+        (pow((bin+1)*binStepLow_,3) - pow((bin)*binStepLow_,3) );
+      retval = XLow_[terms][bin] + binfrac*(XLow_[terms][bin+1] - XLow_[terms][bin]); 
+    } else if (xi > PHigh_) {
+      int bin = nBinsHigh_ - 1 - static_cast<int> (pow(1-xi,1./3.)/binStepHigh_);
+      double Pbin = 1 - pow((nBinsHigh_-bin)*binStepHigh_,3);
+      double PbinNext = 1 - pow((nBinsHigh_-(bin+1))*binStepHigh_,3);
+      double binfrac = (xi - Pbin)/(PbinNext-Pbin);
+      retval = XHigh_[terms][bin] + binfrac*(XHigh_[terms][bin+1] - XHigh_[terms][bin]); 
+    } else {
+      // Use full-range, linearly spaced, table
+      xi*=nBins_;
+      int bin = static_cast<int>(xi);
+      double binfrac = xi - bin;
+      retval = X_[terms][bin] + binfrac*(X_[terms][bin+1] - X_[terms][bin]);
+    }
   } else {
     /**
      * Large number of terms, rely on central limit theorem
