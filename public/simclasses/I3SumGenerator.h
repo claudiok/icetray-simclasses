@@ -35,9 +35,11 @@
    *@brief Construct a SumGenerator
    *The parameters are the same as for Initialise()
    */
-  I3SumGenerator(I3RandomServicePtr r, double (*fun)(double),
-		 double xlo, double xhi, int nbins, int switchGauss, 
-		 double PLow=0.001, int nBinsLow=100, double PHigh=0.999, int nBinsHigh=100);
+  I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),
+			       const double &xlo, const double &xhi, const int &nbins, 
+			       const int &switchgauss, 
+			       const double &PLow=0.001, const int &nBinsLow=100, 
+			       const double &PHigh=0.999, const int &nBinsHigh=100);
   /**
    *@brief Generate the value of a sum of random numbers 
    *@param terms   Number of terms in the sum
@@ -57,9 +59,11 @@
    *@param PHigh        The probability defining the high tail 
    *@param nBinsHigh    The number of bins (samples) used for the high tail
    */
-  void Initialise(I3RandomServicePtr r, double (*fun)(double),
-		  double xlo, double xhi, int nbins, int switchGauss,
-		  double PLow=0.001, int nBinsLow=100, double PHigh=0.999, int nBinsHigh=100);
+  void Initialise(I3RandomServicePtr r,double (*fun)(double),
+			       const double &xlo, const double &xhi, const int &nbins, 
+			       const int &switchgauss, 
+			       const double &PLow=0.001, const int &nBinsLow=100, 
+			       const double &PHigh=0.999, const int &nBinsHigh=100);
  private:
   /**
    * Lowest number of terms for which gaussian generation is used 

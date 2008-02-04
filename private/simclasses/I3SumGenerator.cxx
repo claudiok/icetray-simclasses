@@ -8,8 +8,9 @@ using std::string;
  * Constructor with arguments, just calls Initialise method
  */
 I3SumGenerator::I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),
-			       double xlo, double xhi, int nbins, int switchgauss, 
-			       double PLow, int nBinsLow, double PHigh, int nBinsHigh)
+			       const double &xlo, const double &xhi, const int &nbins, 
+			       const int &switchgauss, const double &PLow, const int &nBinsLow, 
+			       const double &PHigh, const int &nBinsHigh)
 {
   Initialise(r,fun,xlo,xhi,nbins,switchgauss,PLow,nBinsLow,PHigh,nBinsHigh);
 }
@@ -17,8 +18,9 @@ I3SumGenerator::I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),
  * Initialise I3SumGenerator
  */
 void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
-				double xlo, double xhi, int nbins, int switchgauss,
-				double PLow, int nBinsLow, double PHigh, int nBinsHigh)
+				const double &xlo, const double &xhi, const int &nbins, 
+                                const int &switchgauss, const double &PLow, const int &nBinsLow, 
+                                const double &PHigh, const int &nBinsHigh)
 {
   int bin,bin1;
   vector<double>total;
@@ -32,12 +34,13 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
   xHi_ = xhi;
   switchGauss_ = switchgauss;
   nBins_ = nbins;
+  if(nBins_<2) nBins_=2;
   PLow_ = PLow;
   nBinsLow_ = nBinsLow;
   PHigh_ = PHigh;
   nBinsHigh_ = nBinsHigh;
 
-  double dx( (xhi - xlo) / nbins );
+  double dx( (xhi - xlo) / nBins_ );
 
   /** 
    * Sum (integral) for different number of terms
@@ -52,7 +55,7 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
    */
   double x( xlo+0.5*dx );
   double sumvalue(0),fvalue;
-  for(bin=1; bin <= nbins ; bin++) {
+  for(bin=1; bin <= nBins_ ; bin++) {
     fvalue = fun(x);
     sumvalue += fvalue;
     x+=dx;
@@ -64,9 +67,9 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
   expectVal_=0;
   double sumsq(0);
   x = xlo+0.5*dx;
-  P[1].resize(nbins+1);
+  P[1].resize(nBins_+1);
   P[1][0]=0;
-  for(bin=1; bin <= nbins ; bin++) {
+  for(bin=1; bin <= nBins_ ; bin++) {
     fvalue = fun(x) / sumvalue;
     expectVal_ += x*fvalue;
     sumsq += x*x*fvalue;
@@ -84,20 +87,20 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
    */
   for(int terms=2; terms<switchgauss; terms++) 
     {
-      P[terms].resize(nbins+1);
+      P[terms].resize(nBins_+1);
       total[terms] = 0;
       P[terms][0]=0;
       int bin,binold;
       // Loop over bins (samples) for current number of terms
-      for(bin=0; bin <= nbins ; bin++) {
+      for(bin=0; bin <= nBins_ ; bin++) {
         P[terms][bin] = 0;
 	// For each bin, loop over bins (samples) in terms-1 vector, stopping when it
 	// becomes too big for the wanted value of bin
-	for(binold=0; binold <= nbins && (terms-1)*binold <= terms*bin ;binold++) {
+	for(binold=0; binold <= nBins_ && (terms-1)*binold <= terms*bin ;binold++) {
 	  // Work out the bin (sample) number in the single term vector corresponding
 	  // to the added term, and check that a solution exists
 	  bin1 = terms*bin - (terms-1)*binold;
-          if(bin1 <= nbins) 
+          if(bin1 <= nBins_) 
 	    {
 	      // Add the probabilities contributing to bin
 	      P[terms][bin] += P[terms-1][binold]*P[1][bin1];
@@ -113,25 +116,25 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
    * cumulative probability to value of sum (X_)
    */
   X_.resize(switchgauss);  
-  XLow_.resize(nBinsLow_);  
-  XHigh_.resize(nBinsHigh_);
+  XLow_.resize(switchgauss);  
+  XHigh_.resize(switchgauss);
   binStepLow_ = pow(PLow_,1./3.)/(double)nBinsLow_;
   binStepHigh_ = pow((1-PHigh_),1./3.)/(double)nBinsHigh_;
   for(int terms=1; terms<switchgauss; terms++) {
     // Convert to cumulant probabilities
-    for(bin=1; bin <= nbins ; bin++) P[terms][bin] = P[terms][bin]/total[terms] + P[terms][bin-1] ;
+    for(bin=1; bin <= nBins_ ; bin++) P[terms][bin] = P[terms][bin]/total[terms] + P[terms][bin-1] ;
     // Make sure to avoid round-off errors in probability sum
-    P[terms][nbins] = 1;
+    P[terms][nBins_] = 1;
     //Fill the X_-vector for this number of terms
-    X_[terms].resize(nbins+2);
+    X_[terms].resize(nBins_+2);
     //Start with the first x bin (x is the sum of terms)
     int binxBefore(0),binxAfter(1);
-    double prob,dprob(1/(double)nbins);
+    double prob,dprob(1/(double)nBins_);
     /**
     * Loop over probability bins (sample points) and move the x bin along until 
     * it matches current probability
     */
-    for(int binP=0;binP<nbins;binP++) {
+    for(int binP=0;binP<nBins_;binP++) {
       prob=dprob*binP;
       while (P[terms][binxAfter] < prob) binxAfter++;
       binxBefore=binxAfter-1;
@@ -139,12 +142,12 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
       X_[terms][binP] = terms*dx*( binxBefore + (prob-P[terms][binxBefore])/
 				   (P[terms][binxAfter] - P[terms][binxBefore]) );
     }
-    X_[terms][nbins] = terms*xhi;
+    X_[terms][nBins_] = terms*xhi;
     /**
      * Add an extra element just in case uniform random number sometimes equals one
      * in Generate()
      */
-    X_[terms][nbins+1] = X_[terms][nbins];
+    X_[terms][nBins_+1] = X_[terms][nBins_];
     /**
      * Fill XLow_ array with values corresponding to low probabilities (lower tail of 
      * distribution to be generated
@@ -156,7 +159,7 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
       // Pick probabilities with non-uniform (cubically increasing) spacing
       prob=binStepLow_*binP;
       prob=prob*prob*prob;
-      while (P[terms][binxAfter] < prob) binxAfter++;
+      while (P[terms][binxAfter] <= prob) binxAfter++;
       binxBefore=binxAfter-1;
       XLow_[terms][binP] = terms*dx*(binxBefore + (prob-P[terms][binxBefore])/
 				     (P[terms][binxAfter] - P[terms][binxBefore]));
@@ -181,6 +184,7 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
     // For rounding errors:
     XHigh_[terms][nBinsHigh_+1] = XHigh_[terms][nBinsHigh_];
   }
+  cout << "I3SumGenerator initialised. Single term Mean: "<< expectVal_ <<"; Standard Deviation: "<< stdDev_ << endl; 
 }
  
 double I3SumGenerator::Generate(int terms)
