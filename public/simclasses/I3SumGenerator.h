@@ -36,8 +36,8 @@
   I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),
 			       const double &xlo, const double &xhi, const int &nbins, 
 			       const int &switchgauss, 
-			       const double &PLow=0.001, const int &nBinsLow=100, 
-			       const double &PHigh=0.999, const int &nBinsHigh=100);
+			       const double &PLow=0.01, const int &nBinsLow=100, 
+			       const double &PHigh=0.99, const int &nBinsHigh=100);
   /**
    *@brief Generate the value of a sum of random numbers 
    *@param terms   Number of terms in the sum
@@ -60,8 +60,8 @@
   void Initialise(I3RandomServicePtr r,double (*fun)(double),
 			       const double &xlo, const double &xhi, const int &nbins, 
 			       const int &switchgauss, 
-			       const double &PLow=0.001, const int &nBinsLow=100, 
-			       const double &PHigh=0.999, const int &nBinsHigh=100);
+			       const double &PLow=0.01, const int &nBinsLow=100, 
+			       const double &PHigh=0.99, const int &nBinsHigh=100);
  private:
   /**
    * Lowest number of terms for which gaussian generation is used 
