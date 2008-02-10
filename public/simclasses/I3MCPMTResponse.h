@@ -22,8 +22,7 @@
  * @brief Implementation class for PMT response, simulated by ROMEO
  *
  * This class contains the PMT-level (pre-DAQ/readout) response to the
- * hits in the event.  It represents the voltage produced at the PMT
- * output, simulated by ROMEO.
+ * hits in the event.  It represents the voltage produced at the PMT output.
  *
  */
 class I3MCPMTResponse : public I3FrameObject
