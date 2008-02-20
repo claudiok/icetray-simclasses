@@ -139,7 +139,7 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
       while (P[terms][binxAfter] < prob) binxAfter++;
       binxBefore=binxAfter-1;
       // Find x value for current probability value by interpolation
-      X_[terms][binP] = terms*dx*( binxBefore + (prob-P[terms][binxBefore])/
+      X_[terms][binP] = xlo + terms*dx*( binxBefore + (prob-P[terms][binxBefore])/
 				   (P[terms][binxAfter] - P[terms][binxBefore]) );
     }
     X_[terms][nBins_] = terms*xhi;
@@ -161,7 +161,7 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
       prob=prob*prob*prob;
       while (P[terms][binxAfter] <= prob) binxAfter++;
       binxBefore=binxAfter-1;
-      XLow_[terms][binP] = terms*dx*(binxBefore + (prob-P[terms][binxBefore])/
+      XLow_[terms][binP] = xlo + terms*dx*(binxBefore + (prob-P[terms][binxBefore])/
 				     (P[terms][binxAfter] - P[terms][binxBefore]));
     }
     // Add extra element in case of rounding problems at generation:
@@ -178,7 +178,7 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
       prob=1-prob*prob*prob;
       while (P[terms][binxBefore] > prob) binxBefore--;
       binxAfter=binxBefore+1;
-      XHigh_[terms][nBinsHigh_-binP] = terms*dx*( binxBefore + (prob-P[terms][binxBefore])/
+      XHigh_[terms][nBinsHigh_-binP] = xlo + terms*dx*( binxBefore + (prob-P[terms][binxBefore])/
 						  (P[terms][binxAfter] - P[terms][binxBefore]));
     }
     // For rounding errors:
