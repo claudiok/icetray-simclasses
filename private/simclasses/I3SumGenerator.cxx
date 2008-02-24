@@ -83,7 +83,7 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
   /**
    * Loop over number of terms from 2 up, recursively filling the vectors of 
    * sampled probability densities. The number of points is the same for different
-   * number of terms, so the spacing is equal to the number of terms.
+   * number of terms, so the spacing is equal to the number of terms times dx.
    */
   for(int terms=2; terms<switchgauss; terms++) 
     {

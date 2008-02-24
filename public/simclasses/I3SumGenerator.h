@@ -50,7 +50,7 @@
    *@param xlo          Low edge of interval where fun is defined
    *@param xhi          High edge
    *@param nbins        Number of bins to calculate fun in and to use in lookup table
-   *@param switchGauss  The minimum number of terms for which gaussian generation
+   *@param switchgauss  The minimum number of terms for which gaussian generation
    *                    will be enabled 
    *@param PLow         The probability defining the low tail
    *@param nBinsLow     The number of bins (samples) used for the low tail
@@ -72,36 +72,48 @@
    */
   int nBins_;
   /**
-   * Min and max of single term
+   *Min of single term
    */
-  double xLo_,xHi_;
+  double xLo_;
+  /**Max of single term*/
+  double xHi_;
   /**
-   * Expectation value and standard deviation for single term
+   * Expectation value for single term
    */
-  double expectVal_,stdDev_;
+  double expectVal_;
+  /** Standard deviation for single term */
+  double stdDev_;
   /**
    * Vector of sum values (lookup table) for different cumulative probabilities
    */
   vector< vector<double> > X_;
   /**
-   * Number of bins in finer lookup tables for use in high and low tails
+   * Number of bins in finer lookup tables for use in low probability tail
    */
-  int nBinsLow_,nBinsHigh_;
+  int nBinsLow_;
+  /** Number of bins in finer lookup tables for use in high probability tail */
+  int nBinsHigh_;
   /**
-   * Probabilities corresponding to change of lookup table
+   * Max probability for which to use the low P lookup table
    */
-  double PLow_,PHigh_;
+  double PLow_;
+  /** Min probability for which to use the high P lookup table */
+  double PHigh_;
   /**
-   * Stepsizes for cubic root of probability difference in low and high tail 
+   * Stepsize for cubic root of probability in low tail
    */
-  double binStepLow_,binStepHigh_;
+  double binStepLow_;
+  /** Stepsize for cubic root of distance from unity in high P tail */
+  double binStepHigh_;
   /**
-   * Lookup tables for high and low tails
+   * Lookup table for low P tail
    */
-  vector< vector<double> > XLow_,XHigh_;
+  vector< vector<double> > XLow_;
+  /** Lookup table for high P tail */
+  vector< vector<double> > XHigh_;
   /**
-   * Pointer to random number generator service
-   */
+  * Pointer to random number generator service
+  */
   I3RandomServicePtr random_;
 };
 #endif
