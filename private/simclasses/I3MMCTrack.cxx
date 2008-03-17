@@ -36,7 +36,11 @@ void I3MMCTrack::serialize(Archive& ar, unsigned version)
     tc *= I3Units::second;
   }
 }
-                                                                                                          
-I3_SERIALIZABLE(I3MMCTrack);
 
+I3_SERIALIZABLE(I3MMCTrack);
+#ifndef OLD_MMCTRACK
 I3_SERIALIZABLE(I3MMCTrackList);
+#else
+typedef I3MMCTrackList MMCTrackList;
+I3_SERIALIZABLE(MMCTrackList);
+#endif

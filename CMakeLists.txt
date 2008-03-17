@@ -3,6 +3,12 @@
 #
 i3_project(simclasses)
 
+option(OLD_MMCTRACK "Compile assuming IceSim 1.9.6 names for MMC tracks" OFF)
+
+if(OLD_MMCTRACK)
+  add_definitions(-DOLD_MMCTRACK)
+endif(OLD_MMCTRACK)
+
 i3_add_library(simclasses
 	private/simclasses/*.cxx 
 
