@@ -25,19 +25,23 @@
  * hits in the event.  It represents the voltage produced at the PMT output.
  *
  */
+static const unsigned i3mcpmtresponse_version_ = 1;
 class I3MCPMTResponse : public I3FrameObject
 {
+  std::vector<std::pair<int,double> > compressed_waveform_;
   std::vector<double> waveform_;
   double binSize_;
   double startTime_;
   double endTime_;
+  bool compressed_;
 
   public:
 
   /**
    * constructor
    */
-  I3MCPMTResponse() {};
+  I3MCPMTResponse():
+    compressed_(false){};
 
   /**
    * destructor
@@ -84,16 +88,23 @@ class I3MCPMTResponse : public I3FrameObject
   double GetEndTime() {return endTime_;}
   void SetEndTime(double t) {endTime_= t;}
 
+  bool GetCompressed(){ return compressed_; };
+
+  void Decompress();
+  void Compress();
+
   private:
 
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive & ar, unsigned version);
+
 };
 
 /** 
  * pointer type to insulate users from memory managemnt issues
  */
 I3_POINTER_TYPEDEFS(I3MCPMTResponse);
+BOOST_CLASS_VERSION(I3MCPMTResponse,i3mcpmtresponse_version_);
 
 typedef I3Map<OMKey, I3MCPMTResponse> I3MCPMTResponseMap;
 I3_POINTER_TYPEDEFS(I3MCPMTResponseMap);
