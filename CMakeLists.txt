@@ -17,5 +17,7 @@ i3_add_library(simclasses
 	USE_PROJECTS phys-services dataclasses icetray
 )
 
+add_subdirectory(private/pybindings)
+
 
 
