@@ -13,8 +13,10 @@ i3_add_library(simclasses
 	USE_TOOLS log4cplus boost root gsl python
 
 	USE_PROJECTS phys-services dataclasses icetray
-)
 
+	ROOTCINT public/simclasses/MMCWeight.h
+)
+	
 add_subdirectory(private/pybindings)
 
 
