@@ -23,30 +23,22 @@
 
 using namespace boost::python;
 
-double get_start_time(I3MCPMTResponsePtr p){
-  return p->GetStartTime();
-}
-
-double get_end_time(I3MCPMTResponsePtr p){
-  return p->GetEndTime();
-}
-
-double get_bin_size(I3MCPMTResponsePtr p){
-  return p->GetBinSize();
-}
-
-vector<double> get_waveform(I3MCPMTResponsePtr p){
-  return p->GetWaveform();
-}
-
 void register_I3MCPMTResponse()
 {
-  class_<I3MCPMTResponse, boost::shared_ptr<I3MCPMTResponse> >
+  const std::vector<double>& (I3MCPMTResponse::*get_waveform)() const = &I3MCPMTResponse::GetWaveform;
+  object get_waveform_func = make_function(get_waveform, return_internal_reference<1>());
+ {
+  class_<I3MCPMTResponse, I3MCPMTResponsePtr >
     ("I3MCPMTResponse")    
-    .def("GetStartTime", get_start_time)
-    .def("GetEndTime", get_end_time)
-    .def("GetBinWidth", get_bin_size)
-    .def("GetWaveform", get_waveform)
+    .def("GetWaveform", get_waveform_func)
+    GETSET(I3MCPMTResponse, double, StartTime)
+    GETSET(I3MCPMTResponse, double, EndTime)
+    GETSET(I3MCPMTResponse, double, BinSize)
+    PROPERTY_TYPE(I3MCPMTResponse, start_time, double, StartTime)
+    PROPERTY_TYPE(I3MCPMTResponse, end_time,   double, EndTime)
+    // for consistency with I3Waveform
+    PROPERTY_TYPE(I3MCPMTResponse, bin_width,   double, BinSize)
+    .add_property("waveform", get_waveform_func)
     ;
 
   class_<I3MCPMTResponseMap, bases<I3FrameObject>, I3MCPMTResponseMapPtr>("Map_OMKey_I3MCPMTResponse")
@@ -54,4 +46,5 @@ void register_I3MCPMTResponse()
     ;
 
   register_pointer_conversions<I3MCPMTResponseMap>();
+ }
 }
