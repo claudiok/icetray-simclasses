@@ -34,10 +34,6 @@ void register_I3MCPMTResponse()
     GETSET(I3MCPMTResponse, double, StartTime)
     GETSET(I3MCPMTResponse, double, EndTime)
     GETSET(I3MCPMTResponse, double, BinSize)
-    PROPERTY_TYPE(I3MCPMTResponse, start_time, double, StartTime)
-    PROPERTY_TYPE(I3MCPMTResponse, end_time,   double, EndTime)
-    // for consistency with I3Waveform
-    PROPERTY_TYPE(I3MCPMTResponse, bin_width,   double, BinSize)
     .add_property("waveform", get_waveform_func)
     ;
 
