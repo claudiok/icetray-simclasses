@@ -7,20 +7,20 @@ using std::string;
 /**
  * Constructor with arguments, just calls Initialise method
  */
-I3SumGenerator::I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),
-			       const double &xlo, const double &xhi, const int &nbins, 
-			       const int &switchgauss, const double &PLow, const int &nBinsLow, 
-			       const double &PHigh, const int &nBinsHigh)
+I3SumGenerator::I3SumGenerator(I3RandomServicePtr r,boost::function<double(double)> fun,
+			       double xlo, double xhi, int nbins, 
+			       int switchgauss, double PLow, int nBinsLow, 
+			       double PHigh, int nBinsHigh)
 {
   Initialise(r,fun,xlo,xhi,nbins,switchgauss,PLow,nBinsLow,PHigh,nBinsHigh);
 }
 /**
  * Initialise I3SumGenerator
  */
-void I3SumGenerator::Initialise(I3RandomServicePtr r,double (*fun)(double),
-				const double &xlo, const double &xhi, const int &nbins, 
-                                const int &switchgauss, const double &PLow, const int &nBinsLow, 
-                                const double &PHigh, const int &nBinsHigh)
+void I3SumGenerator::Initialise(I3RandomServicePtr r, boost::function<double(double)> fun,
+				double xlo, double xhi, int nbins, 
+                                int switchgauss, double PLow, int nBinsLow, 
+                                double PHigh, int nBinsHigh)
 {
   int bin,bin1;
   vector<double>total;

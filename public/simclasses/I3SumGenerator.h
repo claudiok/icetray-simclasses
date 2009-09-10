@@ -21,8 +21,11 @@
 #ifndef I3SUM_GENERATOR_H
 #define I3SUM_GENERATOR_H
 #include <vector>
+#include <boost/function.hpp>
 #include "phys-services/I3RandomService.h"
-  class I3SumGenerator {
+
+class I3SumGenerator 
+{
  public:
   /**
     *@brief  Construct an uninitialised SumGenerator. Will not work before it's 
@@ -33,11 +36,11 @@
    *@brief Construct a SumGenerator
    *The parameters are the same as for Initialise()
    */
-  I3SumGenerator(I3RandomServicePtr r,double (*fun)(double),
-			       const double &xlo, const double &xhi, const int &nbins, 
-			       const int &switchgauss, 
-			       const double &PLow=0.01, const int &nBinsLow=100, 
-			       const double &PHigh=0.99, const int &nBinsHigh=100);
+    I3SumGenerator(I3RandomServicePtr r, boost::function<double(double)>,
+		   double xlo, double xhi, int bins, 
+		   int switchgauss, 
+		   double PLow=0.01, int nBinsLow=100, 
+		   double PHigh=0.99, int nBinsHigh=100);
   /**
    *@brief Generate the value of a sum of random numbers 
    *@param terms   Number of terms in the sum
@@ -57,11 +60,11 @@
    *@param PHigh        The probability defining the high tail 
    *@param nBinsHigh    The number of bins (samples) used for the high tail
    */
-  void Initialise(I3RandomServicePtr r,double (*fun)(double),
-			       const double &xlo, const double &xhi, const int &nbins, 
-			       const int &switchgauss, 
-			       const double &PLow=0.01, const int &nBinsLow=100, 
-			       const double &PHigh=0.99, const int &nBinsHigh=100);
+  void Initialise(I3RandomServicePtr r, boost::function<double(double)>,
+			       double xlo, double xhi, int nbins, 
+			       int switchgauss, 
+			       double PLow=0.01, int nBinsLow=100, 
+			       double PHigh=0.99, int nBinsHigh=100);
  private:
   /**
    * Lowest number of terms for which gaussian generation is used 
@@ -116,4 +119,7 @@
   */
   I3RandomServicePtr random_;
 };
+
+I3_POINTER_TYPEDEFS(I3SumGenerator);
+
 #endif

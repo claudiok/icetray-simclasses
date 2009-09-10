@@ -24,10 +24,12 @@
 
 void register_I3MCPMTResponse();
 void register_I3MMCTrack();
+void register_I3SumGenerator();
 
 BOOST_PYTHON_MODULE(simclasses)
 {
   register_I3MCPMTResponse();
   register_I3MMCTrack();
+  register_I3SumGenerator();
 }
 
