@@ -31,7 +31,11 @@ struct thunk_to_python
   double operator()(double d)
   {
     object r_obj = callable(d);
-    double r_dub = extract<double>(r_obj);
+    extract<double> extractor(r_obj);
+    if (!extractor.check())
+      log_fatal("Function passed to I3SumGenerator returned a value not convertible to 'double'");
+  
+    double r_dub = extractor();
     return r_dub;
   }
 };
