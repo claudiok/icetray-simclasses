@@ -17,8 +17,9 @@ template <class Archive>
     ar & make_nvp("amplitude",amplitude);
     ar & make_nvp("cable_delay",cable_delay);
     ar & make_nvp("optical",optical);
+    if(version > 0){
+      ar & make_nvp("peArea",peArea);    
+    }
   }
-
-
 
 I3_SERIALIZABLE(I3MCTWRParams);

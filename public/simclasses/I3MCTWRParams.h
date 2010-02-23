@@ -15,6 +15,7 @@
 
 using namespace std;
 
+static const unsigned i3mctwrparams_version_ = 1;
 
 struct I3MCTWRParams
 {
@@ -30,6 +31,7 @@ struct I3MCTWRParams
   double amplitude;
   double cable_delay;
   bool optical;
+  double peArea;
 
   I3MCTWRParams() 
   {
@@ -44,6 +46,7 @@ struct I3MCTWRParams
     amplitude=NAN;
     cable_delay=NAN;
     optical=false;
+    peArea=NAN;
   }
 
   virtual ~I3MCTWRParams();
@@ -52,6 +55,9 @@ struct I3MCTWRParams
 };
 
 typedef std::map<OMKey, I3MCTWRParams> I3MCTWRParamsMap;
+
+
+BOOST_CLASS_VERSION(I3MCTWRParams, i3mctwrparams_version_);
 
 I3_POINTER_TYPEDEFS(I3MCTWRParams);
 I3_POINTER_TYPEDEFS(I3MCTWRParamsMap);
