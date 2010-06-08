@@ -20,6 +20,7 @@
  */
 
 #include <simclasses/I3MCPMTResponse.h>
+#include <icetray/python/std_map_indexing_suite.hpp>
 
 using namespace boost::python;
 
@@ -27,6 +28,15 @@ void register_I3MCPMTResponse()
 {
   const std::vector<double>& (I3MCPMTResponse::*get_waveform)() const = &I3MCPMTResponse::GetWaveform;
   object get_waveform_func = make_function(get_waveform, return_internal_reference<1>());
+  
+  /* explicitly resolve overloads. */
+  const double (I3MCPMTResponse::*get_start_time)() const = &I3MCPMTResponse::GetStartTime;
+  const double (I3MCPMTResponse::*get_end_time)() const = &I3MCPMTResponse::GetEndTime;
+  const double (I3MCPMTResponse::*get_bin_size)() const = &I3MCPMTResponse::GetBinSize;
+  void (I3MCPMTResponse::*set_start_time)(double) = &I3MCPMTResponse::SetStartTime;
+  void (I3MCPMTResponse::*set_end_time)(double) = &I3MCPMTResponse::SetEndTime;
+  void (I3MCPMTResponse::*set_bin_size)(double) = &I3MCPMTResponse::SetStartTime;
+  
  {
   class_<I3MCPMTResponse, I3MCPMTResponsePtr >
     ("I3MCPMTResponse")    
@@ -34,11 +44,14 @@ void register_I3MCPMTResponse()
     GETSET(I3MCPMTResponse, double, StartTime)
     GETSET(I3MCPMTResponse, double, EndTime)
     GETSET(I3MCPMTResponse, double, BinSize)
-    .add_property("waveform", get_waveform_func)
+    .add_property("waveform",   get_waveform_func)
+    .add_property("start_time", get_start_time, set_start_time)
+    .add_property("end_time",   get_end_time,   set_end_time)
+    .add_property("bin_size",   get_bin_size,   set_bin_size)
     ;
 
   class_<I3MCPMTResponseMap, bases<I3FrameObject>, I3MCPMTResponseMapPtr>("Map_OMKey_I3MCPMTResponse")
-    .def(map_indexing_suite<I3MCPMTResponseMap>())
+    .def(std_map_indexing_suite<I3MCPMTResponseMap>())
     ;
 
   register_pointer_conversions<I3MCPMTResponseMap>();
