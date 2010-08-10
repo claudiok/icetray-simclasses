@@ -61,6 +61,8 @@ void register_I3MMCTrack()
     .def("GetZf", &I3MMCTrack::GetZf )
     .def("GetEf", &I3MMCTrack::GetEf )
     .def("GetTf", &I3MMCTrack::GetTf )
+    .def("GetElost", &I3MMCTrack::GetElost )
+    .def("GetI3Particle", &I3MMCTrack::GetI3Particle, return_internal_reference<1>() )
     ;
 
   class_<I3MMCTrackList, bases<I3FrameObject> >("I3MMCTrackList")

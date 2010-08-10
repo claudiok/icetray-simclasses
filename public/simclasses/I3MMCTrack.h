@@ -33,6 +33,8 @@ class I3MMCTrack
   double GetTf() const { return tf; }
   double GetEf() const { return Ef; }
 
+  double GetElost() const { return Elost; }
+
   void SetEnter(double xi_, double yi_, double zi_, double ti_, double Ei_){
     xi=xi_;
     yi=yi_;
