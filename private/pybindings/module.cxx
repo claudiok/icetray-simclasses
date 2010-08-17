@@ -25,11 +25,15 @@
 void register_I3MCPMTResponse();
 void register_I3MMCTrack();
 void register_I3SumGenerator();
+void register_CorsikaLongStep();
+void register_I3CorsikaShowerInfo();
 
 BOOST_PYTHON_MODULE(simclasses)
 {
   register_I3MCPMTResponse();
   register_I3MMCTrack();
   register_I3SumGenerator();
+  register_CorsikaLongStep();
+  register_I3CorsikaShowerInfo();
 }
 
