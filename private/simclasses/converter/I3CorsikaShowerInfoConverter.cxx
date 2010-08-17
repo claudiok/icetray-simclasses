@@ -41,6 +41,8 @@ I3TableRowDescriptionPtr I3CorsikaShowerInfoConverter::CreateDescription(const I
   desc->AddField<double>("ghStartDepth", "g/cm^2", "Gaisser-Hillas fit parameter: starting depth of the shower");
   desc->AddField<double>("ghMaxDepth", "g/cm^2", "Gaisser-Hillas fit parameter: depth of the shower maximum");
   desc->AddField<double>("ghRedChiSqr", "", "Reduced chi-square of the Gaisser-Hillas fit");
+  desc->AddField<double>("resampleRadius", "m", "Radius of the resampling area");
+  desc->AddField<uint16_t>("nResample", "", "Number of samples created of the shower");
 
   if (nLongSteps_) {
     desc->AddField<tableio_size_t>("nLongSteps", "", "Number of steps in the longitudinal profile");
@@ -71,6 +73,8 @@ size_t I3CorsikaShowerInfoConverter::FillRows(const I3CorsikaShowerInfo& info, I
   rows->Set<double>("ghStartDepth", info.ghStartDepth/gcm2);
   rows->Set<double>("ghMaxDepth", info.ghMaxDepth/gcm2);
   rows->Set<double>("ghRedChiSqr", info.ghRedChiSqr);
+  rows->Set<double>("resampleRadius", info.resampleRadius);
+  rows->Set<uint16_t>("nResample", info.nResample);
 
   if (nLongSteps_) {
     if (info.longProfile.size() != nLongSteps_) {

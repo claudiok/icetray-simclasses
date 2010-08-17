@@ -29,6 +29,8 @@ void register_I3CorsikaShowerInfo()
     .def_readwrite("ghMaxDepth", &I3CorsikaShowerInfo::ghMaxDepth)
     .def_readwrite("ghRedChiSqr", &I3CorsikaShowerInfo::ghRedChiSqr)
     .def_readwrite("longProfile", &I3CorsikaShowerInfo::longProfile)
+    .def_readwrite("resampleRadius", &I3CorsikaShowerInfo::resampleRadius)
+    .def_readwrite("nResample", &I3CorsikaShowerInfo::nResample)
     .def("clear", &I3CorsikaShowerInfo::clear)
     ;
   register_pointer_conversions<I3CorsikaShowerInfo>();

@@ -40,6 +40,9 @@ void I3CorsikaShowerInfo::clear()
   ghStartDepth = NAN;
   ghMaxDepth   = NAN;
   ghRedChiSqr  = NAN;
+
+  resampleRadius = NAN;
+  nResample      = 0;
   
   longProfile.clear();
 }
@@ -67,6 +70,11 @@ void I3CorsikaShowerInfo::serialize(Archive& ar, unsigned version)
   ar & make_nvp("ghMaxDepth",     ghMaxDepth);
   ar & make_nvp("ghRedChiSqr",    ghRedChiSqr);
   ar & make_nvp("longProfile",    longProfile);
+
+  if (version > 0) {
+    ar & make_nvp("resampleRadius", resampleRadius);
+    ar & make_nvp("nResample", nResample);
+  }
 }
 
 
