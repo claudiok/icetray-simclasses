@@ -24,7 +24,7 @@ I3TableRowDescriptionPtr MMCWeightConverter::CreateDescription(const MMCWeight& 
   return desc;
 }
 
-size_t FillRows(const MMCWeight& mmcweight, I3TableRowPtr rows)
+size_t MMCWeightConverter::FillRows(const MMCWeight& mmcweight, I3TableRowPtr rows)
 {
   rows->Set<double>("weight", mmcweight.weight);
   rows->Set<double>("distToModIntPoint", mmcweight.distToModIntPoint);
