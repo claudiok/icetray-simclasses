@@ -31,6 +31,8 @@ void register_MMCWeight();
 
 BOOST_PYTHON_MODULE(simclasses)
 {
+  load_project("libsimclasses", false);
+
   register_I3MCPMTResponse();
   register_I3MMCTrack();
   register_I3SumGenerator();
