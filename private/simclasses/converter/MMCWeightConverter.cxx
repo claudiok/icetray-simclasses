@@ -17,7 +17,7 @@ I3TableRowDescriptionPtr MMCWeightConverter::CreateDescription(const MMCWeight& 
 {
   I3TableRowDescriptionPtr desc = I3TableRowDescriptionPtr(new I3TableRowDescription() );
 
-#warning TODO: Write proper descriptions
+  // #warning TODO: Write proper descriptions
   desc->AddField<double>("weight", "", "MMC Weight");
   desc->AddField<double>("distToModIntPoint", "m", "Distance to modified interaction point?");
 
