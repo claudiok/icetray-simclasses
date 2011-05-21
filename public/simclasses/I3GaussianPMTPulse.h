@@ -144,10 +144,10 @@ private:
 
 I3_POINTER_TYPEDEFS(I3GaussianPMTPulse);
 
-typedef vector<I3GaussianPMTPulse> I3GaussianPMTPulseList;
+typedef std::vector<I3GaussianPMTPulse> I3GaussianPMTPulseList;
 I3_POINTER_TYPEDEFS(I3GaussianPMTPulseList);
 
-typedef I3Map<OMKey, vector<I3GaussianPMTPulse> > I3GaussianPMTPulseListMap;
+typedef I3Map<OMKey, std::vector<I3GaussianPMTPulse> > I3GaussianPMTPulseListMap;
 I3_POINTER_TYPEDEFS(I3GaussianPMTPulseListMap);
 
 #endif
