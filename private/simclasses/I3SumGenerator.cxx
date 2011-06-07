@@ -184,7 +184,6 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r, boost::function<double(dou
     // For rounding errors:
     XHigh_[terms][nBinsHigh_+1] = XHigh_[terms][nBinsHigh_];
   }
-  cout << "I3SumGenerator initialised. Single term Mean: "<< expectVal_ <<"; Standard Deviation: "<< stdDev_ << endl; 
 }
  
 double I3SumGenerator::Generate(int terms)
