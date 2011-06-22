@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cmath>
-using namespace std;
 #include <string>
-using std::string;
 #include "simclasses/I3SumGenerator.h"
+
+using namespace std;
 /**
  * Constructor with arguments, just calls Initialise method
  */
@@ -184,7 +184,6 @@ void I3SumGenerator::Initialise(I3RandomServicePtr r, boost::function<double(dou
     // For rounding errors:
     XHigh_[terms][nBinsHigh_+1] = XHigh_[terms][nBinsHigh_];
   }
-  cout << "I3SumGenerator initialised. Single term Mean: "<< expectVal_ <<"; Standard Deviation: "<< stdDev_ << endl; 
 }
  
 double I3SumGenerator::Generate(int terms)
