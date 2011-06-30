@@ -16,7 +16,7 @@
 #include "icetray/I3FrameObject.h"
 #include "icetray/I3Tray.h"
 #include "dataclasses/I3Map.h"
-#include "dataclasses/OMKey.h"
+#include "icetray/OMKey.h"
 
 /**
  * @brief Implementation class for PMT response, simulated by ROMEO
