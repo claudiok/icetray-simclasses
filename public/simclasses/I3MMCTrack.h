@@ -67,9 +67,8 @@ class I3MMCTrack
   I3Particle& GetParticle(){ return particle_; };
   void SetParticle(I3Particle& p){ particle_ = p; };
 
- private:
-
-  I3Particle particle_;
+  // No harm in making these public.  This class really should
+  // be a simple struct anyway since it's only function is to store data.
   double Elost;
   // coordinates at entry point [m,m,m,sec,GeV]
   double xi, yi, zi, ti, Ei;
@@ -79,6 +78,10 @@ class I3MMCTrack
 
   // coordinates at point of closest approach
   double xc, yc, zc, tc, Ec;
+
+ private:
+
+  I3Particle particle_;
 
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive& ar, unsigned version);
