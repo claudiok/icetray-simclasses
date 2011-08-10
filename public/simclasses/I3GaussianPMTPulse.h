@@ -15,8 +15,8 @@
 #include "icetray/I3FrameObject.h"
 #include "icetray/I3Tray.h"
 #include "icetray/OMKey.h"
+#include "icetray/I3Units.h"
 #include "dataclasses/I3Map.h"
-#include "dataclasses/I3Units.h"
 #include "dataclasses/I3Constants.h"
 #include <vector>
 
@@ -144,10 +144,10 @@ private:
 
 I3_POINTER_TYPEDEFS(I3GaussianPMTPulse);
 
-typedef vector<I3GaussianPMTPulse> I3GaussianPMTPulseList;
+typedef std::vector<I3GaussianPMTPulse> I3GaussianPMTPulseList;
 I3_POINTER_TYPEDEFS(I3GaussianPMTPulseList);
 
-typedef I3Map<OMKey, vector<I3GaussianPMTPulse> > I3GaussianPMTPulseListMap;
+typedef I3Map<OMKey, std::vector<I3GaussianPMTPulse> > I3GaussianPMTPulseListMap;
 I3_POINTER_TYPEDEFS(I3GaussianPMTPulseListMap);
 
 #endif
