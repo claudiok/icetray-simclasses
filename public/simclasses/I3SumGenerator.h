@@ -89,7 +89,7 @@ class I3SumGenerator
   /**
    * Vector of sum values (lookup table) for different cumulative probabilities
    */
-  vector< vector<double> > X_;
+  std::vector< std::vector<double> > X_;
   /**
    * Number of bins in finer lookup tables for use in low probability tail
    */
@@ -111,9 +111,9 @@ class I3SumGenerator
   /**
    * Lookup table for low P tail
    */
-  vector< vector<double> > XLow_;
+  std::vector< std::vector<double> > XLow_;
   /** Lookup table for high P tail */
-  vector< vector<double> > XHigh_;
+  std::vector< std::vector<double> > XHigh_;
   /**
   * Pointer to random number generator service
   */
