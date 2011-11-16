@@ -63,13 +63,11 @@ class I3MMCTrack
     Elost=Elost_;
   };
 
-  const I3Particle& GetI3Particle() const { return particle_; };
-  I3Particle& GetParticle(){ return particle_; };
-  void SetParticle(I3Particle& p){ particle_ = p; };
+  const I3Particle& GetI3Particle() const { return particle; };
+  I3Particle& GetParticle(){ return particle; };
+  void SetParticle(I3Particle& p){ particle = p; };
 
- private:
-
-  I3Particle particle_;
+  I3Particle particle;
   double Elost;
   // coordinates at entry point [m,m,m,sec,GeV]
   double xi, yi, zi, ti, Ei;
@@ -79,6 +77,8 @@ class I3MMCTrack
 
   // coordinates at point of closest approach
   double xc, yc, zc, tc, Ec;
+
+ private:
 
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive& ar, unsigned version);

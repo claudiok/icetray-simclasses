@@ -10,7 +10,7 @@ void I3MMCTrack::serialize(Archive& ar, unsigned version)
 	      version,i3particle_version_);
   }
 
-  ar & make_nvp("I3Particle", particle_);
+  ar & make_nvp("I3Particle", particle);
   ar & make_nvp("xi", xi);
   ar & make_nvp("yi", yi);
   ar & make_nvp("zi", zi);
