@@ -12,7 +12,7 @@
 #ifndef SIMCLASSES_MMCWEIGHTCONVERTER_H_INCLUDED
 #define SIMCLASSES_MMCWEIGHTCONVERTER_H_INCLUDED
 
-#include <tableio/I3ConverterFactory.h>
+#include <tableio/I3Converter.h>
 #include "simclasses/MMCWeight.h"
 
 class MMCWeightConverter : public I3ConverterImplementation< MMCWeight > {

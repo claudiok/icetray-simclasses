@@ -12,7 +12,7 @@
 #ifndef TOPSIMULATOR_I3CORSIKASHOWERINFOCONVERTER_H_INCLUDED
 #define TOPSIMULATOR_I3CORSIKASHOWERINFOCONVERTER_H_INCLUDED
 
-#include <tableio/I3ConverterFactory.h>
+#include <tableio/I3Converter.h>
 #include "simclasses/I3CorsikaShowerInfo.h"
 
 class I3CorsikaShowerInfoConverter : public I3ConverterImplementation< I3CorsikaShowerInfo > {
