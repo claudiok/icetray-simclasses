@@ -63,6 +63,27 @@ void register_I3MMCTrack()
     .def("GetTf", &I3MMCTrack::GetTf )
     .def("GetElost", &I3MMCTrack::GetElost )
     .def("GetI3Particle", &I3MMCTrack::GetI3Particle, return_internal_reference<1>() )
+
+    .def("SetParticle", &I3MMCTrack::SetParticle )
+    .add_property("particle", make_function(&I3MMCTrack::GetI3Particle, return_internal_reference<1>() ), &I3MMCTrack::SetParticle)
+    
+    .def_readwrite("xi", &I3MMCTrack::xi)
+    .def_readwrite("yi", &I3MMCTrack::yi)
+    .def_readwrite("zi", &I3MMCTrack::zi)
+    .def_readwrite("ti", &I3MMCTrack::ti)
+    .def_readwrite("Ei", &I3MMCTrack::Ei)
+    .def_readwrite("xf", &I3MMCTrack::xf)
+    .def_readwrite("yf", &I3MMCTrack::yf)
+    .def_readwrite("zf", &I3MMCTrack::zf)
+    .def_readwrite("tf", &I3MMCTrack::tf)
+    .def_readwrite("Ef", &I3MMCTrack::Ef)
+    .def_readwrite("xc", &I3MMCTrack::xc)
+    .def_readwrite("yc", &I3MMCTrack::yc)
+    .def_readwrite("zc", &I3MMCTrack::zc)
+    .def_readwrite("tc", &I3MMCTrack::tc)
+    .def_readwrite("Ec", &I3MMCTrack::Ec)
+
+    .def_readwrite("Elost", &I3MMCTrack::Elost)
     ;
 
   class_<I3MMCTrackList, bases<I3FrameObject> >("I3MMCTrackList")
