@@ -4,6 +4,20 @@
 
 January 11, 2012 Emanuel Jacobi  (emanuel.jacobi@desy.de)
 --------------------------------------------------------------------
+Release V01-01-00
+
+- I3SumGenerator moved to sim-services
+  -- Alex Olivas
+
+- Remove reference to I3ConverterFactory
+  -- Jakob van Santen
+
+- Allow full access to I3MMCTrack from python
+  -- Claudio Kopper
+
+
+January 11, 2012 Emanuel Jacobi  (emanuel.jacobi@desy.de)
+--------------------------------------------------------------------
 Release V01-00-02
 
 - Cleaned up dependencies
