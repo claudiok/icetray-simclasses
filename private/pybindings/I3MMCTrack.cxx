@@ -20,6 +20,7 @@
  */
 
 #include <simclasses/I3MMCTrack.h>
+#include <icetray/python/dataclass_suite.hpp>
 
 using namespace boost::python;
 
@@ -84,10 +85,12 @@ void register_I3MMCTrack()
     .def_readwrite("Ec", &I3MMCTrack::Ec)
 
     .def_readwrite("Elost", &I3MMCTrack::Elost)
+
+    .def(dataclass_suite<I3MMCTrack>())
     ;
 
   class_<I3MMCTrackList, bases<I3FrameObject> >("I3MMCTrackList")
-    .def(vector_indexing_suite<I3MMCTrackList >())
+    .def(dataclass_suite<I3MMCTrackList >())
     ;
 
   register_pointer_conversions<I3MMCTrackList>();
