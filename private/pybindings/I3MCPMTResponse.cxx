@@ -30,8 +30,8 @@ void set_waveform_func(I3MCPMTResponsePtr p, std::vector<double> wf){
 
 void register_I3MCPMTResponse()
 {
-  const std::vector<double>& (I3MCPMTResponse::*get_waveform)() const = &I3MCPMTResponse::GetWaveform;
-  object get_waveform_func = make_function(get_waveform, return_internal_reference<1>());
+  //cstd::vector<double>& (I3MCPMTResponse::*get_waveform)() const = &I3MCPMTResponse::GetWaveform;
+  //object get_waveform_func = make_function(get_waveform, return_internal_reference<1>());
 
   /* explicitly resolve overloads. */
   const double (I3MCPMTResponse::*get_start_time)() const = &I3MCPMTResponse::GetStartTime;
@@ -44,11 +44,11 @@ void register_I3MCPMTResponse()
  {
   class_<I3MCPMTResponse, I3MCPMTResponsePtr >
     ("I3MCPMTResponse")    
-    .def("GetWaveform", get_waveform_func)
+    .def("GetWaveform", &I3MCPMTResponse::GetWaveform)
     GETSET(I3MCPMTResponse, double, StartTime)
     GETSET(I3MCPMTResponse, double, EndTime)
     GETSET(I3MCPMTResponse, double, BinSize)
-    .add_property("waveform",   get_waveform_func, set_waveform_func)
+    .add_property("waveform",   &I3MCPMTResponse::GetWaveform, &I3MCPMTResponse::SetWaveform)
     .add_property("start_time", get_start_time, set_start_time)
     .add_property("end_time",   get_end_time,   set_end_time)
     .add_property("bin_size",   get_bin_size,   set_bin_size)
