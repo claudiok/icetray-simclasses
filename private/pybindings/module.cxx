@@ -27,6 +27,7 @@ void register_I3MMCTrack();
 void register_CorsikaLongStep();
 void register_I3CorsikaShowerInfo();
 void register_MMCWeight();
+void register_simclasses_converters();
 
 BOOST_PYTHON_MODULE(simclasses)
 {
@@ -37,5 +38,6 @@ BOOST_PYTHON_MODULE(simclasses)
   register_CorsikaLongStep();
   register_I3CorsikaShowerInfo();
   register_MMCWeight();
+  register_simclasses_converters();
 }
 
