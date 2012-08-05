@@ -4,6 +4,8 @@
 #include <tableio/converter/I3VectorConverter.h>
 #include <tableio/converter/pybindings.h>
 
+// I3ConverterRegistry::GetDefaultConverter() requires tableio >= r91434
+
 struct convert_I3MMCTrack {
     typedef I3MMCTrack booked_type;
 
