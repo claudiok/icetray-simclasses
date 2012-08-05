@@ -5,7 +5,6 @@ if(BUILD_PYBINDINGS)
     I3MCPMTResponse.cxx
     I3MMCTrack.cxx
     MMCWeight.cxx
-	converters.cxx
     module.cxx
     USE_TOOLS boost python log4cplus
     USE_PROJECTS simclasses icetray tableio

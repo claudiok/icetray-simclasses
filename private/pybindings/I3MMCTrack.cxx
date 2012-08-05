@@ -20,6 +20,9 @@
  */
 
 #include <simclasses/I3MMCTrack.h>
+#include <simclasses/converter/I3MMCTrackListConverter.cxx>
+#include <tableio/converter/pybindings.h>
+#include <tableio/converter/I3VectorConverter.h>
 
 using namespace boost::python;
 
@@ -91,5 +94,8 @@ void register_I3MMCTrack()
     ;
 
   register_pointer_conversions<I3MMCTrackList>();
+
+  I3CONVERTER_NAMESPACE(simclasses);
+  I3CONVERTER_EXPORT_DEFAULT(I3MMCTrackListConverter, "Converts an I3MMCTrackList (I3Vector of I3MMCTrackList)");
 }
 
