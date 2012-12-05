@@ -20,7 +20,7 @@
  */
 
 #include <simclasses/I3MMCTrack.h>
-#include <simclasses/converter/I3MMCTrackListConverter.cxx>
+#include <simclasses/converter/I3MMCTrackListConverter.h>
 #include <tableio/converter/pybindings.h>
 #include <tableio/converter/I3VectorConverter.h>
 
