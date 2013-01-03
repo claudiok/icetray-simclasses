@@ -3,7 +3,7 @@ i3_project(simclasses)
 
 SET(LIB_${PROJECT_NAME}_SOURCEFILES private/simclasses/*.cxx)
 SET(LIB_${PROJECT_NAME}_PROJECTS icetray dataclasses phys-services)
-SET(LIB_${PROJECT_NAME}_TOOLS boost python)
+SET(LIB_${PROJECT_NAME}_TOOLS log4cplus boost python)
 
 if(IS_DIRECTORY ${CMAKE_SOURCE_DIR}/tableio)
 	LIST(APPEND LIB_${PROJECT_NAME}_PROJECTS tableio)
