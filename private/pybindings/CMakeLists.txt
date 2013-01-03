@@ -6,7 +6,7 @@ if(BUILD_PYBINDINGS)
     I3MMCTrack.cxx
     MMCWeight.cxx
     module.cxx
-    USE_TOOLS boost python log4cplus
+    USE_TOOLS boost python 
     USE_PROJECTS simclasses icetray tableio
     )
 endif(BUILD_PYBINDINGS)
