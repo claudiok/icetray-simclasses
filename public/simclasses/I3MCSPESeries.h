@@ -28,7 +28,8 @@ public:
   I3MCSPEHistogram(BinType bin_width, const std::vector<BinType>& v);
 
   BinType get_bin_width(){ return bin_width_; }
-  const container_type& get_values() const { return values_; }
+  container_type& time_npe_pairs() { return values_; }
+  const container_type& time_npe_pairs() const { return values_; }
   
   void fill(BinType b);
   void fill(BinType b, npe_type w); 
