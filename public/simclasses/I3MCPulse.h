@@ -7,7 +7,7 @@
 #include <icetray/I3Logging.h>
 #include <icetray/serialization.h>
 #include <dataclasses/I3Map.h>
-#include <dataclasses/ParticleIDKey.h>
+#include <simclasses/ParticleIDKey.h>
 
 static const unsigned i3mcpulse_version_ = 0;
 

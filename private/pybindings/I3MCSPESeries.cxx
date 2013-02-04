@@ -2,7 +2,7 @@
 //   Copyright (c) 2013   Alex Olivas
 //
 
-#include <dataclasses/physics/I3MCSPEHistogram.h>
+#include <simclasses/I3MCSPESeries.h>
 #include <icetray/python/dataclass_suite.hpp>
 
 using namespace boost::python;

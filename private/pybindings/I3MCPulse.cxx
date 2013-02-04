@@ -2,7 +2,7 @@
 //   Copyright (c) 2013   Alex Olivas
 //
 
-#include <dataclasses/physics/I3MCPulse.h>
+#include <simclasses/I3MCPulse.h>
 #include <icetray/python/dataclass_suite.hpp>
 
 using namespace boost::python;

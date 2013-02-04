@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *  
  */
-#include <dataclasses/ParticleIDKey.h>
+#include <simclasses/ParticleIDKey.h>
 #include <dataclasses/physics/I3Particle.h>
 #include <icetray/python/dataclass_suite.hpp>
 
@@ -32,8 +32,8 @@ void register_ParticleIDKey()
     .def(dataclass_suite<ParticleIDKey>())
     .def(self == self)
     .def(self < self)
-    .add_property("major_id", &ParticleIDKey::GetMajorID, &ParticleIDKey::SetMajorID)
-    .add_property("minor_id", &ParticleIDKey::GetMinorID, &ParticleIDKey::SetMinorID)
+    .def_readwrite("major_id", &ParticleIDKey::major_ID)
+    .def_readwrite("minor_id", &ParticleIDKey::minor_ID)
     ;
 }
     

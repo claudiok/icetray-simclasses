@@ -13,27 +13,24 @@
 #include <I3Test.h>
 #include <boost/assign/list_of.hpp>
 #include <boost/random.hpp>
-#include <simclasses/I3MCSPEHistogram.h>
+#include <simclasses/I3MCSPESeries.h>
 
 using boost::assign::list_of;
 
-TEST_GROUP(I3MCSPEHistogramTest);
+TEST_GROUP(I3MCSPESeriesTest);
 
 TEST(instantiation)
 {
-  I3MCSPEHistogram<> h_float;  // default is 'float'
+  I3MCSPESeries h_float;  // default is 'float'
   I3MCSPEHistogram<double> h_double;
   I3MCSPEHistogram<int> h_int;
   I3MCSPEHistogram<int32_t> hd_int32_t;
   I3MCSPEHistogram<uint32_t> hd_uint32_t;
   I3MCSPEHistogram<short> h_short;
-
-  std::cerr<<std::endl;
-  std::cerr<<"sizeof(I3MCSPEHistogram<>)"<<sizeof(I3MCSPEHistogram<>)<<std::endl;
 };
 
 TEST(unbinned){
-  I3MCSPEHistogram<> h;  // default is 'float'
+  I3MCSPESeries h;  // default is 'float'
 
   std::vector<float> i = list_of(9.)(9.)(9.);
 
@@ -48,7 +45,7 @@ TEST(unbinned){
 };
 
 TEST(binned_simple){
-  I3MCSPEHistogram<> h(1.0);  // default is 'float'
+  I3MCSPESeries h(1.0);  // default is 'float'
 
   std::vector<float> i = list_of(9.)(9.)(9.);
 
@@ -65,7 +62,7 @@ TEST(binned_simple){
 };
 
 TEST(binned_less_simple){
-  I3MCSPEHistogram<> h(1.0);  // default is 'float'
+  I3MCSPESeries h(1.0);  // default is 'float'
 
   std::vector<float> i = list_of(1.)(9.)(9.)(9.)(10.)(20.);
 
@@ -101,7 +98,7 @@ TEST(binned_less_simple){
 };
 
 TEST(weighted_binned){
-  I3MCSPEHistogram<> h(1.0);  // default is 'float'
+  I3MCSPESeries h(1.0);  // default is 'float'
 
   std::vector<float> t = list_of(1.)(9.)(9.)(9.)(10.)(20.);
   std::vector<int32_t> w = list_of(6)(5)(4)(3)(2)(1);
@@ -139,7 +136,7 @@ TEST(weighted_binned){
 };
 
 TEST(binned_stress_test){
-  I3MCSPEHistogram<> h(1.0);  // default is 'float'
+  I3MCSPESeries h(1.0);  // default is 'float'
 
   float nbins(1000.);
   boost::mt19937 rng(42u);
@@ -163,7 +160,7 @@ TEST(binned_stress_test){
 };
 
 TEST(binned_stress_test_vector){
-  I3MCSPEHistogram<> h(1.0);  // default is 'float'
+  I3MCSPESeries h(1.0);  // default is 'float'
 
   boost::mt19937 rng(42u);
   boost::uniform_real<> distribution(0.,1000.);
