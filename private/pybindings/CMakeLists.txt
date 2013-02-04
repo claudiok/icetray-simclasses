@@ -5,7 +5,7 @@ if(BUILD_PYBINDINGS)
     I3MCPMTResponse.cxx
     I3MMCTrack.cxx
     I3MCPulse.cxx
-    I3MCSPEHistogram.cxx
+    I3MCSPESeries.cxx
     ParticleIDKey.cxx
     module.cxx
     USE_TOOLS boost python log4cplus

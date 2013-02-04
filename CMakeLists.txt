@@ -8,7 +8,7 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3MCNKGInfo.cxx
   private/simclasses/I3CorsikaShowerInfo.cxx
   private/simclasses/I3MCPulse.cxx
-  private/simclasses/I3MCSPEHistogram.cxx
+  private/simclasses/I3MCSPESeries.cxx
   private/simclasses/ParticleIDKey.cxx
   )
 

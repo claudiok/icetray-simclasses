@@ -1,5 +1,5 @@
-#ifndef I3PEHISTOGRAM_H_INCLUDED
-#define I3PEHISTOGRAM_H_INCLUDED
+#ifndef I3MCSPESERIES_H_INCLUDED
+#define I3MCSPESERIES_H_INCLUDED
 
 #include <algorithm>
 #include <vector>
@@ -9,7 +9,7 @@
 #include <dataclasses/I3Map.h>
 #include <dataclasses/ParticleIDKey.h>
 
-static const unsigned i3pehistogram_version_ = 0;
+static const unsigned i3mcspehistogram_version_ = 0;
 
 template <typename BinType = float>
 class I3MCSPEHistogram {
@@ -54,7 +54,7 @@ private:
 
 };
 
-BOOST_CLASS_VERSION(I3MCSPEHistogram<>,i3pehistogram_version_);
+BOOST_CLASS_VERSION(I3MCSPEHistogram<>,i3mcspehistogram_version_);
 
 /**
  * SOURCE CODE BELOW
@@ -206,9 +206,12 @@ void operator+=(I3MCSPEHistogram<BinType>& lhs, const I3MCSPEHistogram<BinType>&
 
 class ParticleIDKey;
 
-typedef I3Map<OMKey, std::map<ParticleIDKey,I3MCSPEHistogram<> > > 
-  I3MCSPEHistogramMap;
-
-I3_POINTER_TYPEDEFS(I3MCSPEHistogramMap);
+typedef I3MCSPEHistogram<> I3MCSPESeries;
+typedef std::map<ParticleIDKey,I3MCSPESeries > I3MCSPESeriesMap;
+typedef I3Map<OMKey, std::map<ParticleIDKey,I3MCSPESeries > >  
+  I3MCSPESeriesMapMap;
+  
+I3_POINTER_TYPEDEFS(I3MCSPESeriesMap);
+I3_POINTER_TYPEDEFS(I3MCSPESeriesMapMap);
 
 #endif
