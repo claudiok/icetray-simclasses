@@ -4,7 +4,9 @@ if(BUILD_PYBINDINGS)
     I3CorsikaShowerInfo.cxx
     I3MCPMTResponse.cxx
     I3MMCTrack.cxx
-    MMCWeight.cxx
+    I3MCPulse.cxx
+    I3MCSPEHistogram.cxx
+    ParticleIDKey.cxx
     module.cxx
     USE_TOOLS boost python log4cplus
     USE_PROJECTS simclasses icetray tableio

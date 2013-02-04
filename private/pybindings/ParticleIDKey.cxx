@@ -1,9 +1,8 @@
 /**
  *  $Id$
  *  
- *  Copyright (C) 2008
- *  Troy D. Straszheim  <troy@icecube.umd.edu>
- *  and the IceCube Collaboration <http://www.icecube.wisc.edu>
+ *  Copyright (C) 2007
+ *  the IceCube Collaboration <http://www.icecube.wisc.edu>
  *  
  *  This file is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,27 +18,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *  
  */
+#include <dataclasses/ParticleIDKey.h>
+#include <dataclasses/physics/I3Particle.h>
+#include <icetray/python/dataclass_suite.hpp>
 
-#include <icetray/load_project.h>
+using namespace boost::python;
 
-void register_I3MCPMTResponse();
-void register_I3MMCTrack();
-void register_CorsikaLongStep();
-void register_I3CorsikaShowerInfo();
-void register_I3MCPulse();
-void register_I3MCSPEHistogram();
-void register_ParticleIDKey();
-
-BOOST_PYTHON_MODULE(simclasses)
+void register_ParticleIDKey()
 {
-  load_project("libsimclasses", false);
-
-  register_I3MCPMTResponse();
-  register_I3MMCTrack();
-  register_CorsikaLongStep();
-  register_I3CorsikaShowerInfo();
-  register_I3MCPulse();
-  register_I3MCSPEHistogram();
-  register_ParticleIDKey();
+  scope pidkey_scope = 
+    class_<ParticleIDKey, boost::shared_ptr<ParticleIDKey> >("ParticleIDKey")
+    .def(init<const I3Particle&>())
+    .def(dataclass_suite<ParticleIDKey>())
+    .def(self == self)
+    .def(self < self)
+    .add_property("major_id", &ParticleIDKey::GetMajorID, &ParticleIDKey::SetMajorID)
+    .add_property("minor_id", &ParticleIDKey::GetMinorID, &ParticleIDKey::SetMinorID)
+    ;
 }
-
+    
