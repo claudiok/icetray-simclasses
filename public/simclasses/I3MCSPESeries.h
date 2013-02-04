@@ -34,8 +34,8 @@ public:
   void fill(BinType b, npe_type w); 
   void fill(const std::vector<BinType>& v);
 
-  std::vector<npe_type> bin_values();
-  std::vector<BinType> leading_edges();
+  std::vector<npe_type> npe_values();
+  std::vector<BinType> arrival_times();
 
   bool is_binned(){ return std::isnormal(bin_width_) || bin_width_ < 0;}
 
@@ -178,7 +178,7 @@ void I3MCSPEHistogram<BinType>::fill(BinType b, npe_type w){
 }
 
 template <typename BinType>
-std::vector<BinType> I3MCSPEHistogram<BinType>::leading_edges(){
+std::vector<BinType> I3MCSPEHistogram<BinType>::arrival_times(){
   std::vector<BinType> le_values;
   BOOST_FOREACH(typename container_type::value_type& v_pair, values_){
     le_values.push_back(v_pair.first);
@@ -187,7 +187,7 @@ std::vector<BinType> I3MCSPEHistogram<BinType>::leading_edges(){
 }
 
 template <typename BinType>
-std::vector<typename I3MCSPEHistogram<BinType>::npe_type> I3MCSPEHistogram<BinType>::bin_values(){
+std::vector<typename I3MCSPEHistogram<BinType>::npe_type> I3MCSPEHistogram<BinType>::npe_values(){
   std::vector<typename I3MCSPEHistogram<BinType>::npe_type> b_values;
   BOOST_FOREACH(typename container_type::value_type& v_pair, values_){
     b_values.push_back(v_pair.second);

@@ -37,11 +37,11 @@ TEST(unbinned){
   h.fill(i);
 
   std::cerr<<std::endl;
-  std::cerr<<"h.bin_values().size() = "<<h.bin_values().size()<<std::endl;
-  std::cerr<<"h.leading_edges().size() = "<<h.leading_edges().size()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
 
-  ENSURE(h.bin_values().size() == 3);
-  ENSURE(h.leading_edges().size() == 3);
+  ENSURE(h.npe_values().size() == 3);
+  ENSURE(h.arrival_times().size() == 3);
 };
 
 TEST(binned_simple){
@@ -54,11 +54,11 @@ TEST(binned_simple){
   std::cerr<<std::endl;
   std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
   std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
-  std::cerr<<"h.bin_values().size() = "<<h.bin_values().size()<<std::endl;
-  std::cerr<<"h.leading_edges().size() = "<<h.leading_edges().size()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
 
-  ENSURE(h.bin_values().size() == 1);
-  ENSURE(h.leading_edges().size() == h.bin_values().size());
+  ENSURE(h.npe_values().size() == 1);
+  ENSURE(h.arrival_times().size() == h.npe_values().size());
 };
 
 TEST(binned_less_simple){
@@ -71,30 +71,30 @@ TEST(binned_less_simple){
   std::cerr<<std::endl;
   std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
   std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
-  std::cerr<<"h.bin_values().size() = "<<h.bin_values().size()<<std::endl;
-  std::cerr<<"h.leading_edges().size() = "<<h.leading_edges().size()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
 
-  ENSURE(h.bin_values().size() == 4);
-  ENSURE(h.leading_edges().size() == h.bin_values().size());
+  ENSURE(h.npe_values().size() == 4);
+  ENSURE(h.arrival_times().size() == h.npe_values().size());
 
-  BOOST_FOREACH(int32_t bv, h.bin_values()){
+  BOOST_FOREACH(int32_t bv, h.npe_values()){
     std::cerr<<bv<<" ";
   }
   std::cerr<<std::endl;
 
-  BOOST_FOREACH(int32_t le, h.leading_edges()){
+  BOOST_FOREACH(int32_t le, h.arrival_times()){
     std::cerr<<le<<" ";
   }
   std::cerr<<std::endl;
 
-  for(size_t i(0); i<h.bin_values().size(); ++i)
-    std::cerr<<h.bin_values()[i]<<" ";    
+  for(size_t i(0); i<h.npe_values().size(); ++i)
+    std::cerr<<h.npe_values()[i]<<" ";    
   std::cerr<<std::endl;
 
-  ENSURE(h.bin_values()[0] == 1);
-  ENSURE(h.bin_values()[1] == 3);
-  ENSURE(h.bin_values()[2] == 1);
-  ENSURE(h.bin_values()[3] == 1);
+  ENSURE(h.npe_values()[0] == 1);
+  ENSURE(h.npe_values()[1] == 3);
+  ENSURE(h.npe_values()[2] == 1);
+  ENSURE(h.npe_values()[3] == 1);
 };
 
 TEST(weighted_binned){
@@ -109,30 +109,30 @@ TEST(weighted_binned){
   std::cerr<<std::endl;
   std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
   std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
-  std::cerr<<"h.bin_values().size() = "<<h.bin_values().size()<<std::endl;
-  std::cerr<<"h.leading_edges().size() = "<<h.leading_edges().size()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
 
-  ENSURE(h.bin_values().size() == 4);
-  ENSURE(h.leading_edges().size() == h.bin_values().size());
+  ENSURE(h.npe_values().size() == 4);
+  ENSURE(h.arrival_times().size() == h.npe_values().size());
 
-  BOOST_FOREACH(int32_t bv, h.bin_values()){
+  BOOST_FOREACH(int32_t bv, h.npe_values()){
     std::cerr<<bv<<" ";
   }
   std::cerr<<std::endl;
 
-  BOOST_FOREACH(int32_t le, h.leading_edges()){
+  BOOST_FOREACH(int32_t le, h.arrival_times()){
     std::cerr<<le<<" ";
   }
   std::cerr<<std::endl;
 
-  for(size_t i(0); i<h.bin_values().size(); ++i)
-    std::cerr<<h.bin_values()[i]<<" ";    
+  for(size_t i(0); i<h.npe_values().size(); ++i)
+    std::cerr<<h.npe_values()[i]<<" ";    
   std::cerr<<std::endl;
 
-  ENSURE(h.bin_values()[0] == 6);
-  ENSURE(h.bin_values()[1] == 12);
-  ENSURE(h.bin_values()[2] == 2);
-  ENSURE(h.bin_values()[3] == 1);
+  ENSURE(h.npe_values()[0] == 6);
+  ENSURE(h.npe_values()[1] == 12);
+  ENSURE(h.npe_values()[2] == 2);
+  ENSURE(h.npe_values()[3] == 1);
 };
 
 TEST(binned_stress_test){
@@ -154,8 +154,8 @@ TEST(binned_stress_test){
   std::cerr<<"expected binned memory size = " << nbins * 8.0 * 1e-6 <<" MB"<<std::endl;
   std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
   std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
-  std::cerr<<"h.bin_values().size() = "<<h.bin_values().size()<<std::endl;
-  std::cerr<<"h.leading_edges().size() = "<<h.leading_edges().size()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
 
 };
 
@@ -179,11 +179,11 @@ TEST(binned_stress_test_vector){
   std::cerr<<std::endl;
   std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
   std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
-  std::cerr<<"h.bin_values().size() = "<<h.bin_values().size()<<std::endl;
-  std::cerr<<"h.leading_edges().size() = "<<h.leading_edges().size()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
 
-  for(size_t i(0); i < h.bin_values().size(); ++i){
-    std::cerr<<h.leading_edges()[i]<<" : "<<h.bin_values()[i]<<std::endl;             
+  for(size_t i(0); i < h.npe_values().size(); ++i){
+    std::cerr<<h.arrival_times()[i]<<" : "<<h.npe_values()[i]<<std::endl;             
   }
 
 };
