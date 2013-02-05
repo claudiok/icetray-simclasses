@@ -23,12 +23,12 @@ public:
 
   mcspe_series() : bin_width_(0.){};
   mcspe_series(TimeType bin_width) : bin_width_(bin_width){};
-  mcspe_series(TimeType bin_width, const std::vector<TimeType>& v){
-    BOOST_FOREACH(typename std::vector<TimeType>::const_reference r,v)
-      fill(r); 
-  }
   mcspe_series(typename base_type::iterator i, 
-	       typename base_type::iterator j){ std::copy(i,j,this->begin()); }
+	       typename base_type::iterator j) : 
+    bin_width_(0.)
+  { 
+    std::copy(i,j, std::back_inserter(*this));
+  }
 
   TimeType get_bin_width(){ return bin_width_; }
   TimeType set_bin_width(TimeType b){ bin_width_ = b; }
@@ -36,6 +36,17 @@ public:
   void fill(const std::vector<TimeType>& v){
     BOOST_FOREACH(typename std::vector<TimeType>::const_reference r,v)
     fill(r);
+  };
+  void fill(const std::vector<TimeType>& v, const std::vector<npe_type>& n){
+    if( v.size() != n.size()){
+      log_error("time(%zu) and npe(%zu) size must be the same.",
+                v.size(),n.size());
+      return;
+    }
+    typename std::vector<TimeType>::const_iterator t_iter = v.begin();
+    typename std::vector<npe_type>::const_iterator n_iter = n.begin();
+    for(; t_iter != v.end() && n_iter != n.end(); ++t_iter, ++n_iter)
+      fill(*t_iter,*n_iter);
   };
   void fill(TimeType b){ fill(b,1); };
   void fill(TimeType b, npe_type w); 
