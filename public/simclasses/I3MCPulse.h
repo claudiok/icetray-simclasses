@@ -56,10 +56,8 @@ private:
 BOOST_CLASS_VERSION(I3MCPulse,i3mcpulse_version_);
 
 typedef std::vector<I3MCPulse> I3MCPulseSeries;
-typedef I3Map<ParticleIDKey, I3MCPulseSeries > I3MCPulseSeriesMap;
-typedef I3Map<OMKey, I3MCPulseSeriesMap > I3MCPulseSeriesMapMap;
+typedef I3Map<OMKey, I3MCPulseSeries > I3MCPulseSeriesMap;
 I3_POINTER_TYPEDEFS(I3MCPulseSeries);
 I3_POINTER_TYPEDEFS(I3MCPulseSeriesMap);
-I3_POINTER_TYPEDEFS(I3MCPulseSeriesMapMap);
 
 #endif

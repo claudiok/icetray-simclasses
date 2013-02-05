@@ -62,7 +62,8 @@ TEST(unbinned){
 };
 
 TEST(binned_simple){
-  I3MCSPESeries h(1.0);  // default is 'float'
+  I3MCSPESeries h;  // default is 'float'
+  h.set_bin_width(1.0); 
   ENSURE(h.is_binned() == true);
 
   std::vector<float> i = list_of(9.)(9.)(9.);
@@ -80,7 +81,8 @@ TEST(binned_simple){
 };
 
 TEST(binned_less_simple){
-  I3MCSPESeries h(1.0);  // default is 'float'
+  I3MCSPESeries h;  // default is 'float'
+  h.set_bin_width(1.0); 
   ENSURE(h.is_binned() == true);
 
   std::vector<float> i = list_of(1.)(9.)(9.)(9.)(10.)(20.);
@@ -117,7 +119,8 @@ TEST(binned_less_simple){
 };
 
 TEST(weighted_binned){
-  I3MCSPESeries h(1.0);  // default is 'float'
+  I3MCSPESeries h;  // default is 'float'
+  h.set_bin_width(1.0); 
   ENSURE(h.is_binned() == true);
 
   std::vector<float> t = list_of(1.)(9.)(9.)(9.)(10.)(20.);
@@ -156,7 +159,8 @@ TEST(weighted_binned){
 };
 
 TEST(weighted_binned_vector){
-  I3MCSPESeries h(1.0);  // default is 'float'
+  I3MCSPESeries h;  // default is 'float'
+  h.set_bin_width(1.0); 
   ENSURE(h.is_binned() == true);
 
   std::vector<float> t = list_of(1.)(9.)(9.)(9.)(10.)(20.);
@@ -194,7 +198,8 @@ TEST(weighted_binned_vector){
 };
 
 TEST(binned_stress_test){
-  I3MCSPESeries h(1.0);  // default is 'float'
+  I3MCSPESeries h;  // default is 'float'
+  h.set_bin_width(1.0); 
   ENSURE(h.is_binned() == true);
 
   float nbins(1000.);
@@ -219,7 +224,8 @@ TEST(binned_stress_test){
 };
 
 TEST(binned_stress_test_vector){
-  I3MCSPESeries h(1.0);  // default is 'float'
+  I3MCSPESeries h;  // default is 'float'
+  h.set_bin_width(1.0); 
   ENSURE(h.is_binned() == true);
 
   boost::mt19937 rng(42u);

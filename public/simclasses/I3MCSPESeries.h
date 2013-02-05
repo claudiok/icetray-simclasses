@@ -21,17 +21,16 @@ public:
   typedef uint32_t npe_type;
   typedef TimeType time_type;
 
-  mcspe_series() : bin_width_(0.){};
-  mcspe_series(TimeType bin_width) : bin_width_(bin_width){};
+  mcspe_series() : bin_width_(0){};
   mcspe_series(typename base_type::iterator i, 
 	       typename base_type::iterator j) : 
-    bin_width_(0.)
+  bin_width_(0)
   { 
     std::copy(i,j, std::back_inserter(*this));
   }
 
   TimeType get_bin_width(){ return bin_width_; }
-  TimeType set_bin_width(TimeType b){ bin_width_ = b; }
+  void set_bin_width(TimeType b){ bin_width_ = b; }
   
   void fill(const std::vector<TimeType>& v){
     BOOST_FOREACH(typename std::vector<TimeType>::const_reference r,v)
