@@ -22,6 +22,7 @@ TEST_GROUP(I3MCSPESeriesTest);
 TEST(instantiation)
 {
   I3MCSPESeries h_float;  // default is 'float'
+  ENSURE(h_float.is_binned() == false);
   mcspe_series<double> h_double;
   mcspe_series<int> h_int;
   mcspe_series<int32_t> hd_int32_t;
@@ -29,8 +30,24 @@ TEST(instantiation)
   mcspe_series<short> h_short;
 };
 
+TEST(range_constructor)
+{
+  I3MCSPESeries::base_type hits = list_of
+    (I3MCSPESeries::base_type::value_type(1.0,1))
+    (I3MCSPESeries::base_type::value_type(2.0,1));
+
+  I3MCSPESeries h(hits.begin(),hits.end());  // default is 'float'
+  ENSURE(h.is_binned() == false);
+
+  std::cerr<<std::endl;
+  std::cerr<<"hits.size() = "<<hits.size()<<std::endl;
+  std::cerr<<"h.size() = "<<h.size()<<std::endl;
+  ENSURE(hits.size() == h.size());
+};
+
 TEST(unbinned){
   I3MCSPESeries h;  // default is 'float'
+  ENSURE(h.is_binned() == false);
 
   std::vector<float> i = list_of(9.)(9.)(9.);
 
@@ -46,6 +63,7 @@ TEST(unbinned){
 
 TEST(binned_simple){
   I3MCSPESeries h(1.0);  // default is 'float'
+  ENSURE(h.is_binned() == true);
 
   std::vector<float> i = list_of(9.)(9.)(9.);
 
@@ -63,6 +81,7 @@ TEST(binned_simple){
 
 TEST(binned_less_simple){
   I3MCSPESeries h(1.0);  // default is 'float'
+  ENSURE(h.is_binned() == true);
 
   std::vector<float> i = list_of(1.)(9.)(9.)(9.)(10.)(20.);
 
@@ -77,12 +96,12 @@ TEST(binned_less_simple){
   ENSURE(h.npe_values().size() == 4);
   ENSURE(h.arrival_times().size() == h.npe_values().size());
 
-  BOOST_FOREACH(int32_t bv, h.npe_values()){
+  BOOST_FOREACH(uint32_t bv, h.npe_values()){
     std::cerr<<bv<<" ";
   }
   std::cerr<<std::endl;
 
-  BOOST_FOREACH(int32_t le, h.arrival_times()){
+  BOOST_FOREACH(float le, h.arrival_times()){
     std::cerr<<le<<" ";
   }
   std::cerr<<std::endl;
@@ -99,9 +118,10 @@ TEST(binned_less_simple){
 
 TEST(weighted_binned){
   I3MCSPESeries h(1.0);  // default is 'float'
+  ENSURE(h.is_binned() == true);
 
   std::vector<float> t = list_of(1.)(9.)(9.)(9.)(10.)(20.);
-  std::vector<int32_t> w = list_of(6)(5)(4)(3)(2)(1);
+  std::vector<uint32_t> w = list_of(6)(5)(4)(3)(2)(1);
 
   for(int i(0); i < t.size(); ++i)
     h.fill(t[i],w[i]);
@@ -115,12 +135,50 @@ TEST(weighted_binned){
   ENSURE(h.npe_values().size() == 4);
   ENSURE(h.arrival_times().size() == h.npe_values().size());
 
-  BOOST_FOREACH(int32_t bv, h.npe_values()){
+  BOOST_FOREACH(uint32_t bv, h.npe_values()){
     std::cerr<<bv<<" ";
   }
   std::cerr<<std::endl;
 
-  BOOST_FOREACH(int32_t le, h.arrival_times()){
+  BOOST_FOREACH(float le, h.arrival_times()){
+    std::cerr<<le<<" ";
+  }
+  std::cerr<<std::endl;
+
+  for(size_t i(0); i<h.npe_values().size(); ++i)
+    std::cerr<<h.npe_values()[i]<<" ";    
+  std::cerr<<std::endl;
+
+  ENSURE(h.npe_values()[0] == 6);
+  ENSURE(h.npe_values()[1] == 12);
+  ENSURE(h.npe_values()[2] == 2);
+  ENSURE(h.npe_values()[3] == 1);
+};
+
+TEST(weighted_binned_vector){
+  I3MCSPESeries h(1.0);  // default is 'float'
+  ENSURE(h.is_binned() == true);
+
+  std::vector<float> t = list_of(1.)(9.)(9.)(9.)(10.)(20.);
+  std::vector<uint32_t> w = list_of(6)(5)(4)(3)(2)(1);
+
+  h.fill(t,w);
+
+  std::cerr<<std::endl;
+  std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
+  std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
+
+  ENSURE(h.npe_values().size() == 4);
+  ENSURE(h.arrival_times().size() == h.npe_values().size());
+
+  BOOST_FOREACH(uint32_t bv, h.npe_values()){
+    std::cerr<<bv<<" ";
+  }
+  std::cerr<<std::endl;
+
+  BOOST_FOREACH(float le, h.arrival_times()){
     std::cerr<<le<<" ";
   }
   std::cerr<<std::endl;
@@ -137,6 +195,7 @@ TEST(weighted_binned){
 
 TEST(binned_stress_test){
   I3MCSPESeries h(1.0);  // default is 'float'
+  ENSURE(h.is_binned() == true);
 
   float nbins(1000.);
   boost::mt19937 rng(42u);
@@ -161,6 +220,7 @@ TEST(binned_stress_test){
 
 TEST(binned_stress_test_vector){
   I3MCSPESeries h(1.0);  // default is 'float'
+  ENSURE(h.is_binned() == true);
 
   boost::mt19937 rng(42u);
   boost::uniform_real<> distribution(0.,1000.);
