@@ -254,3 +254,36 @@ TEST(binned_stress_test_vector){
 
 };
 
+TEST(mixed_binning_test){
+  I3MCSPESeries h;  // default is 'float'
+  ENSURE(h.is_binned() == false);
+
+  boost::mt19937 rng(42u);
+  boost::uniform_real<> distribution(0.,1000.);
+  boost::variate_generator<boost::mt19937&, boost::uniform_real<> > 
+    generator(rng,distribution);
+
+  int N(10000);
+  for(int i(0); i < N; ++i){
+    h.fill(generator());
+  }
+
+  // change horsemen mid-apocalypse
+  h.set_bin_width(1.0);
+  ENSURE(h.is_binned() == true);
+  for(int i(0); i < N; ++i){
+    h.fill(generator());
+  }
+
+  std::cerr<<std::endl;
+  std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
+  std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
+  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
+  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
+
+  for(size_t i(0); i < h.npe_values().size(); ++i){
+    std::cerr<<h.arrival_times()[i]<<" : "<<h.npe_values()[i]<<std::endl;             
+  }
+
+};
+
