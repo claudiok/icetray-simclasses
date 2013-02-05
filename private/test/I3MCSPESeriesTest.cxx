@@ -22,11 +22,11 @@ TEST_GROUP(I3MCSPESeriesTest);
 TEST(instantiation)
 {
   I3MCSPESeries h_float;  // default is 'float'
-  I3MCSPEHistogram<double> h_double;
-  I3MCSPEHistogram<int> h_int;
-  I3MCSPEHistogram<int32_t> hd_int32_t;
-  I3MCSPEHistogram<uint32_t> hd_uint32_t;
-  I3MCSPEHistogram<short> h_short;
+  mcspe_series<double> h_double;
+  mcspe_series<int> h_int;
+  mcspe_series<int32_t> hd_int32_t;
+  mcspe_series<uint32_t> hd_uint32_t;
+  mcspe_series<short> h_short;
 };
 
 TEST(unbinned){

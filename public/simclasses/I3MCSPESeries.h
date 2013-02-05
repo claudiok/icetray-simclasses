@@ -9,10 +9,9 @@
 #include <dataclasses/I3Map.h>
 #include <simclasses/ParticleIDKey.h>
 
-static const unsigned i3mcspehistogram_version_ = 0;
+static const unsigned i3mcspeseries_version_ = 0;
 
-template <typename BinType = float>
-  class I3MCSPEHistogram : 
+template <typename BinType = float> class mcspe_series : 
   public std::vector<std::pair<BinType,uint32_t> > 
 {
   
@@ -22,13 +21,13 @@ public:
   typedef uint32_t npe_type;
   typedef BinType time_type;
 
-  I3MCSPEHistogram() : bin_width_(0.){};
-  I3MCSPEHistogram(BinType bin_width) : bin_width_(bin_width){};
-  I3MCSPEHistogram(BinType bin_width, const std::vector<BinType>& v){
+  mcspe_series() : bin_width_(0.){};
+  mcspe_series(BinType bin_width) : bin_width_(bin_width){};
+  mcspe_series(BinType bin_width, const std::vector<BinType>& v){
     BOOST_FOREACH(typename std::vector<BinType>::const_reference r,v)
       fill(r);
   }
-  I3MCSPEHistogram(typename base_type::iterator i, 
+  mcspe_series(typename base_type::iterator i, 
 		   typename base_type::iterator j){
     std::copy(i,j,this->begin());
   }
@@ -62,55 +61,51 @@ private:
 
 };
 
-BOOST_CLASS_VERSION(I3MCSPEHistogram<>,i3mcspehistogram_version_);
-
-/**
- * SOURCE CODE BELOW
- */ 
+BOOST_CLASS_VERSION(mcspe_series<>,i3mcspeseries_version_);
 
 template <typename BinType>
-bool compare_bin_value_pair(typename I3MCSPEHistogram<BinType>::value_type val,
-                            typename I3MCSPEHistogram<BinType>::value_type iter)
+bool compare_bin_value_pair(typename mcspe_series<BinType>::value_type val,
+                            typename mcspe_series<BinType>::value_type iter)
 {
   return val.first < iter.first;
 }
 
 template <typename BinType>
-std::pair<typename I3MCSPEHistogram<BinType>::iterator,
-          typename I3MCSPEHistogram<BinType>::iterator>
-bracket(typename I3MCSPEHistogram<BinType>::base_type& cont, BinType value){
+std::pair<typename mcspe_series<BinType>::iterator,
+          typename mcspe_series<BinType>::iterator>
+bracket(typename mcspe_series<BinType>::base_type& cont, BinType value){
 
   if(value < cont.front().first || value > cont.back().first ){     
     return 
-      std::pair<typename I3MCSPEHistogram<BinType>::iterator,
-                typename I3MCSPEHistogram<BinType>::iterator> 
+      std::pair<typename mcspe_series<BinType>::iterator,
+                typename mcspe_series<BinType>::iterator> 
       (cont.end(),cont.end());    
   }
 
   if( cont.size() == 1 ){
     return 
-      std::pair<typename I3MCSPEHistogram<BinType>::iterator,
-                typename I3MCSPEHistogram<BinType>::iterator> 
+      std::pair<typename mcspe_series<BinType>::iterator,
+                typename mcspe_series<BinType>::iterator> 
       (cont.begin(),cont.end());
   }
 
-  typename I3MCSPEHistogram<BinType>::value_type search_value(value,1);
-  typename I3MCSPEHistogram<BinType>::iterator upper = 
+  typename mcspe_series<BinType>::value_type search_value(value,1);
+  typename mcspe_series<BinType>::iterator upper = 
     std::upper_bound(cont.begin(), cont.end(), 
                      search_value, compare_bin_value_pair<BinType>);
 
-  typename I3MCSPEHistogram<BinType>::iterator lower(upper);
+  typename mcspe_series<BinType>::iterator lower(upper);
   --lower;
 
   return 
-    std::pair<typename I3MCSPEHistogram<BinType>::iterator,
-              typename I3MCSPEHistogram<BinType>::iterator> 
+    std::pair<typename mcspe_series<BinType>::iterator,
+              typename mcspe_series<BinType>::iterator> 
   (lower,upper);    
 }
 
 
 template <typename BinType>
-void I3MCSPEHistogram<BinType>::fill(BinType b, npe_type w){
+void mcspe_series<BinType>::fill(BinType b, npe_type w){
 
   if(!std::isnormal(bin_width_) || bin_width_ < 0. || this->empty()){  
     this->push_back(typename base_type::value_type(b,w));
@@ -142,8 +137,8 @@ void I3MCSPEHistogram<BinType>::fill(BinType b, npe_type w){
   // we've checked whether it's before the front bin
   // and after the back bin.  if we've gotten this far
   // it's somewhere in between.
-  std::pair<typename I3MCSPEHistogram<BinType>::iterator,
-            typename I3MCSPEHistogram<BinType>::iterator>
+  std::pair<typename mcspe_series<BinType>::iterator,
+            typename mcspe_series<BinType>::iterator>
     low_high_pair = bracket<BinType>(*this,b);
 
   BinType distance(b - low_high_pair.first->first);
@@ -160,7 +155,7 @@ void I3MCSPEHistogram<BinType>::fill(BinType b, npe_type w){
 }
 
 template <typename BinType>
-std::vector<BinType> I3MCSPEHistogram<BinType>::arrival_times(){
+std::vector<BinType> mcspe_series<BinType>::arrival_times(){
   std::vector<BinType> times;
   BOOST_FOREACH(typename base_type::value_type& v_pair, *this)
     times.push_back(v_pair.first);
@@ -168,8 +163,8 @@ std::vector<BinType> I3MCSPEHistogram<BinType>::arrival_times(){
 }
 
 template <typename BinType>
-std::vector<typename I3MCSPEHistogram<BinType>::npe_type> I3MCSPEHistogram<BinType>::npe_values(){
-  std::vector<typename I3MCSPEHistogram<BinType>::npe_type> npes;
+std::vector<typename mcspe_series<BinType>::npe_type> mcspe_series<BinType>::npe_values(){
+  std::vector<typename mcspe_series<BinType>::npe_type> npes;
   BOOST_FOREACH(typename base_type::value_type& v_pair, *this)
     npes.push_back(v_pair.second);
   return npes;
@@ -177,10 +172,9 @@ std::vector<typename I3MCSPEHistogram<BinType>::npe_type> I3MCSPEHistogram<BinTy
 
 class ParticleIDKey;
 
-typedef I3MCSPEHistogram<> I3MCSPESeries;
+typedef mcspe_series<> I3MCSPESeries;
 typedef std::map<ParticleIDKey,I3MCSPESeries > I3MCSPESeriesMap;
-typedef I3Map<OMKey, std::map<ParticleIDKey,I3MCSPESeries > >  
-  I3MCSPESeriesMapMap;
+typedef I3Map<OMKey, std::map<ParticleIDKey,I3MCSPESeries > > I3MCSPESeriesMapMap;
   
 I3_POINTER_TYPEDEFS(I3MCSPESeriesMap);
 I3_POINTER_TYPEDEFS(I3MCSPESeriesMapMap);
