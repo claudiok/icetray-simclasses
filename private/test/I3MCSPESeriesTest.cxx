@@ -144,7 +144,7 @@ TEST(binned_stress_test){
   boost::variate_generator<boost::mt19937&, boost::uniform_real<> > 
     generator(rng,distribution);
 
-  int N(1000000000);
+  int N(100000000);
   for(int i(0); i < N; ++i){
     h.fill(generator());
   }

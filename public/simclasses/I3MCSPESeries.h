@@ -12,7 +12,8 @@
 static const unsigned i3mcspehistogram_version_ = 0;
 
 template <typename BinType = float>
-  class I3MCSPEHistogram : public std::vector<std::pair<BinType,uint32_t> > 
+  class I3MCSPEHistogram : 
+  public std::vector<std::pair<BinType,uint32_t> > 
 {
   
 public:
@@ -21,10 +22,16 @@ public:
   typedef uint32_t npe_type;
   typedef BinType time_type;
 
-  I3MCSPEHistogram();
-  I3MCSPEHistogram(BinType bin_width);
-  I3MCSPEHistogram(BinType bin_width, const std::vector<BinType>& v);
-  I3MCSPEHistogram(typename base_type::iterator, typename base_type::iterator );
+  I3MCSPEHistogram() : bin_width_(0.){};
+  I3MCSPEHistogram(BinType bin_width) : bin_width_(bin_width){};
+  I3MCSPEHistogram(BinType bin_width, const std::vector<BinType>& v){
+    BOOST_FOREACH(typename std::vector<BinType>::const_reference r,v)
+      fill(r);
+  }
+  I3MCSPEHistogram(typename base_type::iterator i, 
+		   typename base_type::iterator j){
+    std::copy(i,j,this->begin());
+  }
 
   BinType get_bin_width(){ return bin_width_; }
   BinType set_bin_width(BinType b){ bin_width_ = b; }
@@ -39,9 +46,9 @@ public:
   std::vector<npe_type> npe_values();
   std::vector<BinType> arrival_times();
 
-  bool is_binned(){ return std::isnormal(bin_width_) || bin_width_ < 0;}
+  bool is_binned(){ return std::isnormal(bin_width_) && bin_width_ > 0;}
 
-  SET_LOGGER("I3MCSPEHistogram");
+  SET_LOGGER("I3MCSPESeries");
 
 private:  
   BinType bin_width_;
@@ -60,29 +67,6 @@ BOOST_CLASS_VERSION(I3MCSPEHistogram<>,i3mcspehistogram_version_);
 /**
  * SOURCE CODE BELOW
  */ 
-template <typename BinType>
-I3MCSPEHistogram<BinType>::I3MCSPEHistogram(BinType width) :
-  bin_width_(width){};
-
-template <typename BinType>
-I3MCSPEHistogram<BinType>::I3MCSPEHistogram() :
-  bin_width_(0.){};
-
-template <typename BinType>
-I3MCSPEHistogram<BinType>::
-I3MCSPEHistogram(BinType width, const std::vector<BinType>& v):
-  bin_width_(width)
-{ 
-  BOOST_FOREACH(typename std::vector<BinType>::const_reference r,v)
-    fill(r);
-}
-
-template <typename BinType>
-I3MCSPEHistogram<BinType>::I3MCSPEHistogram(typename base_type::iterator i, 
-                                            typename base_type::iterator j)
-{
-  std::copy(i,j,this->begin());
-};
 
 template <typename BinType>
 bool compare_bin_value_pair(typename I3MCSPEHistogram<BinType>::value_type val,
@@ -144,7 +128,7 @@ void I3MCSPEHistogram<BinType>::fill(BinType b, npe_type w){
 
   if(b >= this->back().first){
     if( b < this->back().first + bin_width_ ){
-      at( this->size() - 1).second += w;
+      this->at( this->size() - 1).second += w;
     }else{
       BinType distance(b - this->back().first);    
       int32_t nbins(distance/bin_width_);
@@ -171,7 +155,7 @@ void I3MCSPEHistogram<BinType>::fill(BinType b, npe_type w){
     int32_t nbins(distance/bin_width_);
     BinType offset(nbins * bin_width_);
     BinType le(low_high_pair.first->first + offset);
-    insert(low_high_pair.second, typename base_type::value_type(le,w));
+    this->insert(low_high_pair.second, typename base_type::value_type(le,w));
   }
 }
 
