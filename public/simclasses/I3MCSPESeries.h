@@ -161,29 +161,18 @@ void I3MCSPEHistogram<BinType>::fill(BinType b, npe_type w){
 
 template <typename BinType>
 std::vector<BinType> I3MCSPEHistogram<BinType>::arrival_times(){
-  std::vector<BinType> le_values;
-  BOOST_FOREACH(typename base_type::value_type& v_pair, *this){
-    le_values.push_back(v_pair.first);
-  }
-  return le_values;
+  std::vector<BinType> times;
+  BOOST_FOREACH(typename base_type::value_type& v_pair, *this)
+    times.push_back(v_pair.first);
+  return times;
 }
 
 template <typename BinType>
 std::vector<typename I3MCSPEHistogram<BinType>::npe_type> I3MCSPEHistogram<BinType>::npe_values(){
-  std::vector<typename I3MCSPEHistogram<BinType>::npe_type> b_values;
-  BOOST_FOREACH(typename base_type::value_type& v_pair, *this){
-    b_values.push_back(v_pair.second);
-  }
-  return b_values;
-}
-
-// this is going to cause funky shifts on the order of a fraction
-// of a bin width.  may need to come back to this.
-template <typename BinType>
-void operator+=(I3MCSPEHistogram<BinType>& lhs, const I3MCSPEHistogram<BinType>& rhs){
-  BOOST_FOREACH(const typename I3MCSPEHistogram<BinType>::base_type::value_type& v_pair, 
-                rhs.get_values())
-    lhs.fill(v_pair.first,v_pair.second);
+  std::vector<typename I3MCSPEHistogram<BinType>::npe_type> npes;
+  BOOST_FOREACH(typename base_type::value_type& v_pair, *this)
+    npes.push_back(v_pair.second);
+  return npes;
 }
 
 class ParticleIDKey;
