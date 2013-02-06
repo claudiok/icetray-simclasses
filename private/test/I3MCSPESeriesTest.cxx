@@ -30,21 +30,6 @@ TEST(instantiation)
   mcspe_series<short> h_short;
 };
 
-TEST(range_constructor)
-{
-  I3MCSPESeries::base_type hits = list_of
-    (I3MCSPESeries::base_type::value_type(1.0,1))
-    (I3MCSPESeries::base_type::value_type(2.0,1));
-
-  I3MCSPESeries h(hits.begin(),hits.end());  // default is 'float'
-  ENSURE(h.is_binned() == false);
-
-  std::cerr<<std::endl;
-  std::cerr<<"hits.size() = "<<hits.size()<<std::endl;
-  std::cerr<<"h.size() = "<<h.size()<<std::endl;
-  ENSURE(hits.size() == h.size());
-};
-
 TEST(unbinned){
   I3MCSPESeries h;  // default is 'float'
   ENSURE(h.is_binned() == false);
@@ -62,8 +47,7 @@ TEST(unbinned){
 };
 
 TEST(binned_simple){
-  I3MCSPESeries h;  // default is 'float'
-  h.set_bin_width(1.0); 
+  I3MCSPESeries h(1.0);  // default is 'float'
   ENSURE(h.is_binned() == true);
 
   std::vector<float> i = list_of(9.)(9.)(9.);
@@ -81,8 +65,7 @@ TEST(binned_simple){
 };
 
 TEST(binned_less_simple){
-  I3MCSPESeries h;  // default is 'float'
-  h.set_bin_width(1.0); 
+  I3MCSPESeries h(1.0);  // default is 'float'
   ENSURE(h.is_binned() == true);
 
   std::vector<float> i = list_of(1.)(9.)(9.)(9.)(10.)(20.);
@@ -119,8 +102,7 @@ TEST(binned_less_simple){
 };
 
 TEST(weighted_binned){
-  I3MCSPESeries h;  // default is 'float'
-  h.set_bin_width(1.0); 
+  I3MCSPESeries h(1.0);  // default is 'float'
   ENSURE(h.is_binned() == true);
 
   std::vector<float> t = list_of(1.)(9.)(9.)(9.)(10.)(20.);
@@ -159,8 +141,7 @@ TEST(weighted_binned){
 };
 
 TEST(weighted_binned_vector){
-  I3MCSPESeries h;  // default is 'float'
-  h.set_bin_width(1.0); 
+  I3MCSPESeries h(1.0);  // default is 'float'
   ENSURE(h.is_binned() == true);
 
   std::vector<float> t = list_of(1.)(9.)(9.)(9.)(10.)(20.);
@@ -198,8 +179,7 @@ TEST(weighted_binned_vector){
 };
 
 TEST(binned_stress_test){
-  I3MCSPESeries h;  // default is 'float'
-  h.set_bin_width(1.0); 
+  I3MCSPESeries h(1.0);  // default is 'float'
   ENSURE(h.is_binned() == true);
 
   float nbins(1000.);
@@ -224,8 +204,7 @@ TEST(binned_stress_test){
 };
 
 TEST(binned_stress_test_vector){
-  I3MCSPESeries h;  // default is 'float'
-  h.set_bin_width(1.0); 
+  I3MCSPESeries h(1.0);  // default is 'float'
   ENSURE(h.is_binned() == true);
 
   boost::mt19937 rng(42u);
@@ -253,37 +232,3 @@ TEST(binned_stress_test_vector){
   }
 
 };
-
-TEST(mixed_binning_test){
-  I3MCSPESeries h;  // default is 'float'
-  ENSURE(h.is_binned() == false);
-
-  boost::mt19937 rng(42u);
-  boost::uniform_real<> distribution(0.,1000.);
-  boost::variate_generator<boost::mt19937&, boost::uniform_real<> > 
-    generator(rng,distribution);
-
-  int N(10000);
-  for(int i(0); i < N; ++i){
-    h.fill(generator());
-  }
-
-  // change horsemen mid-apocalypse
-  h.set_bin_width(1.0);
-  ENSURE(h.is_binned() == true);
-  for(int i(0); i < N; ++i){
-    h.fill(generator());
-  }
-
-  std::cerr<<std::endl;
-  std::cerr<<"h.is_binned() = "<<h.is_binned()<<std::endl;
-  std::cerr<<"h.get_bin_width() = "<<h.get_bin_width()<<std::endl;
-  std::cerr<<"h.npe_values().size() = "<<h.npe_values().size()<<std::endl;
-  std::cerr<<"h.arrival_times().size() = "<<h.arrival_times().size()<<std::endl;
-
-  for(size_t i(0); i < h.npe_values().size(); ++i){
-    std::cerr<<h.arrival_times()[i]<<" : "<<h.npe_values()[i]<<std::endl;             
-  }
-
-};
-

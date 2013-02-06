@@ -26,81 +26,79 @@ bool compare_bin_value_pair(std::pair<TimeType,uint32_t> val,
   return val.first < iter.first;
 }
 
-template <typename TimeType>
-bool is_sorted(typename std::vector<std::pair<TimeType,uint32_t> >::const_iterator start,
-               typename std::vector<std::pair<TimeType,uint32_t> >::const_iterator finish)
-{
-  typename std::vector<std::pair<TimeType,uint32_t> >::const_iterator i(start);
-  typename std::vector<std::pair<TimeType,uint32_t> >::const_iterator j(i);
-  ++j;
-  for(; j != finish; ++i,++j)
-    if(i->first > j->first) return false;
-  return true;  
-}
-
 /**
  * Structure that holds MC SPE photocathode arrival times.  
- * This structure supports both binned and unbinned (and even
- * mixed binning) hits.  The bin width determines whether
- * it's binned or not.  Bin widths greater than 0 implies
- * binned hits.  Bin widths <=0, nan, or inf imply unbinned.
+ * This structure supports both binned and unbinned hits.  
+ * The bin width determines whether it's binned or not.  
+ * Bin widths greater than 0 implies binned hits.  Bin 
+ * widths <=0, nan, or inf imply unbinned.
  */
-template <typename TimeType = float> class mcspe_series : 
-  public std::vector<std::pair<TimeType,uint32_t> > 
+template <typename TimeType = float> 
+class mcspe_series 
 {
   
 public:
 
-  typedef std::vector<std::pair<TimeType,uint32_t> > base_type;
   typedef uint32_t npe_type;
   typedef TimeType time_type;
+  typedef std::vector<std::pair<time_type, npe_type> > container_type;
+  typedef typename container_type::value_type value_type;
+  typedef typename container_type::allocator_type allocator_type;
+  typedef typename container_type::reference reference ;   
+  typedef typename container_type::const_reference const_reference;   
+  typedef typename container_type::pointer pointer;
+  typedef typename container_type::const_pointer const_pointer;   
+  typedef typename container_type::iterator iterator;   
+  typedef typename container_type::const_iterator const_iterator;   
+  typedef typename container_type::reverse_iterator reverse_iterator;   
+  typedef typename container_type::const_reverse_iterator const_reverse_iterator;   
+  typedef typename container_type::difference_type difference_type;   
+  typedef typename container_type::size_type size_type;
 
   /**
-   * Nullary constructor defaults to unbinned.
+   * Unbinned constructor.
    */
-  mcspe_series() : 
-    bin_width_(0)
-  {};
-
+  mcspe_series() : bin_width_(0) {};
   /**
-   * Range constructor needed for dataclasses suite.
+   * This is the only way to set the bin width.  mcspe_series are
+   * set to be binned or unbinned at construction only.
    */
-  mcspe_series(typename base_type::iterator i, 
-	       typename base_type::iterator j) : 
-    bin_width_(0)
-  { 
-    std::copy(i,j, std::back_inserter(*this));
+  mcspe_series(time_type bw) : bin_width_(bw) {};
+
+  void sort(){
+    if(!is_binned())
+      std::sort(values_.begin(), values_.end(), compare_bin_value_pair<time_type>);
   }
-
   /**
-   * Get/Setter for bin width.  The Getter is trivial.  The
-   * Setter however keeps track of switches from unbinned -> binned.
-   * It's important that the hits be sorted when binning, so
-   * we sort on every transition.
+   * Only a getter for bin_width in this version.  
    */ 
-  TimeType get_bin_width(){ return bin_width_; }
-  void set_bin_width(TimeType b){ 
-    bin_width_ = b; 
-    if(is_binned() && !this->empty()       
-       && !is_sorted<TimeType>(this->begin(),this->end())){
-      // transition from possibly unsorted to binned
-      // need to sort
-      std::sort(this->begin(), this->end(), compare_bin_value_pair<TimeType>);
-      return;
-    }    
-  }
+  TimeType get_bin_width() const { return bin_width_; }
+
+  size_t size() const { return values_.size(); }
+  const_iterator cbegin() const { return values_.begin(); }
+  const_iterator cend() const { return values_.end(); }
+  const_reverse_iterator crbegin() const { return values_.rbegin(); }
+  const_reverse_iterator crend() const { return values_.rend(); }
+  size_t max_size() const { return values_.max_size(); }
+  size_t capacity() const { return values_.capacity(); }
+  size_t empty() const { return values_.empty(); }
+  const_reference operator[](size_type n) const { return values_[n]; }
+  const_reference at(size_type n) const { return values_.at(n); }
+  const_reference front() const { return values_.front(); }
+  const_reference back() const { return values_.back(); }
+  allocator_type get_allocator() const { return values_.get_allocator(); }
 
   /**
    * Methods to return npe and arrival_times.  These
    * vectors are guaranteed to be the same size.
    */
-  std::vector<npe_type> npe_values();
-  std::vector<TimeType> arrival_times();
+  std::vector<npe_type> npe_values() const;
+  std::vector<TimeType> arrival_times() const;
 
   /**
    * Convenience method that returns true if this series is binned.
    */
-  bool is_binned(){ return std::isnormal(bin_width_) && bin_width_ > 0;}
+  bool is_binned() const { return std::isnormal(bin_width_) && bin_width_ > 0;}
 
   /**  
    * Various fill methods.  The first three are implemented for convenience
@@ -134,14 +132,13 @@ public:
 
 private:  
   TimeType bin_width_;
-  bool is_sorted_;
+  container_type values_;
 
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive & ar, const unsigned version)
   {    
-    ar & make_nvp("base", base_object<base_type>(*this));
-    ar & make_nvp("bin_width",bin_width_);
-    ar & make_nvp("is_sorted",is_sorted_);
+    ar & make_nvp("values", values_);
+    ar & make_nvp("bin_width", bin_width_);
   }
 
 };
@@ -158,7 +155,7 @@ BOOST_CLASS_VERSION(mcspe_series<>,i3mcspeseries_version_);
 template <typename TimeType>
 std::pair<typename mcspe_series<TimeType>::iterator,
           typename mcspe_series<TimeType>::iterator>
-bracket(typename mcspe_series<TimeType>::base_type& cont, TimeType value){
+bracket(typename mcspe_series<TimeType>::container_type& cont, TimeType value){
  
   // use std::upper_bound to get the first element in the vector that compares 
   // greater than 'value.'  std::lower_bound would work just the same, but 
@@ -193,28 +190,28 @@ bracket(typename mcspe_series<TimeType>::base_type& cont, TimeType value){
 template <typename TimeType>
 void mcspe_series<TimeType>::fill(TimeType b, npe_type w){
 
-  if( !is_binned() || this->empty()){  
-    this->push_back(typename base_type::value_type(b,w));
+  if( !is_binned() || values_.empty()){  
+    values_.push_back(value_type(b,w));
     return;
   }
 
-  if(b < this->front().first){
+  if(b < values_.front().first){
     // create a new bin and insert at the front
-    TimeType distance(fabs(this->front().first - b));    
+    TimeType distance(fabs(values_.front().first - b));    
     int32_t nbins(1 + distance/bin_width_);
     TimeType offset(nbins * bin_width_);
-    TimeType le(this->front().first - offset);
-    this->insert(this->begin(), typename base_type::value_type(le,w));
+    TimeType le(values_.front().first - offset);
+    values_.insert(values_.begin(), value_type(le,w));
     return;
   }
 
-  if(b > this->back().first + bin_width_){
+  if(b > values_.back().first + bin_width_){
     // create and new bin and push_back
-    TimeType distance(b - this->back().first);    
+    TimeType distance(b - values_.back().first);    
     int32_t nbins(distance/bin_width_);
     TimeType offset(nbins * bin_width_);
-    TimeType le(this->back().first + offset);
-    this->push_back(typename base_type::value_type(le,w));
+    TimeType le(values_.back().first + offset);
+    values_.push_back(value_type(le,w));
     return;
   }
 
@@ -223,11 +220,11 @@ void mcspe_series<TimeType>::fill(TimeType b, npe_type w){
   // it's somewhere in between.
   std::pair<typename mcspe_series<TimeType>::iterator,
             typename mcspe_series<TimeType>::iterator>
-    low_high_pair = bracket<TimeType>(*this,b);
+    low_high_pair = bracket<TimeType>(values_,b);
 
   // it's ok if low_high_pair.second is end()
   // we never dereference it.  it's only used for insertion.
-  assert(low_high_pair.first != this->end());
+  assert(low_high_pair.first != values_.end());
 
   TimeType distance(b - low_high_pair.first->first);
 
@@ -241,22 +238,23 @@ void mcspe_series<TimeType>::fill(TimeType b, npe_type w){
     int32_t nbins(distance/bin_width_);
     TimeType offset(nbins * bin_width_);
     TimeType le(low_high_pair.first->first + offset);
-    this->insert(low_high_pair.second, typename base_type::value_type(le,w));
+    values_.insert(low_high_pair.second, value_type(le,w));
   }
 }
 
 template <typename TimeType>
-std::vector<TimeType> mcspe_series<TimeType>::arrival_times(){
+std::vector<TimeType> mcspe_series<TimeType>::arrival_times() const {
   std::vector<TimeType> times;
-  BOOST_FOREACH(typename base_type::value_type& v_pair, *this)
+  BOOST_FOREACH(const_reference v_pair, values_)
     times.push_back(v_pair.first);
   return times;
 }
 
 template <typename TimeType>
-std::vector<typename mcspe_series<TimeType>::npe_type> mcspe_series<TimeType>::npe_values(){
+std::vector<typename mcspe_series<TimeType>::npe_type> 
+mcspe_series<TimeType>::npe_values() const {
   std::vector<typename mcspe_series<TimeType>::npe_type> npes;
-  BOOST_FOREACH(typename base_type::value_type& v_pair, *this)
+  BOOST_FOREACH(const_reference v_pair, values_)
     npes.push_back(v_pair.second);
   return npes;
 }

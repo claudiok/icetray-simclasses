@@ -14,20 +14,25 @@ void register_I3MCSPESeries()
   void (I3MCSPESeries::*fill_float_weight)(float, uint32_t) = &I3MCSPESeries::fill;
   void (I3MCSPESeries::*fill_float_vector)(const std::vector<float>& ) = 
     &I3MCSPESeries::fill;
+  void (I3MCSPESeries::*fill_float_vector_vector)(const std::vector<float>&, 
+						  const std::vector<uint32_t>&) = 
+    &I3MCSPESeries::fill;
   
   {
     scope pehist_scope = 
       class_<I3MCSPESeries, boost::shared_ptr<I3MCSPESeries > >
       ("I3MCSPESeries")
+      .def(init<float>())
       .def("fill", fill_float )
       .def("fill", fill_float_weight )
       .def("fill", fill_float_vector )
-      .add_property("bin_width",&I3MCSPESeries::get_bin_width,
-                    &I3MCSPESeries::set_bin_width)
+      .def("fill", fill_float_vector_vector )
+      .add_property("bin_width",&I3MCSPESeries::get_bin_width)
       .add_property("npe_values",&I3MCSPESeries::npe_values)
       .add_property("arrival_times",&I3MCSPESeries::arrival_times)
       .add_property("is_binned",&I3MCSPESeries::is_binned)
-      .def(dataclass_suite<I3MCSPESeries>())
+      .def("sort", &I3MCSPESeries::sort)
+      .def("__len__",&I3MCSPESeries::size)
       ;
   }
 
