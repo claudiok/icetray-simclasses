@@ -23,14 +23,13 @@ struct ParticleIDKey{
   uint64_t major_ID;
 
   ParticleIDKey(const I3Particle& p);
-  ParticleIDKey(){};
+  ParticleIDKey(){}; //remove me
 
   bool operator==(const ParticleIDKey& rhs) {
     return major_ID == rhs.major_ID
     && minor_ID == rhs.minor_ID;
   }
   
-
  private:
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive & ar, unsigned version);

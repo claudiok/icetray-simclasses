@@ -41,4 +41,19 @@ void register_I3MCSPESeries()
    .def(dataclass_suite<std::vector<float> >())
    ;
 
+  class_<std::vector<int32_t>, boost::shared_ptr<std::vector<int32_t> > > 
+      ("vector_int32_t")
+   .def(dataclass_suite<std::vector<int32_t> >())
+   ;
+
+  class_<I3MCSPESeriesMap, I3MCSPESeriesMapPtr>("I3MCSPESeriesMap")
+    .def(dataclass_suite<I3MCSPESeriesMap>())
+  ;  
+
+  class_<I3MCSPESeriesMapMap, bases<I3FrameObject>, I3MCSPESeriesMapMapPtr>
+  ("I3MCSPESeriesMapMap")
+    .def(dataclass_suite<I3MCSPESeriesMapMap>())
+  ;
+  
+  register_pointer_conversions<I3MCSPESeriesMapMap>();
 }

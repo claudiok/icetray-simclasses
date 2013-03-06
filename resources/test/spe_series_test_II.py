@@ -5,11 +5,10 @@ from icecube import simclasses as sc
 import random 
 import time
 
-binned_h = sc.I3MCSPESeries()
-binned_h.bin_width = 1.0
+binned_h = sc.I3MCSPESeries(1.0)
 unbinned_h = sc.I3MCSPESeries()
 
-for p in range(4,7):
+for p in range(2,7):
     for n in range(2,7):
         nhits = 10**n
         nbins = 10**p
