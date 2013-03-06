@@ -5,8 +5,7 @@ if(BUILD_PYBINDINGS)
     I3MCPMTResponse.cxx
     I3MMCTrack.cxx
     I3MCPulse.cxx
-    I3MCSPESeries.cxx
-    ParticleIDKey.cxx
+    I3MCSPE.cxx
     module.cxx
     USE_TOOLS boost python log4cplus
     USE_PROJECTS simclasses icetray tableio
