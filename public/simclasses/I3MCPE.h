@@ -1,0 +1,71 @@
+/**
+ * copyright  (C) 2013
+ * the icecube collaboration
+ * @version $Id: $
+ */
+
+#ifndef I3MCPE_H_INCLUDED
+#define I3MCPE_H_INCLUDED
+
+#include <algorithm>
+#include <vector>
+#include <boost/foreach.hpp>
+#include <icetray/I3Logging.h>
+#include <icetray/serialization.h>
+#include <dataclasses/I3Map.h>
+
+static const unsigned i3mcpe_version_ = 0;
+
+/**
+ * @brief I3MCPE struct that stores the photon arrival time 
+ * (i.e.PE creation time), number of PE (for binning), and
+ * the IDs of the particle that created this.
+ */
+
+struct I3MCPE {
+
+  /** 
+   * IDs of the I3Particle that created this PE
+   */   
+  int64_t major_ID;
+  uint32_t minor_ID;
+
+  /**
+   * Creation time of PE (photon arrival time)
+   */ 
+  float time;
+
+  /**
+   * Number of PEs this object represents.
+   * Used for binning.
+   */
+  uint32_t npe;
+
+  SET_LOGGER("I3MCPE");
+
+  bool operator==(const I3MCPE& rhs) {
+    return time == rhs.time
+    && npe == rhs.npe
+    && major_ID == rhs.major_ID
+    && minor_ID == rhs.minor_ID;
+  }
+  
+private:
+  friend class boost::serialization::access;
+  template <class Archive> void serialize(Archive & ar, const unsigned version)
+  {
+    ar & make_nvp("time",time);
+    ar & make_nvp("npe",npe);
+    ar & make_nvp("major_ID",major_ID);
+    ar & make_nvp("minor_ID",minor_ID);
+  }
+
+};
+
+BOOST_CLASS_VERSION(I3MCPE,i3mcpe_version_);
+typedef std::vector<I3MCPE> I3MCPESeries;
+typedef I3Map<OMKey, I3MCPESeries > I3MCPESeriesMap;
+I3_POINTER_TYPEDEFS(I3MCPESeries);
+I3_POINTER_TYPEDEFS(I3MCPESeriesMap);
+
+#endif

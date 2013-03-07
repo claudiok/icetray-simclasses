@@ -26,7 +26,9 @@ void register_I3MCPMTResponse();
 void register_I3MMCTrack();
 void register_CorsikaLongStep();
 void register_I3CorsikaShowerInfo();
-void register_MMCWeight();
+void register_I3MCPulse();
+void register_I3MCPESeries();
+void register_ParticleIDKey();
 
 BOOST_PYTHON_MODULE(simclasses)
 {
@@ -36,6 +38,8 @@ BOOST_PYTHON_MODULE(simclasses)
   register_I3MMCTrack();
   register_CorsikaLongStep();
   register_I3CorsikaShowerInfo();
-  register_MMCWeight();
+  register_I3MCPulse();
+  register_I3MCPESeries();
+  register_ParticleIDKey();
 }
 
