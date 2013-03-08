@@ -27,8 +27,8 @@ struct I3MCPE {
   /** 
    * IDs of the I3Particle that created this PE
    */   
-  int64_t major_ID;
-  uint32_t minor_ID;
+  uint64_t major_ID;
+  int32_t minor_ID;
 
   /**
    * Creation time of PE (photon arrival time)
