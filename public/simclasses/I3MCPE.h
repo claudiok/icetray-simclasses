@@ -14,6 +14,9 @@
 #include <icetray/serialization.h>
 #include <dataclasses/I3Map.h>
 
+class I3Particle;
+class I3MCHit;
+
 static const unsigned i3mcpe_version_ = 0;
 
 /**
@@ -43,6 +46,13 @@ struct I3MCPE {
 
   SET_LOGGER("I3MCPE");
 
+  // default constructor for noise generators
+  I3MCPE() : major_ID(0), minor_ID(0){};
+
+  // constructor for hit makers
+  // this just sets the major and minor IDs accordingly
+  I3MCPE(const I3Particle& p);
+
   bool operator==(const I3MCPE& rhs) {
     return time == rhs.time
     && npe == rhs.npe
@@ -65,6 +75,7 @@ private:
 BOOST_CLASS_VERSION(I3MCPE,i3mcpe_version_);
 typedef std::vector<I3MCPE> I3MCPESeries;
 typedef I3Map<OMKey, I3MCPESeries > I3MCPESeriesMap;
+I3_POINTER_TYPEDEFS(I3MCPE);
 I3_POINTER_TYPEDEFS(I3MCPESeries);
 I3_POINTER_TYPEDEFS(I3MCPESeriesMap);
 
