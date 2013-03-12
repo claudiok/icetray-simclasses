@@ -13,6 +13,7 @@
 #include <icetray/I3Logging.h>
 #include <icetray/serialization.h>
 #include <dataclasses/I3Map.h>
+#include <dataclasses/physics/I3Particle.h>
 
 class I3Particle;
 class I3MCHit;
@@ -46,19 +47,23 @@ struct I3MCPE {
 
   SET_LOGGER("I3MCPE");
 
-  // default constructor for noise generators
-  I3MCPE() : major_ID(0), minor_ID(0){};
-
-  // constructor for hit makers
-  // this just sets the major and minor IDs accordingly
-  I3MCPE(const I3Particle& p);
-
   bool operator==(const I3MCPE& rhs) {
     return time == rhs.time
     && npe == rhs.npe
     && major_ID == rhs.major_ID
     && minor_ID == rhs.minor_ID;
   }
+	
+  // default constructor for noise generators
+  I3MCPE():major_ID(0),minor_ID(0),npe(0){}
+
+  // constructor for hit makers
+  // this just sets the major and minor IDs accordingly
+  I3MCPE(const I3Particle& p):
+  major_ID(p.GetMajorID()),minor_ID(p.GetMinorID()),npe(0){}
+
+  I3MCPE(uint64_t major_ID, int32_t minor_ID):
+  major_ID(major_ID),minor_ID(minor_ID),npe(0){}
   
 private:
   friend class boost::serialization::access;

@@ -9,10 +9,10 @@
  */
 
 struct I3ParticleID{
-    uint64_t majorID;
-    int32_t minorID;
-    
-    bool operator<(const I3ParticleID& other) const {
+	uint64_t majorID;
+	int32_t minorID;
+	
+	bool operator<(const I3ParticleID& other) const {
 		return(majorID<other.majorID);
 	}
 	
