@@ -24,8 +24,8 @@ void register_I3MCPESeries()
   class_<I3MCPESeries, I3MCPESeriesPtr>("I3MCPESeries")
     .def(dataclass_suite<I3MCPESeries>())
   ;    
-  class_<I3MCPESeriesMap, I3MCPESeriesMapPtr>("I3MCPESeriesMap")
+  class_<I3MCPESeriesMap, I3MCPESeriesMapPtr, bases<I3FrameObject> >("I3MCPESeriesMap")
     .def(dataclass_suite<I3MCPESeriesMap>())
-  ;    
+  ;
   register_pointer_conversions<I3MCPESeriesMap>();
 }
