@@ -14,8 +14,8 @@ void register_I3MCPESeries()
     scope mcspe_scope = 
       class_<I3MCPE, boost::shared_ptr<I3MCPE> >
       ("I3MCPE")
-      .add_property("time",&I3MCPE::time)
-      .add_property("npe",&I3MCPE::npe)
+      .def_readwrite("time",&I3MCPE::time)
+      .def_readwrite("npe",&I3MCPE::npe)
       .def_readonly("major_ID",&I3MCPE::major_ID)
       .def_readonly("minor_ID",&I3MCPE::minor_ID)
       ;
