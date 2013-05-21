@@ -14,7 +14,7 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   )
 
 
-SET(LIB_${PROJECT_NAME}_PROJECTS icetray dataclasses phys-services)
+SET(LIB_${PROJECT_NAME}_PROJECTS icetray dataclasses)
 SET(LIB_${PROJECT_NAME}_TOOLS boost python)
 
 if(IS_DIRECTORY ${CMAKE_SOURCE_DIR}/tableio)
