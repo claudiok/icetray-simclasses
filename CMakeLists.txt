@@ -9,7 +9,6 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3CorsikaShowerInfo.cxx
   private/simclasses/I3MCPulse.cxx
   private/simclasses/I3MCPE.cxx
-  private/simclasses/I3ParticleID.cxx
   private/simclasses/I3MCPEConverters.cxx
   )
 
