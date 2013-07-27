@@ -6,7 +6,6 @@ if(BUILD_PYBINDINGS)
     I3MMCTrack.cxx
     I3MCPulse.cxx
     I3MCPE.cxx
-    I3ParticleID.cxx
     module.cxx
     USE_TOOLS boost python
     USE_PROJECTS simclasses icetray tableio
