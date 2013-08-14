@@ -43,6 +43,8 @@ void I3CorsikaShowerInfo::clear()
 
   resampleRadius = NAN;
   nResample      = 0;
+  nResampleNominal = 0;
+  weight      = 1.;
   
   longProfile.clear();
 }
@@ -74,6 +76,10 @@ void I3CorsikaShowerInfo::serialize(Archive& ar, unsigned version)
   if (version > 0) {
     ar & make_nvp("resampleRadius", resampleRadius);
     ar & make_nvp("nResample", nResample);
+  }
+  if (version > 1) {
+    ar & make_nvp("weight", weight);
+    ar & make_nvp("nResampleNominal", nResampleNominal);
   }
 }
 

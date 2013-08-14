@@ -23,7 +23,7 @@
  * shower information
  */
 
-static const unsigned i3corsikashowerinfo_version_ = 1;
+static const unsigned i3corsikashowerinfo_version_ = 2;
 
 struct I3CorsikaShowerInfo: public I3FrameObject
 {
@@ -46,7 +46,10 @@ struct I3CorsikaShowerInfo: public I3FrameObject
 
   double resampleRadius;
   uint16_t nResample;
-  
+
+  uint16_t nResampleNominal;
+  double weight;
+
   I3CorsikaShowerInfo();
   
   virtual ~I3CorsikaShowerInfo();

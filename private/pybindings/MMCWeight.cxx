@@ -2,7 +2,7 @@
  * copyright  (C) 2010
  * The Icecube Collaboration
  *
- * $Id: I3CorsikaShowerInfo.cxx 66215 2010-08-17 16:53:26Z kislat $
+ * $Id$
  *
  * @version $Revision: 66215 $
  * @date $LastChangedDate: 2010-08-17 18:53:26 +0200 (Tue, 17 Aug 2010) $

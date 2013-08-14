@@ -30,7 +30,9 @@ void register_I3CorsikaShowerInfo()
     .def_readwrite("ghRedChiSqr", &I3CorsikaShowerInfo::ghRedChiSqr)
     .def_readwrite("longProfile", &I3CorsikaShowerInfo::longProfile)
     .def_readwrite("resampleRadius", &I3CorsikaShowerInfo::resampleRadius)
+    .def_readwrite("weight", &I3CorsikaShowerInfo::weight)
     .def_readwrite("nResample", &I3CorsikaShowerInfo::nResample)
+    .def_readwrite("nResampleNominal", &I3CorsikaShowerInfo::nResampleNominal)
     .def("clear", &I3CorsikaShowerInfo::clear)
     ;
   register_pointer_conversions<I3CorsikaShowerInfo>();
