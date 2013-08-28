@@ -37,7 +37,7 @@ struct I3MCPE {
   /**
    * Creation time of PE (photon arrival time)
    */ 
-  float time;
+  double time;
 
   /**
    * Number of PEs this object represents.

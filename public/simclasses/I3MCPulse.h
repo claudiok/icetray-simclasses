@@ -15,7 +15,7 @@
 #include <icetray/serialization.h>
 #include <dataclasses/I3Map.h>
 
-static const unsigned i3mcpulse_version_ = 0;
+static const unsigned i3mcpulse_version_ = 1;
 
 /**
  * @brief I3MCPulse struct that stores the time, charge,
@@ -35,7 +35,7 @@ struct I3MCPulse {
     EARLY_AFTER_PULSE = 70
   };
 
-  float time;
+  double time;
   float charge;
   PulseSource source;
 
@@ -56,7 +56,13 @@ private:
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive & ar, const unsigned version)
   {
-    ar & make_nvp("time",time);
+    if(version == 0){
+      float t(0.);
+      ar & make_nvp("time",t);
+      time = t;
+    }else{
+      ar & make_nvp("time",time);
+    }
     ar & make_nvp("charge",charge);
     ar & make_nvp("source",source);
   }
