@@ -18,7 +18,7 @@
 class I3Particle;
 class I3MCHit;
 
-static const unsigned i3mcpe_version_ = 0;
+static const unsigned i3mcpe_version_ = 1;
 
 /**
  * @brief I3MCPE struct that stores the photon arrival time 
@@ -69,7 +69,13 @@ private:
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive & ar, const unsigned version)
   {
-    ar & make_nvp("time",time);
+    if(version == 0){
+      float t(0.);
+      ar & make_nvp("time",t);
+      time = t;
+    }else{
+      ar & make_nvp("time",time);
+    }
     ar & make_nvp("npe",npe);
     ar & make_nvp("major_ID",major_ID);
     ar & make_nvp("minor_ID",minor_ID);
