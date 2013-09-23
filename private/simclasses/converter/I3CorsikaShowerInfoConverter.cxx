@@ -65,20 +65,39 @@ I3TableRowDescriptionPtr I3CorsikaShowerInfoConverter::CreateDescription(const I
 
 size_t I3CorsikaShowerInfoConverter::FillRows(const I3CorsikaShowerInfo& info, I3TableRowPtr rows)
 {
+  // A temporary hack to see if we're reading files in which topsimulator stored depths in g/cm^2 (without converting).
+  // We'll try to predict it and act accordingly (either un-convert or not).
+  // This bit should go away in the future when all topsimulator files are storing converted units.
+  bool depths_not_stored_using_I3Units = 0;
+  double big = 0.001 * gcm2;
+  if (info.ghMaxDepth < big && info.ghStartDepth < big && info.firstIntDepth < big) {
+    log_info("It looks like depths were stored as g/cm^2 instead of I3Units native units. I will NOT convert them.");
+    depths_not_stored_using_I3Units = 1;
+  }
+
   rows->Set<int32_t>("crsRunID", info.crsRunID);
   rows->Set<int32_t>("crsEventID", info.crsEventID);
   rows->Set<int32_t>("crsSampleID", info.crsSampleID);
   rows->Set<double>("firstIntHeight", info.firstIntHeight/I3Units::m);
-  rows->Set<double>("firstIntDepth", info.firstIntDepth/gcm2);
-  rows->Set<double>("obsLevelHeight", info.obsLevelHeight/gcm2);
+  if (depths_not_stored_using_I3Units) 
+    rows->Set<double>("firstIntDepth", info.firstIntDepth);
+  else 
+    rows->Set<double>("firstIntDepth", info.firstIntDepth/gcm2);
+  rows->Set<double>("obsLevelHeight", info.obsLevelHeight/I3Units::m);
   rows->Set<double>("ghMaxNum", info.ghMaxNum);
-  rows->Set<double>("ghStartDepth", info.ghStartDepth/gcm2);
-  rows->Set<double>("ghMaxDepth", info.ghMaxDepth/gcm2);
+  if (depths_not_stored_using_I3Units) {
+    rows->Set<double>("ghStartDepth", info.ghStartDepth);
+    rows->Set<double>("ghMaxDepth", info.ghMaxDepth);
+  } else {
+    rows->Set<double>("ghStartDepth", info.ghStartDepth/gcm2);
+    rows->Set<double>("ghMaxDepth", info.ghMaxDepth/gcm2);
+  }
   rows->Set<double>("ghRedChiSqr", info.ghRedChiSqr);
   rows->Set<double>("resampleRadius", info.resampleRadius);
   rows->Set<double>("weight", info.weight);
   rows->Set<uint16_t>("nResample", info.nResample);
   rows->Set<uint16_t>("nResampleNominal", info.nResampleNominal);
+
 
   if (nLongSteps_) {
     if (info.longProfile.size() != nLongSteps_) {
@@ -99,7 +118,10 @@ size_t I3CorsikaShowerInfoConverter::FillRows(const I3CorsikaShowerInfo& info, I
     uint64_t *longNumCherenkovBuffer = rows->GetPointer<uint64_t>("longNumCherenkov");
 
     for (size_t i = 0; i < std::min(info.longProfile.size(), nLongSteps_); ++i) {
-      longDepthBuffer[i] = info.longProfile[i].depth/gcm2;
+      if (depths_not_stored_using_I3Units) 
+	longDepthBuffer[i] = info.longProfile[i].depth;
+      else 
+	longDepthBuffer[i] = info.longProfile[i].depth/gcm2;
       longNumGammaBuffer[i] = info.longProfile[i].numGamma;
       longNumEMinusBuffer[i] = info.longProfile[i].numEMinus;
       longNumEPlusBuffer[i] = info.longProfile[i].numEPlus;
