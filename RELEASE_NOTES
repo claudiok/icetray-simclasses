@@ -2,6 +2,18 @@
 # $Author: olivas $
 # $Date: 2011-10-10 $
 
+January 13, 2014 Meike de With (meike.de.with@desy.de)
+--------------------------------------------------------------------
+Release V01-04-00
+
+- Use doubles to store pulse times (necessary for long events)
+  -- Alex Olivas
+
+- Fix bug in obsLevelHeight units
+- Add hack to try and tell whether depths were stored as g/cm2 or in I3Units
+  -- Kath Rawlins
+
+
 January 11, 2012 Emanuel Jacobi  (emanuel.jacobi@desy.de)
 --------------------------------------------------------------------
 Release V01-01-00
