@@ -47,7 +47,7 @@ struct I3MCPE {
 
   SET_LOGGER("I3MCPE");
 
-  bool operator==(const I3MCPE& rhs) {
+  bool operator==(const I3MCPE& rhs) const {
     return time == rhs.time
     && npe == rhs.npe
     && major_ID == rhs.major_ID

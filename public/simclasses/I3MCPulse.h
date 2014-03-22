@@ -41,7 +41,7 @@ struct I3MCPulse {
 
   SET_LOGGER("I3MCPulse");
 
-  bool operator==(const I3MCPulse& rhs) {
+  bool operator==(const I3MCPulse& rhs) const {
     return time == rhs.time
     && charge == rhs.charge
     && source == rhs.source;
