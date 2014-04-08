@@ -2,6 +2,14 @@
 # $Author: olivas $
 # $Date: 2011-10-10 $
 
+April 8, 2014 Meike de With (meike.de.with@desy.de)
+--------------------------------------------------------------------
+Release V01-04-01
+
+- Make things const
+  -- Jakob van Santen
+
+
 January 13, 2014 Meike de With (meike.de.with@desy.de)
 --------------------------------------------------------------------
 Release V01-04-00
