@@ -34,5 +34,14 @@ i3_test_executable(test
   USE_TOOLS boost python
   )
 
-add_subdirectory(private/pybindings)
-
+i3_add_pybindings(simclasses
+  private/pybindings/CorsikaLongStep.cxx
+  private/pybindings/I3CorsikaShowerInfo.cxx
+  private/pybindings/I3MCPMTResponse.cxx
+  private/pybindings/I3MMCTrack.cxx
+  private/pybindings/I3MCPulse.cxx
+  private/pybindings/I3MCPE.cxx
+  private/pybindings/module.cxx
+  USE_TOOLS boost python
+  USE_PROJECTS simclasses icetray tableio
+  )
