@@ -4,6 +4,10 @@
 
 #include <simclasses/I3MCPulse.h>
 #include <icetray/python/dataclass_suite.hpp>
+#include <icetray/python/std_map_indexing_suite.hpp>
+#include <tableio/converter/pybindings.h>
+#include <tableio/converter/I3MapConverter.h>
+#include "simclasses/converter/I3MCPulseListConverter.h"
 
 using namespace boost::python;
 
@@ -55,4 +59,7 @@ void register_I3MCPulse()
   
   register_pointer_conversions<I3ParticleIDMap>();
 
+  I3CONVERTER_NAMESPACE(simclasses);
+  typedef I3MapOMKeyVectorConverter< convert::I3MCPulseList > I3MCPulseListConverter;
+  I3CONVERTER_EXPORT_DEFAULT(I3MCPulseListConverter, "Dumps I3MCPulse objects");
 }

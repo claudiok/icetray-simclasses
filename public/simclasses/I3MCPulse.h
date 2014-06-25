@@ -22,6 +22,8 @@ static const unsigned i3mcpulse_version_ = 1;
  * and source of a PMT pulse.
  */
 
+#define I3MCPULSE_H_I3MCPulse_PulseSource (UNKNOWN)(PE)(RANDOM)(AFTER_PULSE)(PRE_PULSE)(ELASTIC_LATE_PULSE)(INELASTIC_LATE_PULSE)(EARLY_AFTER_PULSE)
+
 struct I3MCPulse {
 
   enum PulseSource{
