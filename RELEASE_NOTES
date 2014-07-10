@@ -2,6 +2,12 @@
 # $Author: olivas $
 # $Date: 2011-10-10 $
 
+July 10, 2014 Alex Olivas  (olivas@icecube.umd.edu)
+--------------------------------------------------------------------
+Release V01-04-02
+- Added I3Map<OMKey, vector<I3MCPulse> > converter.
+- Cleaned up cmake pybindings.
+
 April 8, 2014 Meike de With (meike.de.with@desy.de)
 --------------------------------------------------------------------
 Release V01-04-01
