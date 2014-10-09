@@ -69,6 +69,9 @@ private:
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive & ar, const unsigned version)
   {
+  if (version>i3mcpe_version_)
+    log_fatal("Attempting to read version %u from file but running version %u of I3MCPE class.",
+              version,i3mcpe_version_);
     ar & make_nvp("time",time);
     ar & make_nvp("npe",npe);
     ar & make_nvp("major_ID",major_ID);
