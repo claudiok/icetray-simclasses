@@ -16,7 +16,6 @@
 #include <dataclasses/physics/I3Particle.h>
 
 class I3Particle;
-class I3MCHit;
 
 static const unsigned i3mcpe_version_ = 1;
 
