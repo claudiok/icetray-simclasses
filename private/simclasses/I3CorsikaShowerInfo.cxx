@@ -118,7 +118,7 @@ std::ostream& operator<<(std::ostream& os, const I3CorsikaShowerInfo& x) {
      << "\n  nResampleNominal:" << x.nResampleNominal
      << "\n  weight          :" << x.weight
      << "\n  longProfile     :" << x.longProfile
-     << " ]\n";
+     << " ]";
   return os;
 }
 

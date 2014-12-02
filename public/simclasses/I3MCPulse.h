@@ -74,12 +74,14 @@ private:
 
 };
 
-std::ostream& operator<<(std::ostream&, const I3MCPulse&);
-
 BOOST_CLASS_VERSION(I3MCPulse,i3mcpulse_version_);
 
 typedef std::vector<I3MCPulse> I3MCPulseSeries;
 typedef I3Map<OMKey, I3MCPulseSeries > I3MCPulseSeriesMap;
+
+std::ostream& operator<<(std::ostream&, const I3MCPulse&);
+std::ostream& operator<<(std::ostream&, const I3MCPulseSeries&);
+
 I3_POINTER_TYPEDEFS(I3MCPulseSeries);
 I3_POINTER_TYPEDEFS(I3MCPulseSeriesMap);
 

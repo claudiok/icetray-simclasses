@@ -108,6 +108,7 @@ class I3MCPMTResponse : public I3FrameObject
 };
 
 std::ostream& operator<<(std::ostream&, const I3MCPMTResponse&);
+std::ostream& operator<<(std::ostream&, const std::vector<double>&);
 
 /** 
  * pointer type to insulate users from memory managemnt issues

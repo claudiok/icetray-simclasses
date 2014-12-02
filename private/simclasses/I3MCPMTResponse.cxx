@@ -1,5 +1,7 @@
 #include <icetray/serialization.h>
 #include <simclasses/I3MCPMTResponse.h>
+#include <ostream>
+#include "I3SequenceOpOStream.h"
 
 template <class Archive>
     void I3MCPMTResponse::serialize(Archive& ar, unsigned version){
@@ -14,16 +16,11 @@ std::ostream& operator<<(std::ostream& os, const I3MCPMTResponse& r) {
        << "\n  BinSize  :" << r.GetBinSize()
        << "\n  StartTime:" << r.GetStartTime()
        << "\n  EndTime  :" << r.GetEndTime()
-       << "\n  Waveform :[";
-
-    const std::vector<double>& w = r.GetWaveform();
-
-    for (std::vector<double>::const_iterator
-           iter = w.begin(), end = w.end(); iter != end; ++iter)
-        os << *iter << " ";
-
-    os << "] ]";
+       << "\n  Waveform :" << r.GetWaveform()
+       << " ]";
     return os;
 }
+
+I3_SEQUENCE_OP_OSTREAM(std::vector<double>, " ");
 
 I3_SERIALIZABLE(I3MCPMTResponseMap);

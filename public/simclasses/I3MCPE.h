@@ -84,11 +84,14 @@ private:
 
 };
 
-std::ostream& operator<<(std::ostream&, const I3MCPE&);
-
 BOOST_CLASS_VERSION(I3MCPE,i3mcpe_version_);
+
 typedef std::vector<I3MCPE> I3MCPESeries;
 typedef I3Map<OMKey, I3MCPESeries > I3MCPESeriesMap;
+
+std::ostream& operator<<(std::ostream&, const I3MCPE&);
+std::ostream& operator<<(std::ostream&, const I3MCPESeries&);
+
 I3_POINTER_TYPEDEFS(I3MCPE);
 I3_POINTER_TYPEDEFS(I3MCPESeries);
 I3_POINTER_TYPEDEFS(I3MCPESeriesMap);

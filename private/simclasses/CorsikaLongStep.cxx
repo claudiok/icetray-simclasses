@@ -72,19 +72,18 @@ bool CorsikaLongStep::operator==(const CorsikaLongStep& rhs) const
 }
 
 std::ostream& operator<<(std::ostream& os, const CorsikaLongStep& s) {
-  using std::setw;
-  os << "[ CorsikaLongStep::\n"
-     << setw(13) << "depth" << ":" << s.depth << "\n"
-     << setw(13) << "numGamma" << ":" << s.numGamma << "\n"
-     << setw(13) << "numEMinus" << ":" << s.numEMinus << "\n"
-     << setw(13) << "numEPlus" << ":" << s.numEPlus << "\n"
-     << setw(13) << "numMuMinus" << ":" << s.numMuMinus << "\n"
-     << setw(13) << "numMuPlus" << ":" << s.numMuPlus << "\n"
-     << setw(13) << "numHadron" << ":" << s.numHadron << "\n"
-     << setw(13) << "numCharged" << ":" << s.numCharged << "\n"
-     << setw(13) << "numNuclei" << ":" << s.numNuclei << "\n"
-     << setw(13) << "numCherenkov" << ":" << s.numCherenkov
-     << " ]\n";
+  os << "[ CorsikaLongStep::"
+     << "\n  depth       :" << s.depth
+     << "\n  numGamma    :" << s.numGamma
+     << "\n  numEMinus   :" << s.numEMinus
+     << "\n  numEPlus    :" << s.numEPlus
+     << "\n  numMuMinus  :" << s.numMuMinus
+     << "\n  numMuPlus   :" << s.numMuPlus
+     << "\n  numHadron   :" << s.numHadron
+     << "\n  numCharged  :" << s.numCharged
+     << "\n  numNuclei   :" << s.numNuclei
+     << "\n  numCherenkov:" << s.numCherenkov
+     << " ]";
   return os;
 }
 
@@ -116,7 +115,7 @@ std::ostream& operator<<(std::ostream& os, const CorsikaLongProfile& p) {
        << setw(13) << iter->numCharged
        << setw(13) << iter->numNuclei
        << setw(13) << iter->numCherenkov;
-  os << " ]\n";
+  os << " ]";
   return os;
 }
 
