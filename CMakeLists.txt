@@ -1,5 +1,7 @@
 
-i3_project(simclasses)
+i3_project(simclasses
+  PYTHON_DIR python
+  DOCS_DIR resources/docs)
 
 SET(LIB_${PROJECT_NAME}_SOURCEFILES 
   private/simclasses/CorsikaLongStep.cxx
@@ -45,3 +47,5 @@ i3_add_pybindings(simclasses
   USE_TOOLS boost python
   USE_PROJECTS simclasses icetray tableio
   )
+
+i3_test_scripts(resources/test/*.py)
