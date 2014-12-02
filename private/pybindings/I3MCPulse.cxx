@@ -37,8 +37,8 @@ void register_I3MCPulse()
     def("identity", identity_<I3MCPulse::PulseSource>);  
   }
 
-  class_<std::vector<I3MCPulse> >("I3MCPulseSeries")
-    .def(dataclass_suite<std::vector<I3MCPulse> >())
+  class_<I3MCPulseSeries>("I3MCPulseSeries")
+    .def(dataclass_suite<I3MCPulseSeries>())
     ;
 
   class_<I3MCPulseSeriesMap, bases<I3FrameObject>, I3MCPulseSeriesMapPtr>("I3MCPulseSeriesMap")

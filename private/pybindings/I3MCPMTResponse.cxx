@@ -20,6 +20,7 @@
  */
 
 #include <simclasses/I3MCPMTResponse.h>
+#include <icetray/python/dataclass_suite.hpp>
 #include <icetray/python/std_map_indexing_suite.hpp>
 
 using namespace boost::python;
@@ -43,7 +44,8 @@ void register_I3MCPMTResponse()
   
  {
   class_<I3MCPMTResponse, I3MCPMTResponsePtr >
-    ("I3MCPMTResponse")    
+    ("I3MCPMTResponse")
+    .def(dataclass_suite<I3MCPMTResponse>())
     .def("GetWaveform", get_waveform_func)
     GETSET(I3MCPMTResponse, double, StartTime)
     GETSET(I3MCPMTResponse, double, EndTime)

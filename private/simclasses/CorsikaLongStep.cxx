@@ -11,6 +11,7 @@
 
 #include "simclasses/CorsikaLongStep.h"
 #include <icetray/serialization.h>
+#include <iomanip>
 
 CorsikaLongStep::CorsikaLongStep():
   depth(NAN),
@@ -30,22 +31,6 @@ CorsikaLongStep::CorsikaLongStep():
 CorsikaLongStep::~CorsikaLongStep()
 {
   
-}
-
-bool CorsikaLongStep::operator==(const CorsikaLongStep& rhs) const
-{
-  return 
-    (depth == rhs.depth) && 
-    (numGamma == rhs.numGamma) &&
-    (numEMinus == rhs.numEMinus) &&
-    (numEPlus == rhs.numEPlus) &&
-    (numMuMinus == rhs.numMuMinus) &&
-    (numMuPlus == rhs.numMuPlus) &&
-    (numHadron == rhs.numHadron) &&
-    (numCharged == rhs.numCharged) &&
-    (numNuclei == rhs.numNuclei) &&
-    (numCherenkov == rhs.numCherenkov)
-    ;
 }
 
 template <class Archive>
@@ -68,6 +53,71 @@ void CorsikaLongStep::serialize(Archive& ar, unsigned version)
   ar & make_nvp("numCharged",   numCharged);
   ar & make_nvp("numNuclei",    numNuclei);
   ar & make_nvp("numCherenkov", numCherenkov);
+}
+
+bool CorsikaLongStep::operator==(const CorsikaLongStep& rhs) const
+{
+  return 
+    (depth == rhs.depth) && 
+    (numGamma == rhs.numGamma) &&
+    (numEMinus == rhs.numEMinus) &&
+    (numEPlus == rhs.numEPlus) &&
+    (numMuMinus == rhs.numMuMinus) &&
+    (numMuPlus == rhs.numMuPlus) &&
+    (numHadron == rhs.numHadron) &&
+    (numCharged == rhs.numCharged) &&
+    (numNuclei == rhs.numNuclei) &&
+    (numCherenkov == rhs.numCherenkov)
+    ;
+}
+
+std::ostream& operator<<(std::ostream& os, const CorsikaLongStep& s) {
+  using std::setw;
+  os << "[ CorsikaLongStep::\n"
+     << setw(13) << "depth" << ":" << s.depth << "\n"
+     << setw(13) << "numGamma" << ":" << s.numGamma << "\n"
+     << setw(13) << "numEMinus" << ":" << s.numEMinus << "\n"
+     << setw(13) << "numEPlus" << ":" << s.numEPlus << "\n"
+     << setw(13) << "numMuMinus" << ":" << s.numMuMinus << "\n"
+     << setw(13) << "numMuPlus" << ":" << s.numMuPlus << "\n"
+     << setw(13) << "numHadron" << ":" << s.numHadron << "\n"
+     << setw(13) << "numCharged" << ":" << s.numCharged << "\n"
+     << setw(13) << "numNuclei" << ":" << s.numNuclei << "\n"
+     << setw(13) << "numCherenkov" << ":" << s.numCherenkov
+     << " ]\n";
+  return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const CorsikaLongProfile& p) {
+  using std::setw;
+  os << "[ CorsikaLongProfile::";
+  os << "\n  " 
+     << setw(6) << "depth" 
+     << setw(13) << "numGamma" 
+     << setw(13) << "numEMinus"
+     << setw(13) << "numEPlus"
+     << setw(13) << "numMuMinus"
+     << setw(13) << "numMuPlus"
+     << setw(13) << "numHadron"
+     << setw(13) << "numCharged"
+     << setw(13) << "numNuclei"
+     << setw(13) << "numCherenkov";
+  for (CorsikaLongProfile::const_iterator
+         iter = p.begin(), end = p.end();
+       iter != end; ++iter)
+    os << "\n  " 
+       << setw(6) << iter->depth 
+       << setw(13) << iter->numGamma
+       << setw(13) << iter->numEMinus
+       << setw(13) << iter->numEPlus
+       << setw(13) << iter->numMuMinus
+       << setw(13) << iter->numMuPlus
+       << setw(13) << iter->numHadron
+       << setw(13) << iter->numCharged
+       << setw(13) << iter->numNuclei
+       << setw(13) << iter->numCherenkov;
+  os << " ]\n";
+  return os;
 }
 
 I3_SERIALIZABLE(CorsikaLongStep);

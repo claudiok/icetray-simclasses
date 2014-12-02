@@ -1,6 +1,7 @@
 #include <simclasses/I3MCPEConverters.h>
 #include <dataclasses/physics/I3MCHit.h>
 #include <simclasses/I3MCPE.h>
+#include <boost/foreach.hpp>
 
 I3MCHit PEConversions::PEToHit(const I3MCPE& pe){
   I3MCHit hit(pe.major_ID, pe.minor_ID);

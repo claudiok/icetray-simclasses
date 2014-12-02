@@ -11,12 +11,14 @@
 
 #include "simclasses/CorsikaLongStep.h"
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
+#include <icetray/python/dataclass_suite.hpp>
 
 namespace bp = boost::python;
 
 void register_CorsikaLongStep()
 {
   bp::class_<CorsikaLongStep, CorsikaLongStepPtr>("CorsikaLongStep")
+    .def(bp::dataclass_suite<CorsikaLongStep>())
     .def_readwrite("depth", &CorsikaLongStep::depth)
     .def_readwrite("numGamma", &CorsikaLongStep::numGamma)
     .def_readwrite("numEMinus", &CorsikaLongStep::numEMinus)
@@ -30,6 +32,6 @@ void register_CorsikaLongStep()
     ;
 
   bp::class_< std::vector<CorsikaLongStep> >("CorsikaLongProfile")
-    .def(bp::vector_indexing_suite< std::vector<CorsikaLongStep> >())
+    .def(bp::dataclass_suite<std::vector<CorsikaLongStep> >())
     ;
 }

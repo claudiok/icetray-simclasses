@@ -1,4 +1,5 @@
 #include <simclasses/I3MCPulse.h>
+#include <ostream>
 
 I3_SERIALIZABLE(I3MCPulseSeriesMap);
 
@@ -14,3 +15,11 @@ std::vector<I3ParticleID> findParents(uint32_t pulseIndex, const ParticlePulseIn
 
 //#warning I3ParticleIDMap serialization is currently broken and disabled!
 I3_SERIALIZABLE(I3ParticleIDMap);
+
+std::ostream& operator<<(std::ostream& os, const I3MCPulse& pulse) {
+    os << "[ I3MCPulse::"
+       << "\n  Time   :" << pulse.time 
+       << "\n  Charge :" << pulse.charge
+       << "\n  Source :" << pulse.source << " ]\n";
+    return os;
+}

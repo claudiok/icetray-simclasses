@@ -74,6 +74,8 @@ private:
 
 };
 
+std::ostream& operator<<(std::ostream&, const I3MCPulse&);
+
 BOOST_CLASS_VERSION(I3MCPulse,i3mcpulse_version_);
 
 typedef std::vector<I3MCPulse> I3MCPulseSeries;

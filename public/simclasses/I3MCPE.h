@@ -7,13 +7,12 @@
 #ifndef I3MCPE_H_INCLUDED
 #define I3MCPE_H_INCLUDED
 
-#include <algorithm>
 #include <vector>
-#include <boost/foreach.hpp>
 #include <icetray/I3Logging.h>
 #include <icetray/serialization.h>
 #include <dataclasses/I3Map.h>
 #include <dataclasses/physics/I3Particle.h>
+#include <ostream>
 
 class I3Particle;
 
@@ -84,6 +83,8 @@ private:
   }
 
 };
+
+std::ostream& operator<<(std::ostream&, const I3MCPE&);
 
 BOOST_CLASS_VERSION(I3MCPE,i3mcpe_version_);
 typedef std::vector<I3MCPE> I3MCPESeries;

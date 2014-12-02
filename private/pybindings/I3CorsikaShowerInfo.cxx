@@ -12,12 +12,14 @@
 #include <tableio/converter/pybindings.h>
 #include "simclasses/I3CorsikaShowerInfo.h"
 #include "simclasses/converter/I3CorsikaShowerInfoConverter.h"
+#include <icetray/python/dataclass_suite.hpp>
 
 namespace bp = boost::python;
 
 void register_I3CorsikaShowerInfo()
 {
   bp::class_<I3CorsikaShowerInfo, bp::bases<I3FrameObject>, I3CorsikaShowerInfoPtr>("I3CorsikaShowerInfo")
+    .def(bp::dataclass_suite<I3CorsikaShowerInfo>())
     .def_readwrite("crsRunID", &I3CorsikaShowerInfo::crsRunID)
     .def_readwrite("crsEventID", &I3CorsikaShowerInfo::crsEventID)
     .def_readwrite("crsSampleID", &I3CorsikaShowerInfo::crsSampleID)

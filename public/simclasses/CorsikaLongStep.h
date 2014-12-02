@@ -41,6 +41,9 @@ struct CorsikaLongStep
 
 typedef std::vector<CorsikaLongStep> CorsikaLongProfile;
 
+std::ostream& operator<<(std::ostream&, const CorsikaLongStep&);
+std::ostream& operator<<(std::ostream&, const CorsikaLongProfile&);
+
 BOOST_CLASS_VERSION(CorsikaLongStep, corsikalongstep_version_);
 I3_POINTER_TYPEDEFS(CorsikaLongStep);
 I3_POINTER_TYPEDEFS(CorsikaLongProfile);

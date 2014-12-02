@@ -17,6 +17,7 @@
 #include <icetray/I3FrameObject.h>
 #include <icetray/I3DefaultName.h>
 #include "simclasses/CorsikaLongStep.h"
+#include <ostream>
 
 /**
  * \brief This is a container class to store additional
@@ -55,9 +56,13 @@ struct I3CorsikaShowerInfo: public I3FrameObject
   virtual ~I3CorsikaShowerInfo();
   
   void clear();
+
+  bool operator==(const I3CorsikaShowerInfo& rhs);
   
   template <class Archive> void serialize(Archive & ar, unsigned version);
 };
+
+std::ostream& operator<<(std::ostream& os, const I3CorsikaShowerInfo&);
 
 BOOST_CLASS_VERSION(I3CorsikaShowerInfo, i3corsikashowerinfo_version_);
 I3_DEFAULT_NAME(I3CorsikaShowerInfo);

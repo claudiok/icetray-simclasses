@@ -84,4 +84,44 @@ void I3CorsikaShowerInfo::serialize(Archive& ar, unsigned version)
 }
 
 
+bool I3CorsikaShowerInfo::operator==(const I3CorsikaShowerInfo& rhs) {
+  return crsRunID == rhs.crsRunID &&
+         crsEventID == rhs.crsEventID &&
+         crsSampleID == rhs.crsSampleID &&
+         firstIntHeight == rhs.firstIntHeight &&
+         firstIntDepth == rhs.firstIntDepth &&
+         obsLevelHeight == rhs.obsLevelHeight &&
+         ghMaxNum == rhs.ghMaxNum &&
+         ghStartDepth == rhs.ghStartDepth &&
+         ghRedChiSqr == rhs.ghRedChiSqr &&
+         longProfile == rhs.longProfile &&
+         resampleRadius == rhs.resampleRadius &&
+         nResample == rhs.nResample &&
+         nResampleNominal == rhs.nResampleNominal &&
+         weight == rhs.weight;
+}
+
+
+std::ostream& operator<<(std::ostream& os, const I3CorsikaShowerInfo& x) {
+  os << "[ I3CorsikaShowerInfo::"
+     << "\n  crsRunID        :" << x.crsRunID
+     << "\n  crsEventID      :" << x.crsEventID
+     << "\n  crsSampleID     :" << x.crsSampleID
+     << "\n  firstIntHeight  :" << x.firstIntHeight
+     << "\n  firstIntDepth   :" << x.firstIntDepth
+     << "\n  obsLevelHeight  :" << x.obsLevelHeight
+     << "\n  ghMaxNum        :" << x.ghMaxNum
+     << "\n  ghStartDepth    :" << x.ghStartDepth
+     << "\n  ghRedChiSqr     :" << x.ghRedChiSqr
+     << "\n  resampleRadius  :" << x.resampleRadius
+     << "\n  nResample       :" << x.nResample
+     << "\n  nResampleNominal:" << x.nResampleNominal
+     << "\n  weight          :" << x.weight
+     << "\n  longProfile     :" << x.longProfile
+     << " ]\n";
+  return os;
+}
+
+
+
 I3_SERIALIZABLE(I3CorsikaShowerInfo);

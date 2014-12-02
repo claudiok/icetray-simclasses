@@ -17,6 +17,7 @@
 #include "icetray/I3Tray.h"
 #include "dataclasses/I3Map.h"
 #include "icetray/OMKey.h"
+#include <ostream>
 
 /**
  * @brief Implementation class for PMT response, simulated by ROMEO
@@ -84,11 +85,29 @@ class I3MCPMTResponse : public I3FrameObject
   double GetEndTime() {return endTime_;}
   void SetEndTime(double t) {endTime_= t;}
 
+  bool operator==(const I3MCPMTResponse& rhs) const {
+    if (!(binSize_ == rhs.binSize_ &&
+          startTime_ == rhs.startTime_ &&
+          endTime_ == rhs.endTime_ && 
+          waveform_.size() == rhs.waveform_.size()))
+      return false;
+
+    // check waveform
+    for (std::size_t i = 0, n = waveform_.size(); i < n; ++i) {
+      if (waveform_[i] != rhs.waveform_[i])
+        return false;
+    }
+
+    return true;
+  }
+
   private:
 
   friend class boost::serialization::access;
   template <class Archive> void serialize(Archive & ar, unsigned version);
 };
+
+std::ostream& operator<<(std::ostream&, const I3MCPMTResponse&);
 
 /** 
  * pointer type to insulate users from memory managemnt issues
