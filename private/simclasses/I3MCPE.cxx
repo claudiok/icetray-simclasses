@@ -5,11 +5,11 @@
 I3_SERIALIZABLE(I3MCPESeriesMap);
 
 std::ostream& operator<<(std::ostream& os, const I3MCPE& pe) {
-  os << "[ I3MCPE::" << std::endl
-     << "  Time :" << pe.time << std::endl
-     << "  NPE  :" << pe.npe << std::endl
-     << "  " << pe.ID << std::endl
-     << "]";
+  os << "[ I3MCPE::"
+     << "\n  Time :" << pe.time
+     << "\n  NPE  :" << pe.npe
+     << "\n  " << pe.ID
+     << " ]";
   return os;
 }
 
