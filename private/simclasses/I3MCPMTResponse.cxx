@@ -23,4 +23,5 @@ std::ostream& operator<<(std::ostream& os, const I3MCPMTResponse& r) {
 
 I3_SEQUENCE_OP_OSTREAM(std::vector<double>, " ");
 
+I3_SERIALIZABLE(I3MCPMTResponse);
 I3_SERIALIZABLE(I3MCPMTResponseMap);
