@@ -15,7 +15,8 @@ void register_I3MCPESeries()
       .def(dataclass_suite<I3MCPE>())
       .def_readwrite("time",&I3MCPE::time)
       .def_readwrite("npe",&I3MCPE::npe)
-      .def_readonly("ID",&I3MCPE::ID)
+      .def_readonly("major_ID",&I3MCPE::major_ID)
+      .def_readonly("minor_ID",&I3MCPE::minor_ID)
       ;
   }
 

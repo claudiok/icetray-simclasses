@@ -4,14 +4,14 @@
 #include <boost/foreach.hpp>
 
 I3MCHit PEConversions::PEToHit(const I3MCPE& pe){
-  I3MCHit hit(pe.ID.majorID, pe.ID.minorID);
+  I3MCHit hit(pe.major_ID, pe.minor_ID);
   hit.SetTime(pe.time);
   hit.SetNPE(pe.npe);
 
   // PEs are only either SPEs or noise so we don't 
   // carry the enum HitSource.  If the I3ParticleID
   // is (0,0) then it's noise.  Otherwise it's an SPE
-  I3MCHit::HitSource source = pe.ID.majorID == 0 && pe.ID.minorID == 0 ?
+  I3MCHit::HitSource source = pe.major_ID == 0 && pe.minor_ID == 0 ?
     I3MCHit::RANDOM : I3MCHit::SPE;
   hit.SetHitSource(source);
   return hit;
@@ -33,8 +33,8 @@ I3MCPEPtr PEConversions::HitToPE(const I3MCHit& hit){
     }
 
     pe = I3MCPEPtr(new I3MCPE);
-    pe->ID.majorID = majorid;
-    pe->ID.minorID = minorid;
+    pe->major_ID = majorid;
+    pe->minor_ID = minorid;
     pe->time = hit.GetTime();
     pe->npe = hit.GetNPE();
   }else{

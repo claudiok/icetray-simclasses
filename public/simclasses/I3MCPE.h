@@ -11,8 +11,10 @@
 #include <icetray/I3Logging.h>
 #include <icetray/serialization.h>
 #include <dataclasses/I3Map.h>
-#include <dataclasses/physics/I3ParticleID.h>
+#include <dataclasses/physics/I3Particle.h>
 #include <ostream>
+
+class I3Particle;
 
 static const unsigned i3mcpe_version_ = 1;
 
@@ -24,10 +26,11 @@ static const unsigned i3mcpe_version_ = 1;
 
 struct I3MCPE {
 
-  /**
-   * ID of the I3Particle that created this PE
-   */
-  I3ParticleID ID;
+  /** 
+   * IDs of the I3Particle that created this PE
+   */   
+  uint64_t major_ID;
+  int32_t minor_ID;
 
   /**
    * Creation time of PE (photon arrival time)
@@ -45,28 +48,20 @@ struct I3MCPE {
   bool operator==(const I3MCPE& rhs) const {
     return time == rhs.time
     && npe == rhs.npe
-    && ID == rhs.ID;
+    && major_ID == rhs.major_ID
+    && minor_ID == rhs.minor_ID;
   }
 	
   // default constructor for noise generators
-  I3MCPE():npe(0)
-  {
-    ID.majorID = 0;
-    ID.minorID = 0;
-  }
+  I3MCPE():major_ID(0),minor_ID(0),npe(0){}
 
   // constructor for hit makers
   // this just sets the major and minor IDs accordingly
-  I3MCPE(const I3ParticleID& p):
-  ID(p),npe(0){}
+  I3MCPE(const I3Particle& p):
+  major_ID(p.GetMajorID()),minor_ID(p.GetMinorID()),npe(0){}
 
-  I3MCPE(uint64_t major_ID, int32_t minor_ID): npe(0)
-  {
-    ID.majorID = major_ID;
-    ID.minorID = minor_ID;
-  }
-  
-  operator I3ParticleID() const{ return ID; }
+  I3MCPE(uint64_t major_ID, int32_t minor_ID):
+  major_ID(major_ID),minor_ID(minor_ID),npe(0){}
   
 private:
   friend class boost::serialization::access;
@@ -83,8 +78,8 @@ private:
       ar & make_nvp("time",time);
     }
     ar & make_nvp("npe",npe);
-    ar & make_nvp("major_ID",ID.majorID);
-    ar & make_nvp("minor_ID",ID.minorID);
+    ar & make_nvp("major_ID",major_ID);
+    ar & make_nvp("minor_ID",minor_ID);
   }
 
 };
