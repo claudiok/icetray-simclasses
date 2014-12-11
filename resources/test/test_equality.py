@@ -19,7 +19,7 @@ class TestEquality(unittest.TestCase):
         self.assertEqual(a, b)
         self.assertNotEqual(a, c)
 
-    @unittest.skip("operator== for vectors is buggy in old boost versions")
+    '''
     def test_CorsikaLongProfile(self):
         from icecube.simclasses import CorsikaLongProfile, CorsikaLongStep
         x = CorsikaLongStep()
@@ -38,7 +38,6 @@ class TestEquality(unittest.TestCase):
         self.assertEqual(a, b)
         self.assertNotEqual(a, c)
 
-    @unittest.skip("operator== for vectors is buggy in old boost versions")
     def test_I3CorsikaShowerInfo(self):
         from icecube.simclasses import I3CorsikaShowerInfo, CorsikaLongProfile, CorsikaLongStep
 
@@ -73,6 +72,8 @@ class TestEquality(unittest.TestCase):
         self.assertNotEqual(a, c)
         self.assertNotEqual(a, d)
         self.assertNotEqual(c, d)
+    '''
+    
 
     def test_I3MCPE(self):
         from icecube.simclasses import I3MCPE, I3MCPESeries
