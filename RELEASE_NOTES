@@ -2,6 +2,36 @@
 # $Author: olivas $
 # $Date: 2011-10-10 $
 
+December 12, 2014 Meike de With (meike.de.with@desy.de)
+--------------------------------------------------------------------
+Release V01-05-00
+
+- Clean up unused code
+  -- Alex Olivas
+
+- Add Python dependency
+- Add Python module to load interfaces in a safe way
+- Add operator<< and operator== for a bunch of classes and expose
+  these to Python via dataclass_suite
+- Add Python tests (test_str.py and test_equality.py)
+- Make str output more consistent
+- Refactor common code into macro I3_SEQUENCE_OP_OSTREAM
+  -- Hans Dembinski
+
+- Fix linking error on Mavericks
+  -- David Schultz
+
+
+October 9, 2014 Alex Olivas (olivas@icecube.umd.edu)
+--------------------------------------------------------------------
+Release V01-04-03
+
+- Added version checks to the serialization method (so that when you
+  try to read new data with old software, you get a nice error message
+  instead of cryptic ones)
+  -- Alex Olivas
+
+
 July 10, 2014 Alex Olivas  (olivas@icecube.umd.edu)
 --------------------------------------------------------------------
 Release V01-04-02
