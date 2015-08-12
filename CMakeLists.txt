@@ -12,10 +12,18 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3MCPulse.cxx
   private/simclasses/I3MCPE.cxx
   private/simclasses/I3MCPEConverters.cxx
+  
+  private/simclasses/Surface.cxx
+  private/simclasses/SamplingSurface.cxx
+  private/simclasses/Cylinder.cxx
+  private/simclasses/ExtrudedPolygon.cxx
+  private/simclasses/AxialCylinder.cxx
+  private/simclasses/Sphere.cxx
+  private/simclasses/polygon.cxx
   )
 
 
-SET(LIB_${PROJECT_NAME}_PROJECTS icetray dataclasses)
+SET(LIB_${PROJECT_NAME}_PROJECTS icetray dataclasses phys-services)
 SET(LIB_${PROJECT_NAME}_TOOLS boost python)
 
 if(IS_DIRECTORY ${CMAKE_SOURCE_DIR}/tableio)
@@ -43,6 +51,7 @@ i3_add_pybindings(simclasses
   private/pybindings/I3MMCTrack.cxx
   private/pybindings/I3MCPulse.cxx
   private/pybindings/I3MCPE.cxx
+  private/pybindings/Surface.cxx
   private/pybindings/module.cxx
   USE_TOOLS boost python
   USE_PROJECTS simclasses icetray tableio
