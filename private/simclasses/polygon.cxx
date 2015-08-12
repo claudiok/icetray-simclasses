@@ -7,6 +7,7 @@
  */
 
 #include <simclasses/detail/polygon.h>
+#include <boost/utility.hpp>
 
 namespace simclasses { namespace polygon {
 
