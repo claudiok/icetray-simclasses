@@ -1,3 +1,6 @@
+#ifndef I3MCPULSELISTCONVERTER_H_INCLUDED
+#define I3MCPULSELISTCONVERTER_H_INCLUDED
+
 /*
  * copyright  (C) 2014
  * The Icecube Collaboration
@@ -25,3 +28,5 @@ namespace convert {
 	};
 
 }
+
+#endif  // I3MCPULSELISTCONVERTER_H_INCLUDED

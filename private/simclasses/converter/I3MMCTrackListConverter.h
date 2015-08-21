@@ -1,3 +1,6 @@
+#ifndef I3MMCTRACKLISTCONVERTER_H_INCLUDED
+#define I3MMCTRACKLISTCONVERTER_H_INCLUDED
+
 #include <simclasses/I3MMCTrack.h>
 #include <icetray/I3Frame.h>
 #include <tableio/converter/I3VectorConverter.h>
@@ -15,3 +18,5 @@ struct convert_I3MMCTrack {
 };
 
 typedef I3VectorConverter< convert_I3MMCTrack > I3MMCTrackListConverter;
+
+#endif  // I3MMCTRACKLISTCONVERTER_H_INCLUDED

@@ -1,3 +1,6 @@
+#ifndef I3SEQUENCEOPOSTREAM_H_INCLUDED
+#define I3SEQUENCEOPOSTREAM_H_INCLUDED
+
 #include <ostream>
 
 #define I3_SEQUENCE_OP_OSTREAM(Sequence, delim) \
@@ -13,3 +16,5 @@
     os << "]"; \
     return os; \
   }
+
+#endif  // I3SEQUENCEOPOSTREAM_H_INCLUDED
