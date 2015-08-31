@@ -7,8 +7,21 @@
  */
 
 #include <simclasses/ExtrudedPolygon.h>
+#include <boost/make_shared.hpp>
 
 namespace simclasses {
+
+boost::shared_ptr<ExtrudedPolygon>
+ExtrudedPolygon::createFromConvexHull(const std::vector<I3Position> &positions, double padding)
+{
+	return boost::make_shared<ExtrudedPolygon>(polygon::convex_hull(positions), z_range(positions), padding);
+}
+
+boost::shared_ptr<ExtrudedPolygon>
+ExtrudedPolygon::createFromTriangulation(const std::vector<I3Position> &positions, double max_edge_length, double border_tolerance, double padding)
+{
+	return boost::make_shared<ExtrudedPolygon>(polygon::delaunay_hull(positions, max_edge_length, border_tolerance), z_range(positions), padding);
+}
 
 ExtrudedPolygon::~ExtrudedPolygon() {}
 

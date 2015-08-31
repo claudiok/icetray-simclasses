@@ -20,6 +20,7 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/AxialCylinder.cxx
   private/simclasses/Sphere.cxx
   private/simclasses/polygon.cxx
+  private/simclasses/delaunay/delaunay.c
   )
 
 

@@ -55,18 +55,9 @@ integrate_area(double a, double b, double cap, double sides)
 template <typename Base>
 class ExtrudedPolygonBase : public Base {
 public:
-	ExtrudedPolygonBase(const std::vector<I3Position> &points, double padding=0.)
+	ExtrudedPolygonBase(const std::vector<polygon::vec2> &hull, const std::pair<double, double> &zrange, double padding=0.)
 	{
-		using namespace simclasses::polygon;
-	
-		std::pair<double, double> zrange = z_range(points);
-		std::vector<vec2> hull = convex_hull(points);
-		if (padding != 0) {
-			hull = expand_polygon(hull, padding);
-			zrange.first -= padding;
-			zrange.second += padding;
-		}
-		initWithHull(hull, zrange);
+		initWithHull(hull, zrange, padding);
 	}
 
 	virtual std::pair<double, double> GetIntersection(const I3Position &p, const I3Direction &dir) const
@@ -233,10 +224,16 @@ private:
 	std::pair<double, double> z_range_;
 	double cap_area_;
 	
-	void initWithHull(const std::vector<polygon::vec2> &hull, const std::pair<double,double> &zrange)
+	void initWithHull(std::vector<polygon::vec2> hull, std::pair<double,double> zrange, double padding)
 	{
 		using simclasses::polygon::vec2;
 		using simclasses::polygon::side;
+		
+		if (padding != 0) {
+			hull = expand_polygon(hull, padding);
+			zrange.first -= padding;
+			zrange.second += padding;
+		}
 	
 		z_range_ = zrange;
 		cap_area_ = 0;
@@ -350,7 +347,7 @@ private:
 		std::pair<double, double> z_range;
 		ar & make_nvp("HullXY", hull);
 		ar & make_nvp("HullZ", z_range);
-		initWithHull(hull, z_range);
+		initWithHull(hull, z_range, 0.);
 	}
 	BOOST_SERIALIZATION_SPLIT_MEMBER();
 };
