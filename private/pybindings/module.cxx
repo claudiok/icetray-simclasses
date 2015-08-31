@@ -40,6 +40,5 @@ BOOST_PYTHON_MODULE(simclasses)
   register_I3CorsikaShowerInfo();
   register_I3MCPulse();
   register_I3MCPESeries();
-  register_Surface();
 }
 
