@@ -234,7 +234,7 @@ unsigned int WimpSim::SourceStringToInt(std::string sourcestr) {
 I3WimpParams::~I3WimpParams() {}
 
 I3WimpParams::I3WimpParams():
-  source_(UNKNOWN),
+  source_(WimpSim::UNKNOWN),
   mass_(NAN),
   channel_(WimpSim::unknown),
   nu_weight_(NAN),
@@ -243,7 +243,7 @@ I3WimpParams::I3WimpParams():
   vgen_(NAN),
   time_(I3Time()) {}
 
-I3WimpParams::I3WimpParams(SourceType source,
+I3WimpParams::I3WimpParams(WimpSim::SourceType source,
                            double mass,
                            WimpSim::DecayChannel channel,
                            double nu_weight,
@@ -281,22 +281,22 @@ I3WimpParams::I3WimpParams(std::string source,
 {
   boost::to_upper(source);
   if (source=="SUN")
-    source_=SUN;
+    source_ = WimpSim::SUN;
   else if (source=="EARTH")
-    source_=EARTH;
+    source_ = WimpSim::EARTH;
   else
-    source_=UNKNOWN;
+    source_ = WimpSim::UNKNOWN;
   channel_=WimpSim::ConvertToDecayChannel(channel);
 }
 
-I3WimpParams::SourceType I3WimpParams::GetSource() const {return source_;}
+WimpSim::SourceType I3WimpParams::GetSource() const {return source_;}
 
 std::string I3WimpParams::GetSourceString() const {
-  if (source_ == EARTH)
+  if (source_ == WimpSim::EARTH)
     return "Earth";
-  if (source_ == SUN)
+  if (source_ == WimpSim::SUN)
     return "Sun";
-  if (source_ == UNKNOWN)
+  if (source_ == WimpSim::UNKNOWN)
     return "UNKNOWN";
   else
     return "";
@@ -320,27 +320,27 @@ double I3WimpParams::GetAproj() const {return aproj_;}
 
 I3Time I3WimpParams::GetTime() const {return time_;}
 
-void I3WimpParams::SetSource(const SourceType source) {source_ = source;}
+void I3WimpParams::SetSource(const WimpSim::SourceType source) {source_ = source;}
 void I3WimpParams::SetSource(std::string source){
   boost::to_upper(source);
   if (source == "EARTH")
-    source_= EARTH;
+    source_= WimpSim::EARTH;
   else if (source == "SUN")
-    source_= SUN;
+    source_= WimpSim::SUN;
   else if (source == "UNKNOWN")
-    source_= UNKNOWN;
+    source_= WimpSim::UNKNOWN;
   else
-    source_= UNKNOWN;
+    source_= WimpSim::UNKNOWN;
 }
-void I3WimpParams::SetSource(uint source) {
+void I3WimpParams::SetSource(unsigned int source) {
   if (source == 2)
-    source_= EARTH;
+    source_= WimpSim::EARTH;
   else if (source == 1)
-    source_= SUN;
+    source_= WimpSim::SUN;
   else if (source == 0)
-    source_= UNKNOWN;
+    source_= WimpSim::UNKNOWN;
   else
-    source_= UNKNOWN;
+    source_= WimpSim::UNKNOWN;
 }
 
 
