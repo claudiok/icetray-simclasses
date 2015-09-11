@@ -12,6 +12,7 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3MCPulse.cxx
   private/simclasses/I3MCPE.cxx
   private/simclasses/I3MCPEConverters.cxx
+  private/simclasses/I3WimpParams.cxx
   )
 
 
@@ -43,6 +44,7 @@ i3_add_pybindings(simclasses
   private/pybindings/I3MMCTrack.cxx
   private/pybindings/I3MCPulse.cxx
   private/pybindings/I3MCPE.cxx
+  private/pybindings/I3WimpParams.cxx
   private/pybindings/module.cxx
   USE_TOOLS boost python
   USE_PROJECTS simclasses icetray tableio

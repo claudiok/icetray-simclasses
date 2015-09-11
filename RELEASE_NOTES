@@ -5,6 +5,13 @@
 Release Notes
 =============
 
+trunk
+--------------
+
+* moved I3WimpParams out of wimpsim-reader here
+  -- Matrcel Zoll
+
+
 December 12, 2014 Meike de With (meike.de.with@desy.de)
 --------------------------------------------------------------------
 
