@@ -50,6 +50,7 @@ using namespace boost::python;
 
 void register_I3WimpParams()
 {
+  class_<I3WimpParams, bases<I3FrameObject>, boost::shared_ptr<I3WimpParams> > wimpparams =
   class_<I3WimpParams, bases<I3FrameObject>, boost::shared_ptr<I3WimpParams> >("I3WimpParams")
     //.def(init<int, double, int, double, double, double, double, double>(args("Source", "Mass", "Channel", "Nu_Weight", "Lep_Weight", "Had_Weight", "Vgen", "Time"),"Constructor for I3WimpParams"))
 
@@ -66,7 +67,9 @@ void register_I3WimpParams()
     .def("set_timemjd", &pyWimpParams::SetTimeMJD)
     .def("__str__", &stream_to_string<I3WimpParams>)
     ;
-     
+  {
+    scope wimpparams_scope(wimpparams);
+
     enum_<WimpSim::SourceType>("SourceType")
       .value("SUN",WimpSim::SUN)
       .value("EARTH",WimpSim::EARTH)
@@ -93,6 +96,6 @@ void register_I3WimpParams()
       .value("KKDM",WimpSim::KKDM)
       .export_values()
       ;
-      
+  }      
   register_pointer_conversions<I3WimpParams>();
 }
