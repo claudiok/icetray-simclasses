@@ -8,7 +8,16 @@ Release Notes
 trunk
 --------------
 
-* 
+* The following deprecated classes were hidden, but kept around in case we run across any old simulation samples. (r138942)
+
+  - I3GaussianPMTPulse
+  - I3MCPMTResponse
+  - I3MCTWRParams
+  - MMCWeight
+
+* Moved I3ParticleIDMap to its own file.  Wasn't obvious that it could be found in I3MCPulse.h. (r138942)
+
+  -- Alex Olivas
 
 * moved I3WimpParams out of wimpsim-reader here
   -- Matrcel Zoll
