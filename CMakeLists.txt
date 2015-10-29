@@ -6,13 +6,18 @@ i3_project(simclasses
 SET(LIB_${PROJECT_NAME}_SOURCEFILES 
   private/simclasses/CorsikaLongStep.cxx
   private/simclasses/I3MMCTrack.cxx
-  private/simclasses/I3MCPMTResponse.cxx
   private/simclasses/I3MCNKGInfo.cxx
   private/simclasses/I3CorsikaShowerInfo.cxx
   private/simclasses/I3MCPulse.cxx
   private/simclasses/I3MCPE.cxx
-  private/simclasses/I3MCPEConverters.cxx
   private/simclasses/I3WimpParams.cxx
+  private/simclasses/I3ParticleIDMap.cxx
+  # the following are deprecated, but need to be 
+  # kept indefinitely so we can still read old data
+  private/deprecated/I3MCPMTResponse.cxx
+  private/deprecated/I3GaussianPMTPulse.cxx
+  private/deprecated/I3MCTWRParams.cxx
+  private/deprecated/MMCWeight.cxx
   )
 
 
@@ -40,9 +45,9 @@ i3_test_executable(test
 i3_add_pybindings(simclasses
   private/pybindings/CorsikaLongStep.cxx
   private/pybindings/I3CorsikaShowerInfo.cxx
-  private/pybindings/I3MCPMTResponse.cxx
   private/pybindings/I3MMCTrack.cxx
   private/pybindings/I3MCPulse.cxx
+  private/pybindings/I3ParticleIDMap.cxx
   private/pybindings/I3MCPE.cxx
   private/pybindings/I3WimpParams.cxx
   private/pybindings/module.cxx

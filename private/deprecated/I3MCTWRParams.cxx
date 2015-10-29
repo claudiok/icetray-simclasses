@@ -1,7 +1,32 @@
 #include <icetray/serialization.h>
-#include <simclasses/I3MCTWRParams.h>
+#include "icetray/OMKey.h"
 
-I3MCTWRParams::~I3MCTWRParams() {}
+static const unsigned i3mctwrparams_version_ = 1;
+
+struct I3MCTWRParams{
+
+  int stop_delay;
+  int DMADD_thresh;
+  int TWR_thresh;
+  double rel_sens;
+  int wf_type;
+  double afterpulse_prob;
+  double afterpulse_time;
+  double noise_rate;
+  double amplitude;
+  double cable_delay;
+  bool optical;
+  double peArea;
+
+  virtual ~I3MCTWRParams(){};
+
+  template <class Archive> void serialize(Archive & ar, unsigned version);
+};
+
+typedef std::map<OMKey, I3MCTWRParams> I3MCTWRParamsMap;
+
+
+BOOST_CLASS_VERSION(I3MCTWRParams, i3mctwrparams_version_);
 
 template <class Archive>
   void I3MCTWRParams::serialize(Archive& ar, unsigned version)

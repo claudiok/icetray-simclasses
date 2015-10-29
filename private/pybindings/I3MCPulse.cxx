@@ -47,18 +47,6 @@ void register_I3MCPulse()
   
   register_pointer_conversions<I3MCPulseSeriesMap>();
   
-  class_<ParticlePulseIndexMap >("ParticlePulseIndexMap")
-  .def(dataclass_suite<ParticlePulseIndexMap>())
-  ;
-  
-  class_<I3Map<OMKey, ParticlePulseIndexMap>,
-  bases<I3FrameObject>,
-  I3ParticleIDMapPtr>("I3ParticleIDMap")
-  .def(dataclass_suite<I3Map<OMKey, ParticlePulseIndexMap> >())
-  ;
-  
-  register_pointer_conversions<I3ParticleIDMap>();
-
   I3CONVERTER_NAMESPACE(simclasses);
   typedef I3MapOMKeyVectorConverter< convert::I3MCPulseList > I3MCPulseListConverter;
   I3CONVERTER_EXPORT_DEFAULT(I3MCPulseListConverter, "Dumps I3MCPulse objects");

@@ -131,29 +131,5 @@ class TestEquality(unittest.TestCase):
         self.assertEqual(d, e)
         self.assertNotEqual(d, f)
 
-    def test_I3MCPMTResponse(self):
-        from icecube.simclasses import I3MCPMTResponse
-
-        def make():
-            x = I3MCPMTResponse()
-            x.bin_size = 1
-            x.start_time = 10.1
-            x.end_time = 20.2
-            x.waveform.append(1.1)
-            x.waveform.append(2.2)
-            return x
-
-        a = make()
-        b = make()
-        c = make()
-        c.bin_size = 2
-        d = make()
-        d.waveform = []
-
-        self.assertEqual(a, a)
-        self.assertEqual(a, b)
-        self.assertNotEqual(a, c)
-        self.assertNotEqual(a, d)
-
 if __name__ == "__main__":
     unittest.main()

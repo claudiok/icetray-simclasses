@@ -22,20 +22,17 @@
 
 #include <icetray/load_project.h>
 
-void register_I3MCPMTResponse();
 void register_I3MMCTrack();
 void register_CorsikaLongStep();
 void register_I3CorsikaShowerInfo();
 void register_I3MCPulse();
 void register_I3MCPESeries();
-void register_Surface();
 void register_I3WimpParams();
 
 BOOST_PYTHON_MODULE(simclasses)
 {
   load_project("libsimclasses", false);
 
-  register_I3MCPMTResponse();
   register_I3MMCTrack();
   register_CorsikaLongStep();
   register_I3CorsikaShowerInfo();

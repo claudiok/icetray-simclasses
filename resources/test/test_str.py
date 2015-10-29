@@ -24,7 +24,6 @@ class TestStr(unittest.TestCase):
                          'I3CorsikaShowerInfo',
                          'I3MCPE',
                          'I3MCPESeries',
-                         'I3MCPMTResponse',
                          'I3MCPulse',
                          'I3MCPulseSeries']
 
@@ -89,18 +88,6 @@ class TestStr(unittest.TestCase):
 
         s = str(seq)
         self.stringList.append("<I3MCPulseSeries>\n"+s)
-        self.assertFalse(is_standard_repr(s))
-
-    def test_I3MCPMTResponse(self):
-        from icecube.simclasses import I3MCPMTResponse
-
-        x = I3MCPMTResponse()
-        w = x.GetWaveform()
-        w.append(1.0)
-        w.append(1.5)
-
-        s = str(x)
-        self.stringList.append("<I3MCPMTResponse>\n"+s)
         self.assertFalse(is_standard_repr(s))
 
     @classmethod
