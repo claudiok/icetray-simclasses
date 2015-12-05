@@ -12,6 +12,7 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3MCPE.cxx
   private/simclasses/I3WimpParams.cxx
   private/simclasses/I3ParticleIDMap.cxx
+  private/simclasses/I3MCPEUtils.cxx
   # the following are deprecated, but need to be 
   # kept indefinitely so we can still read old data
   private/deprecated/I3MCPMTResponse.cxx
