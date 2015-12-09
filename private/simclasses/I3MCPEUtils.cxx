@@ -9,7 +9,7 @@
  *  \param mergeMap The MCPE series map from the frame
  ******************************************************************** 
  */ 
-void I3MCPEUtils::MergeNoSort(I3MCPESeriesMap& originalMap, const I3MCPESeriesMap& mergeMap)
+void I3MCPESeriesMapUtils::MergeNoSort(I3MCPESeriesMap& originalMap, const I3MCPESeriesMap& mergeMap)
 {
     I3MCPESeriesMap::const_iterator itMerge;
     // Loop over the noise hits
@@ -47,7 +47,7 @@ bool CompareMCPEs(const I3MCPE& lhs, const I3MCPE& rhs){
  *  \param unsortedMap MCPE series map not sorted in time
  ******************************************************************** 
  */ 
-void I3MCPEUtils::SortMCPESeriesMap(I3MCPESeriesMap& unsortedMap)
+void I3MCPESeriesMapUtils::SortMCPESeriesMap(I3MCPESeriesMap& unsortedMap)
 {
     I3MCPESeriesMap::iterator it;
     for (it = unsortedMap.begin(); it != unsortedMap.end(); ++it)
@@ -64,10 +64,10 @@ void I3MCPEUtils::SortMCPESeriesMap(I3MCPESeriesMap& unsortedMap)
  *  \param mergeMap The MCPE series map from the frame
  ******************************************************************** 
  */ 
-void I3MCPEUtils::Merge(I3MCPESeriesMap& originalMap, const I3MCPESeriesMap& mergeMap)
+void I3MCPESeriesMapUtils::Merge(I3MCPESeriesMap& originalMap, const I3MCPESeriesMap& mergeMap)
 {
-    I3MCPEUtils::MergeNoSort(originalMap, mergeMap);
-    I3MCPEUtils::SortMCPESeriesMap(originalMap);
+    I3MCPESeriesMapUtils::MergeNoSort(originalMap, mergeMap);
+    I3MCPESeriesMapUtils::SortMCPESeriesMap(originalMap);
     
 }
 
@@ -82,10 +82,10 @@ void I3MCPEUtils::Merge(I3MCPESeriesMap& originalMap, const I3MCPESeriesMap& mer
  *  \return New merged MCPE series map
  ******************************************************************** 
  */ 
-I3MCPESeriesMapConstPtr I3MCPEUtils::MergeReturn(const I3MCPESeriesMap& originalMap, 
+I3MCPESeriesMapConstPtr I3MCPESeriesMapUtils::MergeReturn(const I3MCPESeriesMap& originalMap, 
                                                  const I3MCPESeriesMap& mergeMap)
 {
     I3MCPESeriesMapPtr firstMap(new I3MCPESeriesMap(originalMap));
-    I3MCPEUtils::Merge(*firstMap, mergeMap);
+    I3MCPESeriesMapUtils::Merge(*firstMap, mergeMap);
     return I3MCPESeriesMapConstPtr(firstMap);
 }

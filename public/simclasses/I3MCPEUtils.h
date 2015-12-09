@@ -3,7 +3,7 @@
 
 #include "simclasses/I3MCPE.h"
 
-namespace I3MCPEUtils
+namespace I3MCPESeriesMapUtils
 {
 
     void MergeNoSort(I3MCPESeriesMap&, const I3MCPESeriesMap&);
