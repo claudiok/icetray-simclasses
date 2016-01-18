@@ -5,7 +5,7 @@ void I3MCPESeriesMapUtils::MergeNoSort(I3MCPESeriesMap& originalMap, const I3MCP
     I3MCPESeriesMap::const_iterator itMerge;
     for(itMerge = mergeMap.begin(); itMerge != mergeMap.end(); ++itMerge)
     {
-        I3MCPESeriesMap::const_iterator itOriginal = originalMap.find(itMerge->first);
+        I3MCPESeriesMap::iterator itOriginal = originalMap.find(itMerge->first);
         if (itOriginal != originalMap.end())
         {
             assert(!(itMerge->second.empty()));
