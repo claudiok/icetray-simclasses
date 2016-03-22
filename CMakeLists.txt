@@ -12,6 +12,14 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3MCPE.cxx
   private/simclasses/I3WimpParams.cxx
   private/simclasses/I3ParticleIDMap.cxx
+  private/simclasses/I3Photon.cxx
+  private/simclasses/I3CompressedPhoton.cxx
+  
+  
+  # tableio converters
+  private/simclasses/converter/I3PhotonConverter.cxx
+  private/simclasses/converter/I3MCPEConverterWithIDs.cxx
+  
   # the following are deprecated, but need to be 
   # kept indefinitely so we can still read old data
   private/deprecated/I3MCPMTResponse.cxx
@@ -44,11 +52,14 @@ i3_test_executable(test
 
 i3_add_pybindings(simclasses
   private/pybindings/CorsikaLongStep.cxx
+  private/pybindings/I3Converters.cxx
   private/pybindings/I3CorsikaShowerInfo.cxx
   private/pybindings/I3MMCTrack.cxx
   private/pybindings/I3MCPulse.cxx
   private/pybindings/I3ParticleIDMap.cxx
   private/pybindings/I3MCPE.cxx
+  private/pybindings/I3Photon.cxx
+  private/pybindings/I3CompressedPhoton.cxx
   private/pybindings/I3WimpParams.cxx
   private/pybindings/module.cxx
   USE_TOOLS boost python
