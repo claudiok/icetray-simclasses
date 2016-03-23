@@ -33,7 +33,7 @@
 
 void register_I3Converters()
 {
-    I3CONVERTER_NAMESPACE(clsim);
+    I3CONVERTER_NAMESPACE(simclasses);
 
     I3CONVERTER_EXPORT_DEFAULT(I3PhotonConverter, "Dumps a single I3Photon to a table column");
     I3_MAP_CONVERTER_EXPORT_DEFAULT(I3PhotonSeriesMapConverter,"Dumps all I3Photons in a I3PhotonSeriesMap");
