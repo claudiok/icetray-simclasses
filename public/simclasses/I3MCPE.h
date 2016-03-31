@@ -57,11 +57,11 @@ struct I3MCPE {
 
   // constructor for hit makers
   // this just sets the major and minor IDs accordingly
-  I3MCPE(const I3ParticleID& p, const uint32_t npe_ = 0, const double time_ = 0):
-  ID(p),time(time_),npe(npe_){}
+  I3MCPE(const I3ParticleID& p, const uint32_t n_pe = 0, const double pe_time = 0):
+  ID(p),time(pe_time),npe(n_pe){}
 
-  I3MCPE(const uint64_t major_ID, const int32_t minor_ID, const uint32_t npe_ = 0, const double time_ = 0): 
-  time(time_), npe(npe_)
+  I3MCPE(const uint64_t major_ID, const int32_t minor_ID, const uint32_t n_pe = 0, const double pe_time = 0):
+  time(pe_time), npe(n_pe)
   {
     ID.majorID = major_ID;
     ID.minorID = minor_ID;
