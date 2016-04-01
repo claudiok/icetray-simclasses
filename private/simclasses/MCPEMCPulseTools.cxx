@@ -69,7 +69,7 @@ namespace MCHitMerging
             }
             // now we know that the hits are time ordered, and we have the aux structure ready
             timeMergeHits(domIt->second, particleMap);
-            log_trace_stream("compressed " << counter << " p.e. on " domIt->first " to " << domIt->second.size());
+            log_trace_stream("compressed " << counter << " p.e. on " << domIt->first << " to " << domIt->second.size());
             //std::cout << "compressed " << counter << " p.e. on " << domIt->first << " to " << domIt->second.size() << std::endl;
             unsigned int entries=0;
             I3ParticleIDMap::iterator it, endIt;
