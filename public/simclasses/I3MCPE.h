@@ -49,7 +49,14 @@ struct I3MCPE {
   }
 	
   // default constructor for noise generators
-  I3MCPE():npe(0)
+  // I3MCPE():npe(0)
+  // {
+  //   ID.majorID = 0;
+  //   ID.minorID = 0;
+  // }
+  
+  I3MCPE(const uint32_t npe_ = 0, const double time_ = 0):
+  time(time_), npe(npe_)
   {
     ID.majorID = 0;
     ID.minorID = 0;
