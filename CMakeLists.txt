@@ -12,6 +12,7 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3MCPE.cxx
   private/simclasses/I3WimpParams.cxx
   private/simclasses/I3ParticleIDMap.cxx
+  private/simclasses/MCPEMCPulseTools.cxx
   private/simclasses/I3Photon.cxx
   private/simclasses/I3CompressedPhoton.cxx
   
