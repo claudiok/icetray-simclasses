@@ -117,7 +117,7 @@ TEST(1_MCPEMergingSortingMerging)
     ENSURE(aux.find(p2)!=aux.end(),"particle 2 must appear in the output");
     ENSURE(aux[p1].size()==3,"Particle 1 should have 3 children");
     ENSURE(aux[p2].size()==3,"Particle 2 should have 3 children");
-    ENSURE(aux[p1].size()==1,"Particle 3 should have 1 childr");
+    ENSURE(aux[p3].size()==1,"Particle 3 should have 1 child");
 
     uint32_t p1ExpectedSortMerge[3]={0,1,2};
     uint32_t p2ExpectedSortMerge[3]={2,3,4};
@@ -181,6 +181,8 @@ TEST(2_MCPulseMergingSortingMerging)
     ENSURE(std::mismatch(aux[p1].begin(),aux[p1].end(),p1Expected)==std::make_pair(aux[p1].end(),p1Expected+4));
     ENSURE(std::mismatch(aux[p2].begin(),aux[p2].end(),p2Expected)==std::make_pair(aux[p2].end(),p2Expected+2));
     
+    hitIndex=hits.size();
+    
     I3ParticleID p3={741,13};
     hits.push_back(I3MCPulse(0.35,1.0));
     aux[p3].push_back(hitIndex++);
@@ -199,6 +201,7 @@ TEST(2_MCPulseMergingSortingMerging)
     ENSURE(aux.find(p2)!=aux.end(),"particle 2 must appear in the output");
     ENSURE(aux[p1].size()==5,"Particle 1 should have 5 children");
     ENSURE(aux[p2].size()==3,"Particle 2 should have 3 children");
+    ENSURE(aux[p3].size()==1,"Particle 3 should have 1 child");
     
     uint32_t p1ExpectedSort[5]={0,1,2,4,5};
     uint32_t p2ExpectedSort[3]={4,6,7};
@@ -217,6 +220,7 @@ TEST(2_MCPulseMergingSortingMerging)
     ENSURE(aux.find(p2)!=aux.end(),"particle 2 must appear in the output");
     ENSURE(aux[p1].size()==3,"Particle 1 should have 3 children");
     ENSURE(aux[p2].size()==3,"Particle 2 should have 3 children");
+    ENSURE(aux[p3].size()==1,"Particle 3 should have 1 child");
 
     uint32_t p1ExpectedSortMerge[3]={0,1,2};
     uint32_t p2ExpectedSortMerge[3]={2,3,4};
