@@ -44,13 +44,6 @@ i3_add_library(${PROJECT_NAME} ${LIB_${PROJECT_NAME}_SOURCEFILES}
 	USE_PROJECTS ${LIB_${PROJECT_NAME}_PROJECTS}
 )
 
-# Enable me again after clearing ticket : http://code.icecube.wisc.edu/projects/icecube/ticket/1618
-#i3_test_executable(test 
-#  private/test/*.cxx
-#  USE_PROJECTS icetray simclasses
-#  USE_TOOLS boost python
-#  )
-
 i3_add_pybindings(simclasses
   private/pybindings/CorsikaLongStep.cxx
   private/pybindings/I3Converters.cxx
