@@ -2,7 +2,7 @@
 #include <simclasses/I3MCPulse.h>
 #include <simclasses/I3MCPE.h>
 // #include <simclasses/I3ParticleIDMap.hpp>
-#include <simclasses/MCPEMCPulseTools.hpp>
+#include <sim-services/MCPEMCPulseTools.hpp>
 
 
 TEST_GROUP(HitMerging);
