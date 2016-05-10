@@ -71,7 +71,7 @@ size_t I3CorsikaShowerInfoConverter::FillRows(const I3CorsikaShowerInfo& info, I
   bool depths_not_stored_using_I3Units = 0;
   double big = 0.001 * gcm2;
   if (info.ghMaxDepth < big && info.ghStartDepth < big && info.firstIntDepth < big) {
-    log_info("It looks like depths were stored as g/cm^2 instead of I3Units native units. I will NOT convert them.");
+    log_debug("It looks like depths were stored as g/cm^2 instead of I3Units native units. I will NOT convert them.");
     depths_not_stored_using_I3Units = 1;
   }
 
