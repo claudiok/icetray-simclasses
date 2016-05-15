@@ -14,7 +14,7 @@ SET(LIB_${PROJECT_NAME}_SOURCEFILES
   private/simclasses/I3ParticleIDMap.cxx
   private/simclasses/I3Photon.cxx
   private/simclasses/I3CompressedPhoton.cxx
-  private/simclasses/I3MCPEUtils.cxx
+  
   
   # tableio converters
   private/simclasses/converter/I3PhotonConverter.cxx
