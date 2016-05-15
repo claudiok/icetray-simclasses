@@ -19,6 +19,7 @@
  */
 typedef std::map<I3ParticleID, std::vector<uint32_t> > ParticlePulseIndexMap;
 typedef I3Map<OMKey,  ParticlePulseIndexMap> I3ParticleIDMap;
+I3_POINTER_TYPEDEFS(ParticlePulseIndexMap);
 I3_POINTER_TYPEDEFS(I3ParticleIDMap);
 
 #endif
