@@ -21,6 +21,16 @@
  */
 
 #include <icetray/load_project.h>
+#include <boost/preprocessor.hpp>
+
+#define REGISTER_THESE_THINGS                       \
+    (I3Photon)(I3CompressedPhoton)                  \
+    (I3Converters)
+
+#define I3_REGISTRATION_FN_DECL(r, data, t) void BOOST_PP_CAT(register_,t)();
+#define I3_REGISTER(r, data, t) BOOST_PP_CAT(register_,t)();
+
+BOOST_PP_SEQ_FOR_EACH(I3_REGISTRATION_FN_DECL, ~, REGISTER_THESE_THINGS)
 
 void register_I3MMCTrack();
 void register_CorsikaLongStep();
@@ -32,12 +42,12 @@ void register_I3WimpParams();
 BOOST_PYTHON_MODULE(simclasses)
 {
   load_project("libsimclasses", false);
-
   register_I3MMCTrack();
   register_CorsikaLongStep();
   register_I3CorsikaShowerInfo();
   register_I3MCPulse();
   register_I3MCPESeries();
   register_I3WimpParams();
+  BOOST_PP_SEQ_FOR_EACH(I3_REGISTER, ~, REGISTER_THESE_THINGS);
 }
 

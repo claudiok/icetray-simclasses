@@ -17,7 +17,7 @@ namespace I3MCPESeriesMapUtils
     
    /* 
     * Merge
-    * Merges two I3MCPEMaps . 
+    * Merges two I3MCPEMaps. 
     * Shamelessly adapted from vuvuzela.
     *
     *  \param originalMap The MCPE series map to merge into

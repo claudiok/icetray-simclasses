@@ -73,6 +73,7 @@ class TestEquality(unittest.TestCase):
         self.assertNotEqual(c, d)
 
     def test_I3MCPE(self):
+        from icecube.icetray import OMKey
         from icecube.simclasses import I3MCPE, I3MCPESeries
 
         def make():
@@ -100,6 +101,22 @@ class TestEquality(unittest.TestCase):
         self.assertEqual(d, d)
         self.assertEqual(d, e)
         self.assertNotEqual(d, f)
+        
+        g = I3MCPESeriesMap()
+        g[OMKey(1, 1)] = d
+        h = I3MCPESeriesMap()
+        h[OMKey(1, 2)] = e
+        j = I3MCPESeriesMap()
+        k[OMKey(1, 1)] = f
+        
+        self.assertEqual(g, g)
+        self.assertNotEqual(g, h)
+        self.assertNotEqual(g, k)
+        
+        l = make()
+        m = make()
+        n = make()
+        
 
     def test_I3MCPulse(self):
         from icecube.simclasses import I3MCPulse, I3MCPulseSeries

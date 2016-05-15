@@ -65,7 +65,7 @@ class I3MMCTrack
 
   const I3Particle& GetI3Particle() const { return particle; };
   I3Particle& GetParticle(){ return particle; };
-  void SetParticle(I3Particle& p){ particle = p; };
+  void SetParticle(const I3Particle& p){ particle = p; };
 
   I3Particle particle;
   double Elost;

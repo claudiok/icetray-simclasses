@@ -8,6 +8,13 @@ Release Notes
 trunk
 --------------
 
+* Moved I3Photon and I3CompressedPhoton from clsim to simclasses
+
+April 8, 2016 Meike de With (meike.de.with@desy.de)
+--------------------------------------------------------------------
+
+Release V02-00-00
+
 * The following deprecated classes were hidden, but kept around in case we run across any old simulation samples. (r138942)
 
   - I3GaussianPMTPulse
@@ -20,7 +27,7 @@ trunk
   -- Alex Olivas
 
 * moved I3WimpParams out of wimpsim-reader here
-  -- Matrcel Zoll
+  -- Marcel Zoll
 
 
 December 12, 2014 Meike de With (meike.de.with@desy.de)
