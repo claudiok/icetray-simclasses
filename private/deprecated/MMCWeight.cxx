@@ -13,7 +13,7 @@ public:
 
  private:
 
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
   template <class Archive> void serialize(Archive& ar, unsigned version);
 
 };
@@ -28,5 +28,5 @@ void MMCWeight::serialize(Archive& ar, unsigned version)
 
 }
 
-BOOST_CLASS_VERSION(MMCWeight, 1);
+I3_CLASS_VERSION(MMCWeight, 1);
 I3_SERIALIZABLE(MMCWeight);

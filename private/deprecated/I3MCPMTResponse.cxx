@@ -17,7 +17,7 @@ class I3MCPMTResponse : public I3FrameObject{
   double startTime_;
   double endTime_;
 
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
   template <class Archive> void serialize(Archive & ar, unsigned version);
 
 public:

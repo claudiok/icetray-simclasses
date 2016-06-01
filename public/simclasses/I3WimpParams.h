@@ -359,7 +359,7 @@ private: // This is I3Tray python and serialization stuff
   /**
   * Serialization to I3
   */
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
   /**
   * make Archive-type in I3Tray
   */
@@ -376,7 +376,7 @@ private: // This is I3Tray python and serialization stuff
 std::ostream& operator<<(std::ostream& oss, const I3WimpParams& d);
 
 I3_POINTER_TYPEDEFS(I3WimpParams);
-BOOST_CLASS_VERSION(I3WimpParams, i3wimpparams_version_);
+I3_CLASS_VERSION(I3WimpParams, i3wimpparams_version_);
 I3_DEFAULT_NAME(I3WimpParams);
 
 #endif //I3WIMPPARAMS_H_INCLUDED

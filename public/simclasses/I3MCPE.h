@@ -77,7 +77,7 @@ struct I3MCPE {
   operator I3ParticleID() const{ return ID; }
   
 private:
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
   template <class Archive> void serialize(Archive & ar, const unsigned version)
   {
     if (version>i3mcpe_version_)
@@ -97,7 +97,7 @@ private:
 
 };
 
-BOOST_CLASS_VERSION(I3MCPE,i3mcpe_version_);
+I3_CLASS_VERSION(I3MCPE,i3mcpe_version_);
 
 typedef std::vector<I3MCPE> I3MCPESeries;
 typedef I3Map<OMKey, I3MCPESeries > I3MCPESeriesMap;

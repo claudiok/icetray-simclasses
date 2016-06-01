@@ -137,7 +137,7 @@ private:
   double timeZero_;
   double pedestal_;
 
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
 
   template <class Archive> void serialize(Archive & ar, unsigned version);
 };

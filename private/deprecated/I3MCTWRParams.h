@@ -57,7 +57,7 @@ struct I3MCTWRParams
 typedef std::map<OMKey, I3MCTWRParams> I3MCTWRParamsMap;
 
 
-BOOST_CLASS_VERSION(I3MCTWRParams, i3mctwrparams_version_);
+I3_CLASS_VERSION(I3MCTWRParams, i3mctwrparams_version_);
 
 I3_POINTER_TYPEDEFS(I3MCTWRParams);
 I3_POINTER_TYPEDEFS(I3MCTWRParamsMap);

@@ -80,9 +80,9 @@ class I3MMCTrack
 
  private:
 
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
   template <class Archive> void serialize(Archive& ar, unsigned version);
-                                                                                                          
+
 };
 
 I3_POINTER_TYPEDEFS(I3MMCTrack);
@@ -90,5 +90,5 @@ I3_POINTER_TYPEDEFS(I3MMCTrack);
 typedef I3Vector<I3MMCTrack> I3MMCTrackList;
 I3_POINTER_TYPEDEFS(I3MMCTrackList);
 
-BOOST_CLASS_VERSION(I3MMCTrack,i3mmctrack_version_);
+I3_CLASS_VERSION(I3MMCTrack,i3mmctrack_version_);
 #endif //I3MMCTRACK_H

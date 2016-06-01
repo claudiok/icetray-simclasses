@@ -26,7 +26,7 @@ struct I3MCTWRParams{
 typedef std::map<OMKey, I3MCTWRParams> I3MCTWRParamsMap;
 
 
-BOOST_CLASS_VERSION(I3MCTWRParams, i3mctwrparams_version_);
+I3_CLASS_VERSION(I3MCTWRParams, i3mctwrparams_version_);
 
 template <class Archive>
   void I3MCTWRParams::serialize(Archive& ar, unsigned version)

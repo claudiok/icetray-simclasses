@@ -58,7 +58,7 @@ struct I3MCPulse {
   I3MCPulse(){};  
   
 private:
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
   template <class Archive> void serialize(Archive & ar, const unsigned version)
   {
     if (version>i3mcpulse_version_)
@@ -77,7 +77,7 @@ private:
 
 };
 
-BOOST_CLASS_VERSION(I3MCPulse,i3mcpulse_version_);
+I3_CLASS_VERSION(I3MCPulse,i3mcpulse_version_);
 
 typedef std::vector<I3MCPulse> I3MCPulseSeries;
 typedef I3Map<OMKey, I3MCPulseSeries > I3MCPulseSeriesMap;

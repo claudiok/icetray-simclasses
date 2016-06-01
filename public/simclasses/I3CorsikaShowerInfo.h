@@ -64,7 +64,7 @@ struct I3CorsikaShowerInfo: public I3FrameObject
 
 std::ostream& operator<<(std::ostream& os, const I3CorsikaShowerInfo&);
 
-BOOST_CLASS_VERSION(I3CorsikaShowerInfo, i3corsikashowerinfo_version_);
+I3_CLASS_VERSION(I3CorsikaShowerInfo, i3corsikashowerinfo_version_);
 I3_DEFAULT_NAME(I3CorsikaShowerInfo);
 I3_POINTER_TYPEDEFS(I3CorsikaShowerInfo);
 

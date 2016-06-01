@@ -29,7 +29,7 @@ class MMCWeight : public I3FrameObject
 
  private:
 
-  friend class boost::serialization::access;
+  friend class icecube::serialization::access;
   template <class Archive> void serialize(Archive& ar, unsigned version);
 
 };
