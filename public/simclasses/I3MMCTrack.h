@@ -85,6 +85,8 @@ class I3MMCTrack
 
 };
 
+std::ostream& operator<<(std::ostream& oss, const I3MMCTrack& t);
+
 I3_POINTER_TYPEDEFS(I3MMCTrack);
 
 typedef I3Vector<I3MMCTrack> I3MMCTrackList;

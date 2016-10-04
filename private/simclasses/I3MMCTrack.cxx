@@ -1,6 +1,20 @@
 #include <icetray/serialization.h>
 #include "simclasses/I3MMCTrack.h"
 
+std::ostream& operator<<(std::ostream& oss, const I3MMCTrack& t){
+  oss << "I3MMCTrack = [\n"
+      <<" (xi, yi, zi, ti, Ei) = ("
+     << t.xi <<" ,"<< t.yi <<" ,"<< t.zi <<" ,"<< t.ti <<" ,"<< t.Ei <<")"<<'\n'
+     << " (xc, yc, zc, tc, Ec) = ("
+     << t.xc <<" ,"<< t.yc <<" ,"<< t.zc <<" ,"<< t.tc <<" ,"<< t.Ec <<")"<<'\n'
+     << " (xf, yf, zf, tf, Ef) = ("
+     << t.xf <<" ,"<< t.yf <<" ,"<< t.zf <<" ,"<< t.tf <<" ,"<< t.Ef <<")"<<'\n'
+     << " Elost = "<< t.Elost << '\n'
+     << " Particle = "<<t.particle<<"]\n";
+  return oss;
+}
+
+
 template <class Archive> 
 void I3MMCTrack::serialize(Archive& ar, unsigned version)
 {

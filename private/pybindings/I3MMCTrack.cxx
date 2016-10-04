@@ -18,6 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *  
  */
+#include <boost/foreach.hpp>
 
 #include <simclasses/I3MMCTrack.h>
 #include <icetray/python/dataclass_suite.hpp>
@@ -27,6 +28,16 @@
 #include <tableio/converter/I3VectorConverter.h>
 
 using namespace boost::python;
+
+std::string pretty_print_list(const I3MMCTrackList& track_list){
+  std::stringstream ss;
+  ss<<"[";
+  BOOST_FOREACH(const I3MMCTrack& t, track_list){
+    ss<<t;
+  }
+  ss<<"]";    
+  return ss.str();
+}
 
 bool operator==(const I3MMCTrack& lhs, const I3MMCTrack& rhs){
   return 
@@ -87,14 +98,13 @@ void register_I3MMCTrack()
     .def_readwrite("zc", &I3MMCTrack::zc)
     .def_readwrite("tc", &I3MMCTrack::tc)
     .def_readwrite("Ec", &I3MMCTrack::Ec)
-
     .def_readwrite("Elost", &I3MMCTrack::Elost)
-
     .def(dataclass_suite<I3MMCTrack>())
     ;
 
   class_<I3MMCTrackList, bases<I3FrameObject> >("I3MMCTrackList")
     .def(dataclass_suite<I3MMCTrackList >())
+    .def("__str__", &pretty_print_list)
     ;
 
   register_pointer_conversions<I3MMCTrackList>();
