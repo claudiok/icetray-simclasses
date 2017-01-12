@@ -9,6 +9,7 @@ trunk
 --------------
 
 * Moved I3Photon and I3CompressedPhoton from clsim to simclasses
+* actually call register_I3ParticleIDMap() for pybindings 
 
 April 8, 2016 Meike de With (meike.de.with@desy.de)
 --------------------------------------------------------------------
