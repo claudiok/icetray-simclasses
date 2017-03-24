@@ -8,8 +8,12 @@ Release Notes
 trunk
 --------------
 
-* Moved I3Photon and I3CompressedPhoton from clsim to simclasses
-* actually call register_I3ParticleIDMap() for pybindings 
+March 24, 2017 Alex Olivas (olivas@icecube.umd.edu)
+--------------------------------------------------------------------
+Release V02-01-00
+
+* (r146654) Uses serialization project.
+* (r145870) Moved I3Photon and I3CompressedPhoton from clsim to simclasses
 
 April 8, 2016 Meike de With (meike.de.with@desy.de)
 --------------------------------------------------------------------
