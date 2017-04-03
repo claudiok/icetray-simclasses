@@ -44,7 +44,7 @@
  * @brief A photon with only the most important
  * information.
  */
-static const unsigned i3compressedphoton_version_ = 0;
+static const unsigned i3compressedphoton_version_ = 1;
 
 class I3CompressedPhoton
 {
@@ -109,22 +109,27 @@ public:
     
     void SetTime(double time) {time_ = time;}
     
-    float GetWeight() const {return weight_; }
+    double GetWeight() const {return weight_; }
     
     void SetWeight(float weight) {weight_ = weight; }
     
     int32_t GetParticleMinorID() const { return particleID_; }
     uint64_t GetParticleMajorID() const { return particleMajorID_; }
+    I3ParticleID GetParticleID() const { return I3ParticleID(particleID_, particleMajorID_); }
 
     void SetParticleMinorID(int32_t minorID) { particleID_ = minorID; }
     void SetParticleMajorID(uint64_t majorID) { particleMajorID_ = majorID; }
 
     void SetParticleID(const I3Particle&);
     
-    float GetWavelength() const {return wavelength_;}
+    double GetWavelength() const {return wavelength_;}
     
     void SetWavelength(float wlen) {wavelength_ = wlen;}
-
+    
+    void SetGroupVelocity(float v) {groupVelocity_ = v;}
+    
+    double GetGroupVelocity() const { return groupVelocity_; }
+    
     /**
      * @return The position of this photon on the OM. This
      * position is relative to the global coordinate system, where the
@@ -158,6 +163,7 @@ public:
         if (!( time_ == rhs.time_
         && weight_ == rhs.weight_
         && wavelength_ == rhs.wavelength_
+        && groupVelocity_ == rhs.groupVelocity_
         && azimuth_ == rhs.azimuth_
         && zenith_ == rhs.zenith_
         && x_ == rhs.x_
@@ -174,12 +180,13 @@ private:
     double time_;
     float weight_;
     float wavelength_;
+    float groupVelocity_;
     
     float zenith_;
     float azimuth_;
-    double x_;
-    double y_;
-    double z_;
+    float x_;
+    float y_;
+    float z_;
 
     uint64_t particleMajorID_;
     int32_t particleID_;

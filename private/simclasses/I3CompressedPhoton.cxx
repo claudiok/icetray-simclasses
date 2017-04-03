@@ -46,9 +46,21 @@ void I3CompressedPhoton::serialize (Archive &ar, unsigned version)
     ar & make_nvp("wavelength", wavelength_);
     ar & make_nvp("zenith", zenith_);
     ar & make_nvp("azimuth", azimuth_);
-    ar & make_nvp("x", x_);
-    ar & make_nvp("y", y_);
-    ar & make_nvp("z", z_);
+    if (version == 0) {
+        double x(x_), y(y_), z(z_);
+        ar & make_nvp("x", x);
+        ar & make_nvp("y", y);
+        ar & make_nvp("z", z);
+        x_ = x;
+        y_ = y;
+        z_ = z;
+        groupVelocity_ = NAN;
+    } else {
+        ar & make_nvp("x", x_);
+        ar & make_nvp("y", y_);
+        ar & make_nvp("z", z_);
+        ar & make_nvp("groupVelocity", groupVelocity_);
+    }
     ar & make_nvp("particleID", particleID_);
     ar & make_nvp("particleMajorID", particleMajorID_);
     
