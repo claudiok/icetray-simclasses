@@ -115,7 +115,7 @@ public:
     
     int32_t GetParticleMinorID() const { return particleID_; }
     uint64_t GetParticleMajorID() const { return particleMajorID_; }
-    I3ParticleID GetParticleID() const { return I3ParticleID(particleID_, particleMajorID_); }
+    I3ParticleID GetParticleID() const { return I3ParticleID(particleMajorID_, particleID_); }
 
     void SetParticleMinorID(int32_t minorID) { particleID_ = minorID; }
     void SetParticleMajorID(uint64_t majorID) { particleMajorID_ = majorID; }
